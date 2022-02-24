@@ -16,3 +16,41 @@ a.navbar-logo {
 .login-button {
     margin-right: 10px;
 }
+.center {
+    display: flex;
+    justify-content: center;
+}
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-main-container {
+    background: url("/images/palm.jpg");
+    background-size: cover;
+    height: 250px;
+    width: 100%;
+}
+
+.top-main-container div h1,
+.top-main-container div h2 {
+    color: navajowhite;
+    text-shadow: black 5px 0px 5px;
+}
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px;
+}
+
+.card-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    margin-right: 10px;
+}
