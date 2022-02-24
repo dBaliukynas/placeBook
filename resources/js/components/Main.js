@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Layout from "./Layout";
-import Test from "./Test";
+import Home from "./Home";
+import About from "./About";
+
 import {
     BrowserRouter as Router,
     Routes,
@@ -15,7 +17,8 @@ function Main() {
         <Router>
             <Routes>
                 <Route element={<Layout />}>
-                    <Route path="/" element={<Test />}></Route>
+                    <Route path="/" element={<Home />}></Route>
+                    <Route path="about" element={<About />}></Route>
                 </Route>
             </Routes>
         </Router>

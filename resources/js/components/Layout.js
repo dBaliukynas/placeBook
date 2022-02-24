@@ -44,13 +44,9 @@ const Layout = () => {
                         >
                             <ul className="navbar-nav mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <a
-                                        className="nav-link active"
-                                        aria-current="page"
-                                        href="#"
-                                    >
+                                    <Link to="/" className="nav-link active">
                                         Home
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#">
@@ -63,9 +59,9 @@ const Layout = () => {
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">
+                                    <Link to="/about" className="nav-link">
                                         About
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                             <form className="d-flex navbar-search">
