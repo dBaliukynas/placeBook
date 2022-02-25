@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import Layout from "./Layout";
 import Home from "./Home";
 import About from "./About";
+import PropertyListing from "./PropertyListing";
 
 import {
     BrowserRouter as Router,
@@ -19,6 +20,10 @@ function Main() {
                 <Route element={<Layout />}>
                     <Route path="/" element={<Home />}></Route>
                     <Route path="about" element={<About />}></Route>
+                    <Route
+                        path="property-listing"
+                        element={<PropertyListing />}
+                    ></Route>
                 </Route>
             </Routes>
         </Router>

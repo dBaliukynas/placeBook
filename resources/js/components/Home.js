@@ -1,7 +1,37 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
 
 function Home() {
+    function test(cityName, image, favoriteProperty, rating) {
+        return [...Array(5)].map((e, i) => (
+            <div key={i} className="card" style={{ width: "18rem" }}>
+                <img src={image} className="card-img-top" alt="..." />
+                <div className="card-body">
+                    {favoriteProperty != null ? (
+                        <>
+                            <h5 style={{ margin: "unset" }}>
+                                {favoriteProperty}
+                            </h5>
+                            <span>{cityName}</span>
+                            <br />
+                            <span>{rating}/10</span>
+                        </>
+                    ) : (
+                        <h5 className="card-title">{cityName}</h5>
+                    )}
+
+                    <p className="card-text">
+                        Some quick example text to build on the card title and
+                        make up the bulk of the card's content.
+                    </p>
+                    <a href="#" className="btn btn-primary">
+                        Go somewhere
+                    </a>
+                </div>
+            </div>
+        ));
+    }
     return (
         <div className="content-wrapper">
             <div className="top-main-container center">
@@ -12,85 +42,52 @@ function Home() {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
+                        marginBottom: "50px",
                     }}
                 >
                     <h1>Browse places to rent...</h1>
                     <h2>or lease them </h2>
                 </div>
+                <div className="card">
+                    <div className="card-body">
+                        <h5 className="card-title">Lease property</h5>
+                        <p className="card-text">
+                            List a property that you want to lease!
+                        </p>
+                        <Link
+                            to="/property-listing"
+                            className="btn btn-primary"
+                            style={{ marginTop: "12px" }}
+                        >
+                            Create listing
+                        </Link>
+                    </div>
+                </div>
             </div>
             <div className="main-container">
                 <h3>Select a place by group</h3>
                 <div className="card-wrapper">
-                    <div className="card" style={{ width: "18rem" }}>
-                        <img src="..." className="card-img-top" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">
-                                Some quick example text to build on the card
-                                title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <a href="#" className="btn btn-primary">
-                                Go somewhere
-                            </a>
-                        </div>
-                    </div>
-                    <div className="card" style={{ width: "18rem" }}>
-                        <img src="..." className="card-img-top" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">
-                                Some quick example text to build on the card
-                                title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <a href="#" className="btn btn-primary">
-                                Go somewhere
-                            </a>
-                        </div>
-                    </div>
-                    <div className="card" style={{ width: "18rem" }}>
-                        <img src="..." className="card-img-top" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">
-                                Some quick example text to build on the card
-                                title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <a href="#" className="btn btn-primary">
-                                Go somewhere
-                            </a>
-                        </div>
-                    </div>
-                    <div className="card" style={{ width: "18rem" }}>
-                        <img src="..." className="card-img-top" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">
-                                Some quick example text to build on the card
-                                title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <a href="#" className="btn btn-primary">
-                                Go somewhere
-                            </a>
-                        </div>
-                    </div>
-                    <div className="card" style={{ width: "18rem" }}>
-                        <img src="..." className="card-img-top" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">
-                                Some quick example text to build on the card
-                                title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <a href="#" className="btn btn-primary">
-                                Go somewhere
-                            </a>
-                        </div>
-                    </div>
+                    {test(
+                        "Hotels",
+                        "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+                    )}
+                </div>
+
+                <h3>Select a place by your country's city</h3>
+                <div className="card-wrapper">
+                    {test(
+                        "Vilnius",
+                        "https://live.staticflickr.com/8893/28373394686_b917ff36a0_b.jpg"
+                    )}
+                </div>
+                <h3>Our users favorite places</h3>
+                <div className="card-wrapper">
+                    {test(
+                        "Druskininkai",
+                        "https://exp.cdn-hotels.com/hotels/2000000/1590000/1580700/1580698/44869fc9_z.jpg?impolicy=fcrop&w=500&h=333&q=medium",
+                        "Europa Royale",
+                        9
+                    )}
                 </div>
             </div>
         </div>
