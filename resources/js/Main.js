@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Layout from "./Layout";
-import Home from "./Home";
-import About from "./About";
-import PropertyListing from "./PropertyListing";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import PropertyListing from "./pages/PropertyListing";
 
 import {
     BrowserRouter as Router,

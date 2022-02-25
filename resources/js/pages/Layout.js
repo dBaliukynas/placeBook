@@ -6,7 +6,6 @@ import { Link, Outlet } from "react-router-dom";
 const Layout = () => {
     return (
         <>
-            {/* <Link to="/test">Test</Link> */}
             <header>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                     <div className="container-fluid">
