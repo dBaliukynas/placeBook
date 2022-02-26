@@ -78,22 +78,48 @@ const Layout = () => {
                                 </button>
                             </form>
                             <div className="navbar-button-wrapper">
-                                <a href="/login">
-                                    <button
-                                        className="btn btn-outline-light login-button"
-                                        type="submit"
-                                    >
-                                        Log in
-                                    </button>
-                                </a>
-                                <a href="/register">
-                                    <button
-                                        className="btn btn-outline-light"
-                                        type="submit"
-                                    >
-                                        Register
-                                    </button>
-                                </a>
+                                {authUser == null ? (
+                                    <>
+                                        {" "}
+                                        <a href="/login">
+                                            <button
+                                                className="btn btn-outline-light login-button"
+                                                type="submit"
+                                            >
+                                                Log in
+                                            </button>
+                                        </a>
+                                        <a href="/register">
+                                            <button
+                                                className="btn btn-outline-light"
+                                                type="submit"
+                                            >
+                                                Register
+                                            </button>
+                                        </a>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button
+                                            type="button"
+                                            className="btn btn-outline-light dropdown-toggle"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                                            {authUser.name}
+                                        </button>
+                                        <ul className="dropdown-menu">
+                                            <li>
+                                                <a
+                                                    className="dropdown-item"
+                                                    href="/logout"
+                                                >
+                                                    Log out
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>

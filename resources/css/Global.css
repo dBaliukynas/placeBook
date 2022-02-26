@@ -20,6 +20,14 @@ a.navbar-logo {
 .login-button {
     margin-right: 10px;
 }
+.navbar-user-name {
+    color: white;
+    margin-right: 30px;
+}
+div.navbar-button-wrapper ul.dropdown-menu[data-bs-popper] {
+    left: unset;
+    right: 0;
+}
 
 .content-wrapper {
     display: flex;
@@ -66,7 +74,6 @@ a.navbar-logo {
 }
 
 .top-main-container div.card {
-    position: sticky;
     height: 125px;
     border: 3px solid #68a5ef;
     width: 700px;

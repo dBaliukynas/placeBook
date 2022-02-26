@@ -23,7 +23,14 @@
 <body class="antialiased">
 
     <div id="main"></div>
-    <script src="{{asset('js/app.js')}}"></script>
+    <script>
+        let authUser = null;
+        if ('{!! Auth::user() !!}' != '') {
+            authUser = JSON.parse('{!! Auth::user() !!}')
+        }
+    </script>
+    <script src="{{asset('js/app.js')}}">
+    </script>
 </body>
 
 </html>

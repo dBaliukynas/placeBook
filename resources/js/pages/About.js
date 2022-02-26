@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./../../css/About.css";
 
 function About() {
+    useEffect(() => console.log(auth_user), []);
     return (
-        <div className="container">
+        <div className="container about">
             <div>
                 <svg
                     viewBox="0 0 872 872"
