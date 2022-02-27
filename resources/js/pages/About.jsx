@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./../../css/About.css";
 
-function About() {
-    useEffect(() => console.log(auth_user), []);
+const About = () => {
+    useEffect(() => console.log(authUser), []);
     return (
         <div className="container about">
             <div>
@@ -27,6 +27,6 @@ function About() {
             </div>
         </div>
     );
-}
+};
 
 export default About;

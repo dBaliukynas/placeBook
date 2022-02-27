@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import HomeCard from "./../components/HomeCard";
+import HomeCard from "../components/HomeCard";
 import { Link } from "react-router-dom";
 
-function Home() {
+const Home = () => {
     return (
         <div className="content-wrapper">
             <div className="top-main-container center">
@@ -66,6 +66,6 @@ function Home() {
             </div>
         </div>
     );
-}
+};
 
 export default Home;

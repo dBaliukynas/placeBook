@@ -1,6 +1,6 @@
 import React from "react";
 
-function HomeCard(props) {
+const HomeCard = (props) => {
     const cityName = props.cityName;
     const image = props.image;
     const favoriteProperty = props.favoriteProperty;
@@ -30,6 +30,6 @@ function HomeCard(props) {
             </div>
         </div>
     ));
-}
+};
 
 export default HomeCard;
