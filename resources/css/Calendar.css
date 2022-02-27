@@ -1,0 +1,12 @@
+button.react-calendar__tile--active {
+    background: #0d6efd;
+    color: white;
+}
+
+.react-calendar__tile--now {
+    background: #f9cf4f;
+}
+
+button.react-calendar__navigation__label {
+    color: black;
+}
