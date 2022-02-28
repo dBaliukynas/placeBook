@@ -6,7 +6,7 @@ const HomeCard = (props) => {
     const favoriteProperty = props.favoriteProperty;
     const rating = props.rating;
     return [...Array(5)].map((e, i) => (
-        <div key={i} className="card" style={{ width: "18rem" }}>
+        <div key={i} className="card property" style={{ width: "18rem" }}>
             <img src={image} className="card-img-top" alt="..." />
             <div className="card-body">
                 {favoriteProperty != null ? (

@@ -6,10 +6,18 @@ import "./../../css/Calendar.css";
 
 const PropertyListing = () => {
     return (
-        <div className="content-wrapper">
-            <div className="main-container">Property Listing</div>
-            <Calendar locale="en" prev2Label={null} next2Label={null} minDetail="month" selectRange={true} />
-        </div>
+        <>
+            <div className="main-container center">
+                Property Listing
+                <Calendar
+                    locale="en"
+                    prev2Label={null}
+                    next2Label={null}
+                    minDetail="month"
+                    selectRange={true}
+                />
+            </div>
+        </>
     );
 };
 

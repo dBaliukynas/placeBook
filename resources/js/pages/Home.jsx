@@ -5,35 +5,86 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
-        <div className="content-wrapper">
-            <div className="top-main-container center">
-                <div
-                    style={{
-                        width: "80%",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginTop: "44.5px",
-                    }}
-                >
+        <>
+            <div className="top-main-container">
+                <div style={{ textAlign: "center", marginTop: "30px" }}>
                     <h1>Browse places to rent...</h1>
                     <h2>or lease them </h2>
                 </div>
-                <div>
-                    <div className="card">
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div
+                        className="card"
+                        style={{
+                            borderTopRightRadius: "unset",
+                            borderBottomRightRadius: "unset",
+                        }}
+                    >
                         <div className="card-body">
-                            <h5 className="card-title">Lease property</h5>
-                            <p className="card-text">
-                                List a property that you want to lease!
-                            </p>
-                            <Link
-                                to="/property-listing"
-                                className="btn btn-primary"
-                                style={{ marginTop: "12px" }}
-                            >
-                                Create listing
-                            </Link>
+                            <div>
+                                <h5 className="card-title">Lease property</h5>
+                                <p className="card-text">
+                                    List a property that you want to lease!
+                                </p>
+                                <Link
+                                    to="/property-listing"
+                                    className="btn btn-primary"
+                                    style={{ marginTop: "12px" }}
+                                >
+                                    Create listing
+                                </Link>
+                            </div>
+                            {/* <div className="v1"></div> */}
+                            {/* <div>
+                                <h5 className="card-title">Lease property</h5>
+                                <p className="card-text">
+                                    List a property that you want to lease!
+                                </p>
+                                <Link
+                                    to="/property-listing"
+                                    className="btn btn-primary"
+                                    style={{ marginTop: "12px" }}
+                                >
+                                    Create listing
+                                </Link>
+                            </div> */}
+                        </div>
+                    </div>
+                    <div
+                        className="card"
+                        style={{
+                            borderLeft: "unset",
+                            borderTopLeftRadius: "unset",
+                            borderBottomLeftRadius: "unset",
+                        }}
+                    >
+                        <div className="card-body" style={{ display: "flex" }}>
+                            <div>
+                                <h5 className="card-title">Search property</h5>
+                                <p className="card-text">
+                                    Search a property to rent!
+                                </p>
+                                <Link
+                                    to="/property-listing"
+                                    className="btn btn-primary"
+                                    style={{ marginTop: "12px" }}
+                                >
+                                    Search
+                                </Link>
+                            </div>
+                            {/* <div className="v1"></div> */}
+                            {/* <div>
+                                <h5 className="card-title">Lease property</h5>
+                                <p className="card-text">
+                                    List a property that you want to lease!
+                                </p>
+                                <Link
+                                    to="/property-listing"
+                                    className="btn btn-primary"
+                                    style={{ marginTop: "12px" }}
+                                >
+                                    Create listing
+                                </Link>
+                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -64,7 +115,7 @@ const Home = () => {
                     ></HomeCard>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
