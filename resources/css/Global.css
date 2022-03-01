@@ -94,3 +94,6 @@ div.navbar-button-wrapper ul.dropdown-menu {
     top: 0;
     left: 50%;
 }
+div.list-group a.list-group-item + .list-group-item {
+    border-top-width: 1px;
+}

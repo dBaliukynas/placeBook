@@ -10,3 +10,8 @@ button.react-calendar__tile--active {
 button.react-calendar__navigation__label {
     color: black;
 }
+div.react-calendar {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    width: 750px;
+}

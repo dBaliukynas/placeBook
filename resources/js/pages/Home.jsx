@@ -19,7 +19,14 @@ const Home = () => {
                             borderBottomRightRadius: "unset",
                         }}
                     >
-                        <div className="card-body">
+                        <div
+                            className="card-body"
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                textAlign: "center",
+                            }}
+                        >
                             <div>
                                 <h5 className="card-title">Lease property</h5>
                                 <p className="card-text">
@@ -33,20 +40,6 @@ const Home = () => {
                                     Create listing
                                 </Link>
                             </div>
-                            {/* <div className="v1"></div> */}
-                            {/* <div>
-                                <h5 className="card-title">Lease property</h5>
-                                <p className="card-text">
-                                    List a property that you want to lease!
-                                </p>
-                                <Link
-                                    to="/property-listing"
-                                    className="btn btn-primary"
-                                    style={{ marginTop: "12px" }}
-                                >
-                                    Create listing
-                                </Link>
-                            </div> */}
                         </div>
                     </div>
                     <div
@@ -57,34 +50,27 @@ const Home = () => {
                             borderBottomLeftRadius: "unset",
                         }}
                     >
-                        <div className="card-body" style={{ display: "flex" }}>
+                        <div
+                            className="card-body"
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                textAlign: "center",
+                            }}
+                        >
                             <div>
                                 <h5 className="card-title">Search property</h5>
                                 <p className="card-text">
                                     Search a property to rent!
                                 </p>
                                 <Link
-                                    to="/property-listing"
+                                    to="/property-search"
                                     className="btn btn-primary"
                                     style={{ marginTop: "12px" }}
                                 >
                                     Search
                                 </Link>
                             </div>
-                            {/* <div className="v1"></div> */}
-                            {/* <div>
-                                <h5 className="card-title">Lease property</h5>
-                                <p className="card-text">
-                                    List a property that you want to lease!
-                                </p>
-                                <Link
-                                    to="/property-listing"
-                                    className="btn btn-primary"
-                                    style={{ marginTop: "12px" }}
-                                >
-                                    Create listing
-                                </Link>
-                            </div> */}
                         </div>
                     </div>
                 </div>

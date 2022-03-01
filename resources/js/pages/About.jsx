@@ -12,7 +12,7 @@ const About = () => {
                     height="300"
                     width="300"
                     fill="black"
-                    style={{ marginTop: "25px" }}
+                    style={{ marginTop: "25px", maxWidth: "100%" }}
                 >
                     <g transform="matrix(11.06,0,0,11.06,436.64,436.52)">
                         <path

@@ -4,6 +4,7 @@ import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import PropertyListing from "./pages/PropertyListing";
+import PropertySearch from "./pages/PropertySearch";
 
 import {
     BrowserRouter as Router,
@@ -23,6 +24,10 @@ function Main() {
                     <Route
                         path="property-listing"
                         element={<PropertyListing />}
+                    ></Route>
+                    <Route
+                        path="property-search"
+                        element={<PropertySearch />}
                     ></Route>
                 </Route>
             </Routes>
