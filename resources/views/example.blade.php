@@ -14,6 +14,9 @@
     <!-- Styles -->
 
     <style>
+        html {
+            scroll-behavior: auto !important;
+        }
         body {
             font-family: 'Nunito', sans-serif;
         }

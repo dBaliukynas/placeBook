@@ -28,16 +28,16 @@ const Home = () => {
                             }}
                         >
                             <div>
-                                <h5 className="card-title">Lease property</h5>
+                                <h5 className="card-title">Search property</h5>
                                 <p className="card-text">
-                                    List a property that you want to lease!
+                                    Search a property to rent!
                                 </p>
                                 <Link
-                                    to="/property-listing"
+                                    to="/property-search"
                                     className="btn btn-primary"
                                     style={{ marginTop: "12px" }}
                                 >
-                                    Create listing
+                                    Search
                                 </Link>
                             </div>
                         </div>
@@ -59,16 +59,16 @@ const Home = () => {
                             }}
                         >
                             <div>
-                                <h5 className="card-title">Search property</h5>
+                                <h5 className="card-title">Lease property</h5>
                                 <p className="card-text">
-                                    Search a property to rent!
+                                    List a property that you want to lease!
                                 </p>
                                 <Link
-                                    to="/property-search"
+                                    to="/property-listing"
                                     className="btn btn-primary"
                                     style={{ marginTop: "12px" }}
                                 >
-                                    Search
+                                    Create listing
                                 </Link>
                             </div>
                         </div>

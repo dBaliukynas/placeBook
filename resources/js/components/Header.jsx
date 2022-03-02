@@ -107,12 +107,12 @@ const Header = () => {
                                     </button>
                                     <ul className="dropdown-menu">
                                         <li>
-                                            <a
+                                            <Link
+                                                to="/profile"
                                                 className="dropdown-item"
-                                                href="#"
                                             >
                                                 Profile
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
                                             <a

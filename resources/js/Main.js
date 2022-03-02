@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Profile from "./pages/Profile";
 import PropertyListing from "./pages/PropertyListing";
 import PropertySearch from "./pages/PropertySearch";
 
@@ -29,6 +30,7 @@ function Main() {
                         path="property-search"
                         element={<PropertySearch />}
                     ></Route>
+                    <Route path="profile" element={<Profile />}></Route>
                 </Route>
             </Routes>
         </Router>
