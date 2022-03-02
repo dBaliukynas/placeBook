@@ -7,7 +7,7 @@ import "./../../css/Calendar.css";
 const PropertySearch = () => {
     return (
         <>
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ maxWidth: "1500px", margin: "auto" }}>
                 <aside
                     className="card"
                     style={{
@@ -16,6 +16,7 @@ const PropertySearch = () => {
                         marginLeft: "20px",
                         marginRight: "20px",
                         marginTop: "20px",
+                        float: "left",
                     }}
                 >
                     <div
@@ -43,8 +44,6 @@ const PropertySearch = () => {
                     style={{
                         display: "flex",
                         flexDirection: "column",
-                        margin: "unset",
-                        width: "100%",
                     }}
                 >
                     <div
@@ -110,9 +109,7 @@ const PropertySearch = () => {
                             href="#"
                             className="btn btn-primary"
                             style={{
-                                width: "97%",
-                                margin: "auto",
-                                marginBottom: "16px",
+                                margin: "0px 16px 16px 16px",
                             }}
                         >
                             Search
