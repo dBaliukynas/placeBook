@@ -7,13 +7,12 @@ import "./../../css/Calendar.css";
 const PropertySearch = () => {
     return (
         <>
-            <div style={{ maxWidth: "1500px", margin: "auto" }}>
+            <div style={{ margin: "auto 50px 50px" }}>
                 <aside
                     className="card"
                     style={{
                         maxWidth: "18rem",
                         borderColor: "rgba(0,0,0,.125)",
-                        marginLeft: "20px",
                         marginRight: "20px",
                         marginTop: "20px",
                         float: "left",

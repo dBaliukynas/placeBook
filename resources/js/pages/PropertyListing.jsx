@@ -11,7 +11,11 @@ const PropertyListing = () => {
         <>
             <div
                 className="main-container center"
-                style={{ marginTop: "20px" }}
+                style={{
+                    marginTop: "20px",
+                    padding: "0px 50px 0px 50px",
+                    maxWidth: "1500px",
+                }}
             >
                 <div style={{ width: "100%", textAlign: "start" }}>
                     <div style={{ marginBottom: "15px" }}>

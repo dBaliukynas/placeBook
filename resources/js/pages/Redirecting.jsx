@@ -1,18 +1,25 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import "./../../css/About.css";
 
-const About = () => {
-    useEffect(() => console.log(authUser), []);
+const Redirecting = () => {
+    useEffect(() => (window.location.href = "/login"));
     return (
-        <div className="container about">
+        <div
+            className="main-container"
+            style={{
+                height: "100vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+            }}
+        >
             <div>
                 <svg
                     viewBox="0 0 872 872"
                     height="300"
                     width="300"
                     fill="#222222f0"
-                    style={{ marginTop: "25px", maxWidth: "100%" }}
+                    style={{ maxWidth: "100%", marginBottom: "15px" }}
                 >
                     <g transform="matrix(11.06,0,0,11.06,436.64,436.52)">
                         <path
@@ -22,11 +29,13 @@ const About = () => {
                         ></path>
                     </g>
                 </svg>
-                <h1>placeBook</h1>
-                <p>A simple and intuitive booking website.</p>
+                <h1>Redirecting...</h1>
+                <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
             </div>
         </div>
     );
 };
 
-export default About;
+export default Redirecting;

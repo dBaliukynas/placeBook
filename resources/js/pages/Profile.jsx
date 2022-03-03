@@ -3,7 +3,14 @@ import ReactDOM from "react-dom";
 
 const Profile = () => {
     return (
-        <div className="main-container" style={{ marginTop: "20px" }}>
+        <div
+            className="main-container"
+            style={{
+                marginTop: "20px",
+                maxWidth: "1500px",
+                padding: "0px 50px 0px 50px",
+            }}
+        >
             <div style={{ textAlign: "start" }}>
                 <h1>{authUser.name}</h1>
                 <div className="card">
