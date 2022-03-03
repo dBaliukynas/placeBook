@@ -12,14 +12,7 @@ const Layout = () => {
             <main>
                 <Outlet />
             </main>
-            {console.log(window.location.pathname)}
-            {authUser != null ||
-            (window.location.pathname != "/property-listing" &&
-                authUser == null) ? (
-                <Footer></Footer>
-            ) : (
-                <div></div>
-            )}
+            <Footer></Footer>
         </>
     );
 };

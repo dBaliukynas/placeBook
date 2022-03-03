@@ -24,3 +24,5 @@ Route::get('/', function () {
 Route::get('/{route}', function () {
     return view('example');
 });
+
+Route::post('/api/property', '\App\Http\Controllers\PropertyController@create');

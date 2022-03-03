@@ -1,5 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { React, useState } from "react";
 import Calendar from "react-calendar";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -7,6 +6,24 @@ import "react-calendar/dist/Calendar.css";
 import "./../../css/Calendar.css";
 
 const PropertyListing = () => {
+    const handlePropertyNameChange = (e) => {
+        setPropertyName(e.target.value);
+    };
+    const createProperty = () => {
+        setPropertyName("");
+        console.log(propertyName);
+        fetch("/api/property", {
+            method: "POST",
+            body: JSON.stringify({ propertyName }),
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrfToken"]')
+                    .content,
+                "Content-Type": "application/json",
+            },
+        });
+    };
+
+    const [propertyName, setPropertyName] = useState("");
     return (
         <>
             <div
@@ -25,6 +42,8 @@ const PropertyListing = () => {
                             type="text"
                             placeholder="Property name"
                             aria-label=".form-control-lg example"
+                            value={propertyName}
+                            onChange={handlePropertyNameChange}
                         />
                     </div>
                     <div style={{ marginBottom: "15px" }}>
@@ -45,6 +64,7 @@ const PropertyListing = () => {
                 <button
                     className="btn btn-primary"
                     style={{ marginTop: "20px", width: "100%" }}
+                    onClick={createProperty}
                 >
                     Create property
                 </button>
