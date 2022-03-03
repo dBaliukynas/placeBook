@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import Calendar from "react-calendar";
+import defaultFetchOptions from "../components/DefaultFetchOptions";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "react-calendar/dist/Calendar.css";
@@ -14,12 +15,8 @@ const PropertyListing = () => {
         console.log(propertyName);
         fetch("/api/property", {
             method: "POST",
+            ...defaultFetchOptions,
             body: JSON.stringify({ propertyName }),
-            headers: {
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrfToken"]')
-                    .content,
-                "Content-Type": "application/json",
-            },
         });
     };
 
