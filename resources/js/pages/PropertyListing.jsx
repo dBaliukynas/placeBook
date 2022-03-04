@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import defaultFetchOptions from "../components/DefaultFetchOptions";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -7,6 +7,13 @@ import "react-calendar/dist/Calendar.css";
 import "./../../css/Calendar.css";
 
 const PropertyListing = () => {
+    useEffect(() => {
+        fetch("/api/properties", {
+            method: "GET",
+        })
+            .then((response) => response.json())
+            .then((data) => setProperties(data));
+    }, []);
     const handleEditorChange = (_, editor) => {
         setEditor(editor);
     };
@@ -14,8 +21,8 @@ const PropertyListing = () => {
         setPropertyName(e.target.value);
     };
     const createProperty = () => {
-        setPropertyName("");
         const propertyDescription = editor.getData();
+        setPropertyName("");
         editor.setData("");
         console.log(propertyName);
         fetch("/api/property", {
@@ -27,6 +34,7 @@ const PropertyListing = () => {
 
     const [propertyName, setPropertyName] = useState("");
     const [editor, setEditor] = useState("");
+    const [properties, setProperties] = useState(undefined);
     return (
         <>
             <div
@@ -75,6 +83,20 @@ const PropertyListing = () => {
                 >
                     Create property
                 </button>
+                <div
+                    style={{
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}
+                    className="property-description"
+                    dangerouslySetInnerHTML={{
+                        __html: properties
+                            ? properties.map((property) => property.description)
+                            : [],
+                    }}
+                ></div>
             </div>
         </>
     );

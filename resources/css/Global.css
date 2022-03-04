@@ -96,3 +96,28 @@ div.navbar-button-wrapper ul.dropdown-menu {
 div.list-group a.list-group-item + .list-group-item {
     border-top-width: 1px;
 }
+
+.property-description p {
+    word-break: break-word;
+}
+.property-description figure {
+    overflow-x: auto;
+}
+.property-description table {
+    margin: auto;
+}
+.property-description blockquote {
+    overflow: hidden;
+    padding-right: 1.5em;
+    padding-left: 1.5em;
+    margin-left: 0;
+    margin-right: 0;
+    font-style: italic;
+    border-left: 5px solid #ccc;
+}
+
+.property-description figure table tbody tr td {
+    min-width: 6em;
+    padding: 0.4em;
+    border: 1px solid #bfbfbf;
+}
