@@ -116,8 +116,12 @@ div.list-group a.list-group-item + .list-group-item {
     border-left: 5px solid #ccc;
 }
 
-.property-description figure table tbody tr td {
+.property-description figure table tbody tr td,
+.property-description figure table thead tr th {
     min-width: 6em;
     padding: 0.4em;
     border: 1px solid #bfbfbf;
+}
+.property-description figure table thead {
+    background: hsla(0, 0%, 0%, 5%);
 }
