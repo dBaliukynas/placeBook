@@ -7,20 +7,26 @@ import "react-calendar/dist/Calendar.css";
 import "./../../css/Calendar.css";
 
 const PropertyListing = () => {
+    const handleEditorChange = (_, editor) => {
+        setEditor(editor);
+    };
     const handlePropertyNameChange = (e) => {
         setPropertyName(e.target.value);
     };
     const createProperty = () => {
         setPropertyName("");
+        const propertyDescription = editor.getData();
+        editor.setData("");
         console.log(propertyName);
         fetch("/api/property", {
             method: "POST",
             ...defaultFetchOptions,
-            body: JSON.stringify({ propertyName }),
+            body: JSON.stringify({ propertyName, propertyDescription }),
         });
     };
 
     const [propertyName, setPropertyName] = useState("");
+    const [editor, setEditor] = useState("");
     return (
         <>
             <div
@@ -55,10 +61,14 @@ const PropertyListing = () => {
                         <h5>Property description</h5>
                     </div>
                     <div style={{ width: "100%" }}>
-                        <CKEditor editor={ClassicEditor} />
+                        <CKEditor
+                            editor={ClassicEditor}
+                            onChange={handleEditorChange}
+                        />
                     </div>
                 </div>
                 <button
+                    id="submit"
                     className="btn btn-primary"
                     style={{ marginTop: "20px", width: "100%" }}
                     onClick={createProperty}

@@ -27,7 +27,7 @@ class PropertyController extends Controller
         $data = $request->input();
         $property = Property::create([
             'name' => $data['propertyName'],
-            'description' => 'Test',
+            'description' => $data['propertyDescription'],
             'image_path' => 'Test',
         ]);
         return response($property, 200);
