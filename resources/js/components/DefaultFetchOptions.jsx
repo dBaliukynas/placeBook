@@ -1,7 +1,7 @@
 const defaultFetchOptions = {
     headers: {
         "X-CSRF-TOKEN": document.querySelector('meta[name="csrfToken"]')
-            .content,
+            ?.content,
         "Content-Type": "application/json",
     },
 };
