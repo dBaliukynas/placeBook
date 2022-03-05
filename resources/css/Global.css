@@ -117,11 +117,13 @@ div.list-group a.list-group-item + .list-group-item {
 }
 
 .property-description figure table tbody tr td,
+.property-description figure table tbody tr th,
 .property-description figure table thead tr th {
     min-width: 6em;
     padding: 0.4em;
     border: 1px solid #bfbfbf;
 }
-.property-description figure table thead {
+.property-description figure table thead,
+.property-description figure table tbody tr th {
     background: hsla(0, 0%, 0%, 5%);
 }
