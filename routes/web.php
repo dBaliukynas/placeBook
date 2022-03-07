@@ -20,7 +20,7 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LogoutController@logout');
 Route::get('/{route}', function () {
 
     return view('example');
-})->where('route', '.*');
+})->where('route', '^(?!api).*');
 
 Route::post('/api/property', '\App\Http\Controllers\PropertyController@create');
 Route::get('/api/properties', '\App\Http\Controllers\PropertyController@read');
