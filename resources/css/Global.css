@@ -127,3 +127,19 @@ div.list-group a.list-group-item + .list-group-item {
 .property-description figure table tbody tr th {
     background: hsla(0, 0%, 0%, 5%);
 }
+
+.property-description figure {
+    width: 100% !important;
+}
+.property-description figure div div {
+    all: initial !important;
+}
+.property-description figure div {
+    margin: auto !important;
+}
+.property-description figure div div iframe {
+    width: 800px !important;
+    height: 500px !important;
+    position: unset !important;
+    border: 3px solid black !important;
+}

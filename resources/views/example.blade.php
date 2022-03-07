@@ -33,7 +33,7 @@
     <script>
         let authUser = null;
         if ('{!! Auth::user() !!}' != '') {
-            authUser = JSON.parse('{!! Auth::user() !!}')
+            authUser = JSON.parse('{!! Auth::user()->with("properties")->first() !!}')
         }
     </script>
     <script src="{{asset('js/app.js')}}">

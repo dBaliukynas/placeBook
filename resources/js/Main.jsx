@@ -7,6 +7,7 @@ import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Profile from "./pages/Profile";
+import Property from "./pages/Property";
 import PropertyListing from "./pages/PropertyListing";
 import PropertySearch from "./pages/PropertySearch";
 
@@ -38,6 +39,14 @@ const Main = () => {
                         element={
                             <RequireAuth>
                                 <Profile />
+                            </RequireAuth>
+                        }
+                    ></Route>
+                    <Route
+                        path="property/:propertyId"
+                        element={
+                            <RequireAuth>
+                                <Property />
                             </RequireAuth>
                         }
                     ></Route>

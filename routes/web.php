@@ -17,13 +17,12 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 Route::get('/logout', '\App\Http\Controllers\Auth\LogoutController@logout');
 
-Route::get('/', function () {
-    return view('example');
-});
-
 Route::get('/{route}', function () {
+
     return view('example');
-});
+})->where('route', '.*');
 
 Route::post('/api/property', '\App\Http\Controllers\PropertyController@create');
 Route::get('/api/properties', '\App\Http\Controllers\PropertyController@read');
+
+Route::post('/api/editor', '\App\Http\Controllers\PropertyController@test');

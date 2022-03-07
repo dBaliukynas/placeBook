@@ -3,6 +3,7 @@ import Calendar from "react-calendar";
 import defaultFetchOptions from "../components/DefaultFetchOptions";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import PropertyDescription from "../components/PropertyDescription";
 import "react-calendar/dist/Calendar.css";
 import "./../../css/Calendar.css";
 
@@ -17,8 +18,8 @@ const PropertyListing = () => {
     const handleEditorChange = (_, editor) => {
         setEditor(editor);
     };
-    const handlePropertyNameChange = (e) => {
-        setPropertyName(e.target.value);
+    const handlePropertyNameChange = (event) => {
+        setPropertyName(event.target.value);
     };
     const createProperty = () => {
         const propertyDescription = editor.getData();
@@ -72,6 +73,21 @@ const PropertyListing = () => {
                         <CKEditor
                             editor={ClassicEditor}
                             onChange={handleEditorChange}
+                            config={{
+                                ckfinder: {
+                                    // The URL that the images are uploaded to.
+                                    uploadUrl: "/api/editor",
+
+                                    image: {
+                                        upload: {
+                                            types: ["png", "jpeg"],
+                                        },
+                                    },
+                                },
+                                mediaEmbed: {
+                                    previewsInData: true,
+                                },
+                            }}
                         />
                     </div>
                 </div>
@@ -83,20 +99,7 @@ const PropertyListing = () => {
                 >
                     Create property
                 </button>
-                <div
-                    style={{
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                    }}
-                    className="property-description"
-                    dangerouslySetInnerHTML={{
-                        __html: properties
-                            ? properties.map((property) => property.description)
-                            : [],
-                    }}
-                ></div>
+                <PropertyDescription properties={properties} />
             </div>
         </>
     );

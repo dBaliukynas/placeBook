@@ -11,7 +11,13 @@ class Property extends Model
 
     protected $fillable = [
         'name',
+        'user_id',
         'description',
         'image_path',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

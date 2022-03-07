@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->bigInteger('user_id')->references('id')->on('users');
             $table->text('description');
             $table->string('image_path');
             $table->timestamps();
