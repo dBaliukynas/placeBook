@@ -3,9 +3,11 @@ import Calendar from "react-calendar";
 import defaultFetchOptions from "../components/DefaultFetchOptions";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { ToastContainer, toast } from "react-toastify";
 import PropertyDescription from "../components/PropertyDescription";
 import "react-calendar/dist/Calendar.css";
 import "../../css/Calendar.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const PropertyListing = () => {
     useEffect(() => {
@@ -25,12 +27,18 @@ const PropertyListing = () => {
         const propertyDescription = editor.getData();
         setPropertyName("");
         editor.setData("");
-        console.log(propertyName);
-        fetch("/api/property", {
-            method: "POST",
-            ...defaultFetchOptions,
-            body: JSON.stringify({ propertyName, propertyDescription }),
-        });
+        toast.promise(
+            fetch("/api/property", {
+                method: "POST",
+                ...defaultFetchOptions,
+                body: JSON.stringify({ propertyName, propertyDescription }),
+            }),
+            {
+                pending: "Listing a property...",
+                success: "Property has been successfully listed",
+                error: "Property has not been listed due to an error",
+            }
+        );
     };
 
     const [propertyName, setPropertyName] = useState("");
@@ -99,7 +107,16 @@ const PropertyListing = () => {
                 >
                     Create property
                 </button>
-                <PropertyDescription properties={properties} />
+                <ToastContainer
+                    position="top-left"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover
+                />
             </div>
         </>
     );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import PropertyDescription from "../components/PropertyDescription";
 import NotFound from "../components/NotFound";
 
 const Property = () => {
@@ -36,6 +37,7 @@ const Property = () => {
             }}
         >
             <h1>{property?.name}</h1>
+            {property ? <PropertyDescription property={property} /> : <> </>}
         </div>
     );
 };

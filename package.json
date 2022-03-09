@@ -28,6 +28,7 @@
         "@ckeditor/ckeditor5-build-classic": "^32.0.0",
         "@ckeditor/ckeditor5-react": "^4.0.0",
         "react-calendar": "^3.7.0",
-        "react-router-dom": "^6.2.1"
+        "react-router-dom": "^6.2.1",
+        "react-toastify": "^8.2.0"
     }
 }

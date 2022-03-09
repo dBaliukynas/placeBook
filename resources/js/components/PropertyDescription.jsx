@@ -11,11 +11,9 @@ const PropertyDescription = (props) => {
             }}
             className="property-description"
             dangerouslySetInnerHTML={{
-                __html: props.properties
-                    ? props.properties.map((property) =>
-                          property.description.replaceAll('\\"', '"')
-                      )
-                    : [],
+                __html: props.property
+                    ? props.property.description.replaceAll('\\"', '"')
+                    : "",
             }}
         ></div>
     );
