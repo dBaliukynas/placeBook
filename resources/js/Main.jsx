@@ -10,7 +10,7 @@ import Profile from "./pages/Profile";
 import Property from "./pages/Property";
 import PropertyListing from "./pages/PropertyListing";
 import PropertySearch from "./pages/PropertySearch";
-import NotFound from "./pages/NotFound";
+import NotFound from "./components/NotFound";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -18,8 +18,13 @@ const Main = () => {
     return (
         <Router>
             <Routes>
-                <Route path="*" element={<NotFound />} />
                 <Route element={<Layout />}>
+                    <Route
+                        path="*"
+                        element={
+                            <NotFound status={404} message="Page not found" />
+                        }
+                    />
                     <Route path="/" element={<Home />}></Route>
                     <Route path="about" element={<About />}></Route>
 

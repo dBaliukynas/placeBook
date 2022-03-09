@@ -1,19 +1,20 @@
-import Logo from "../components/Logo";
+import Logo from "./Logo";
 
-const NotFound = () => {
+const NotFound = (props) => {
     return (
         <div
             className="main-container"
             style={{
-                height: "100vh",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 flexDirection: "column",
+                marginTop: "20px",
             }}
         >
             <Logo />
-            <h1>Not found</h1>
+            <h1>{props.status}</h1>
+            <h2>{props.message}</h2>
         </div>
     );
 };
