@@ -27,12 +27,24 @@ class PropertyController extends Controller
     }
 
 
-    public function read()
+    public function read_all()
     {
         $properties = Property::all();
 
 
         return response($properties, 200);
+    }
+
+    public function read($id)
+    {
+
+        $property = Property::find($id);
+        if ($property != null) {
+            return response($property, 200);
+        }
+        else {
+            abort(404);
+        }
     }
 
     public function update(Request $request, $id)

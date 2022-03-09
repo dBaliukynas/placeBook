@@ -5,7 +5,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import PropertyDescription from "../components/PropertyDescription";
 import "react-calendar/dist/Calendar.css";
-import "./../../css/Calendar.css";
+import "../../css/Calendar.css";
 
 const PropertyListing = () => {
     useEffect(() => {

@@ -1,6 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const Property = () => {
+    const { id } = useParams();
+    useEffect(() => {
+        fetch(`/api/property/${id}`, {
+            method: "GET",
+        })
+            .then((response) => response.json())
+            .then((data) => setProperty(data))
+            .catch(function (err) {
+                alert("Fetch Error : ", err);
+            });
+    }, []);
+    const [property, setProperty] = useState(undefined);
     return (
         <div
             className="main-container"
@@ -11,6 +24,7 @@ const Property = () => {
             }}
         >
             PROPERTY
+            {property?.name}
         </div>
     );
 };

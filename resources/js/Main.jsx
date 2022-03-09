@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import Property from "./pages/Property";
 import PropertyListing from "./pages/PropertyListing";
 import PropertySearch from "./pages/PropertySearch";
+import NotFound from "./pages/NotFound";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -17,6 +18,7 @@ const Main = () => {
     return (
         <Router>
             <Routes>
+                <Route path="*" element={<NotFound />} />
                 <Route element={<Layout />}>
                     <Route path="/" element={<Home />}></Route>
                     <Route path="about" element={<About />}></Route>
@@ -42,14 +44,7 @@ const Main = () => {
                             </RequireAuth>
                         }
                     ></Route>
-                    <Route
-                        path="property/:propertyId"
-                        element={
-                            <RequireAuth>
-                                <Property />
-                            </RequireAuth>
-                        }
-                    ></Route>
+                    <Route path="property/:id" element={<Property />}></Route>
                 </Route>
                 <Route path="login" element={<Redirecting />}></Route>
             </Routes>

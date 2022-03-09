@@ -32,8 +32,8 @@
     <div id="main"></div>
     <script>
         let authUser = null;
-        if ('{!! Auth::user() !!}' != '') {
-            authUser = JSON.parse('{!! Auth::user()->with("properties")->first() !!}')
+        if ('{!! Auth::check() !!}') {
+            authUser = JSON.parse('{!! Auth::user() !!}')
         }
     </script>
     <script src="{{asset('js/app.js')}}">

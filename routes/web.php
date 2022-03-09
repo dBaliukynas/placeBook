@@ -23,6 +23,7 @@ Route::get('/{route}', function () {
 })->where('route', '^(?!api).*');
 
 Route::post('/api/property', '\App\Http\Controllers\PropertyController@create');
-Route::get('/api/properties', '\App\Http\Controllers\PropertyController@read');
+Route::get('/api/property/{id}', '\App\Http\Controllers\PropertyController@read');
+Route::get('/api/properties', '\App\Http\Controllers\PropertyController@read_all');
 
 Route::post('/api/editor', '\App\Http\Controllers\PropertyController@test');
