@@ -52,8 +52,8 @@ div.navbar-button-wrapper ul.dropdown-menu {
     align-items: center;
 }
 
-.top-main-container div h1,
-.top-main-container div h2 {
+.top-main-container-text1,
+.top-main-container-text2 {
     color: navajowhite;
     text-shadow: black 5px 0px 5px;
 }
@@ -152,4 +152,33 @@ div.list-group a.list-group-item + .list-group-item {
     height: 500px !important;
     position: unset !important;
     border: 3px solid black !important;
+}
+
+.property-vertical-line {
+    border-left: 2px solid ghostwhite;
+    height: 125px;
+    margin-right: 20px;
+}
+
+nav.breadcrumb {
+    --bs-breadcrumb-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E");
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+nav.breadcrumb ol {
+    margin: 0px 0px 0px 75px;
+}
+
+.property-type {
+    margin-right: 10px;
+    background-color: white;
+    border-color: #ced4da;
+    color: #212529;
+}
+.property-type:hover {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+    color: #495057;
 }

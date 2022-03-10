@@ -7,8 +7,10 @@ const Home = () => {
         <>
             <div className="top-main-container">
                 <div style={{ textAlign: "center", marginTop: "100px" }}>
-                    <h1>Browse places to rent...</h1>
-                    <h2>or lease them </h2>
+                    <h1 className="top-main-container-text1">
+                        Browse places to rent...
+                    </h1>
+                    <h2 className="top-main-container-text2">or lease them </h2>
                 </div>
                 <div className="top-card-wrapper">
                     <div

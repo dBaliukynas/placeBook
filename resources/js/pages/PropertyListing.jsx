@@ -23,6 +23,17 @@ const PropertyListing = () => {
     const handlePropertyNameChange = (event) => {
         setPropertyName(event.target.value);
     };
+    const handlePropertyPriceChange = (event) => {
+        if (event.target.value > maxPropertyPrice) {
+            setPropertyPrice(maxPropertyPrice);
+            return;
+        }
+        if (event.target.value < 0) {
+            setPropertyPrice(minPropertyPrice);
+            return;
+        }
+        setPropertyPrice(event.target.value);
+    };
     const createProperty = () => {
         const propertyDescription = editor.getData();
         setPropertyName("");
@@ -47,8 +58,12 @@ const PropertyListing = () => {
             }
         );
     };
-
+    const minPropertyPrice = 10;
+    const maxPropertyPrice = 10000;
     const [propertyName, setPropertyName] = useState("");
+    const [propertyPrice, setPropertyPrice] = useState(
+        (maxPropertyPrice - minPropertyPrice) / 2
+    );
     const [editor, setEditor] = useState("");
     const [properties, setProperties] = useState(undefined);
     return (
@@ -68,11 +83,79 @@ const PropertyListing = () => {
                             className="form-control form-control-lg"
                             type="text"
                             placeholder="Property name"
-                            aria-label=".form-control-lg example"
+                            aria-label=".form-control-lg"
                             value={propertyName}
                             onChange={handlePropertyNameChange}
                         />
                     </div>
+                    <div style={{ marginBottom: "15px" }}>
+                        <h5>Property type</h5>
+                    </div>
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            marginBottom: "15px",
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        <button
+                            type="button"
+                            className="btn btn-primary property-type"
+                            aria-current="true"
+                        >
+                            Hotel
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-primary property-type"
+                        >
+                            Apartment
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-primary property-type"
+                        >
+                            Homestead
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-primary property-type"
+                        >
+                            Motel
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-primary property-type"
+                        >
+                            Villa
+                        </button>
+                    </div>
+                    <div style={{ marginBottom: "15px" }}>
+                        <h5>Property price</h5>
+                    </div>
+                    <div
+                        className="input-group mb-3"
+                        style={{ marginBottom: "15px" }}
+                    >
+                        <span className="input-group-text">€</span>
+                        <input
+                            type="number"
+                            className="form-control"
+                            value={propertyPrice}
+                            onChange={handlePropertyPriceChange}
+                        />
+                    </div>
+                    <input
+                        type="range"
+                        className="form-range"
+                        min={minPropertyPrice}
+                        max={maxPropertyPrice}
+                        step={10}
+                        value={propertyPrice}
+                        onChange={handlePropertyPriceChange}
+                        id="customRange2"
+                    ></input>
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Select property main image</h5>
                         <input
@@ -84,7 +167,7 @@ const PropertyListing = () => {
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property description</h5>
                     </div>
-                    <div style={{ width: "100%" }}>
+                    <div style={{ marginBottom: "15px" }}>
                         <CKEditor
                             editor={ClassicEditor}
                             onChange={handleEditorChange}
