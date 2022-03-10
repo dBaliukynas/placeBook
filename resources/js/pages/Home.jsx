@@ -6,11 +6,11 @@ const Home = () => {
     return (
         <>
             <div className="top-main-container">
-                <div style={{ textAlign: "center", marginTop: "30px" }}>
+                <div style={{ textAlign: "center", marginTop: "100px" }}>
                     <h1>Browse places to rent...</h1>
                     <h2>or lease them </h2>
                 </div>
-                <div style={{ display: "flex", justifyContent: "center" }}>
+                <div className="top-card-wrapper">
                     <div
                         className="card"
                         style={{

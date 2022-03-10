@@ -32,6 +32,13 @@ const PropertyListing = () => {
                 method: "POST",
                 ...defaultFetchOptions,
                 body: JSON.stringify({ propertyName, propertyDescription }),
+            }).then((response) => {
+                if (!response.ok) {
+                    toast.update(toastId.current, {
+                        type: toast.TYPE.WARNING,
+                        autoClose: 5000,
+                    });
+                }
             }),
             {
                 pending: "Listing a property...",
@@ -83,7 +90,6 @@ const PropertyListing = () => {
                             onChange={handleEditorChange}
                             config={{
                                 ckfinder: {
-                                    // The URL that the images are uploaded to.
                                     uploadUrl: "/api/editor",
 
                                     image: {

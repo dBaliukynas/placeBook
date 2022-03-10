@@ -33,11 +33,17 @@ div.navbar-button-wrapper ul.dropdown-menu {
 }
 
 .top-main-container {
-    background: url("/images/palm.jpg");
+    background-image: linear-gradient(
+            to bottom,
+            rgba(245, 246, 252, 0.52),
+            rgb(39 19 117 / 30%)
+        ),
+        url("/images/palm.jpg");
     background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
-    height: 250px;
+    height: 350px;
     margin-bottom: 150px;
 }
 .center {
@@ -72,7 +78,11 @@ div.navbar-button-wrapper ul.dropdown-menu {
     height: 125px;
     border: 3px solid #68a5ef;
     width: 450px;
-    margin-top: 53.5px;
+}
+.top-card-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 83.5px;
 }
 
 .card img {
