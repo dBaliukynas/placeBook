@@ -32,6 +32,14 @@ const PropertyListing = () => {
             setPropertyPrice(minPropertyPrice);
             return;
         }
+        if (
+            event.target.value.charAt(0) == 0 &&
+            event.target.value.length != 0
+        ) {
+            setPropertyPrice(minPropertyPrice);
+            return;
+        }
+
         setPropertyPrice(event.target.value);
     };
     const createProperty = () => {
@@ -58,8 +66,8 @@ const PropertyListing = () => {
             }
         );
     };
-    const minPropertyPrice = 10;
-    const maxPropertyPrice = 10000;
+    const minPropertyPrice = 1;
+    const maxPropertyPrice = 10001;
     const [propertyName, setPropertyName] = useState("");
     const [propertyPrice, setPropertyPrice] = useState(
         (maxPropertyPrice - minPropertyPrice) / 2
@@ -130,6 +138,9 @@ const PropertyListing = () => {
                         >
                             Villa
                         </button>
+                    </div>
+                    <div style={{ marginBottom: "15px" }}>
+                        <h5>Property location</h5>
                     </div>
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property price</h5>
