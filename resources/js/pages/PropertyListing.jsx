@@ -1,22 +1,28 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useCallback } from "react";
 import Calendar from "react-calendar";
 import defaultFetchOptions from "../components/DefaultFetchOptions";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { ToastContainer, toast } from "react-toastify";
-import PropertyDescription from "../components/PropertyDescription";
+import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
+import MapGeocoderControl from "../components/MapGeocoderControl";
+import MapPin from "../components/MapPin";
+import MapPinNavigationIcon from "../components/MapPinNavigationIcon";
 import "react-calendar/dist/Calendar.css";
 import "../../css/Calendar.css";
 import "react-toastify/dist/ReactToastify.css";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 const PropertyListing = () => {
     useEffect(() => {
-        fetch("/api/properties", {
-            method: "GET",
-        })
-            .then((response) => response.json())
-            .then((data) => setProperties(data));
-    }, []);
+        console.log(viewState);
+    });
+    const test = (event) => {
+        console.log(event.viewState.latitude);
+    };
+    const onSearchLocation = (event) => {
+        console.log(event);
+    };
     const handleEditorChange = (_, editor) => {
         setEditor(editor);
     };
@@ -73,7 +79,26 @@ const PropertyListing = () => {
         (maxPropertyPrice - minPropertyPrice) / 2
     );
     const [editor, setEditor] = useState("");
-    const [properties, setProperties] = useState(undefined);
+
+    const [viewState, setViewState] = useState({
+        longitude: 25.2797,
+        latitude: 54.6872,
+        zoom: 3.5,
+    });
+
+    const [marker, setMarker] = useState({
+        latitude: 54.6872,
+        longitude: 25.2797,
+        hidden: true,
+    });
+
+    const onMarkerDrag = useCallback((event) => {
+        setMarker({
+            longitude: event.lngLat.lng,
+            latitude: event.lngLat.lat,
+        });
+    }, []);
+
     return (
         <>
             <div
@@ -141,6 +166,53 @@ const PropertyListing = () => {
                     </div>
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property location</h5>
+                        <ReactMapGL
+                            mapboxAccessToken={mapBoxApiKey}
+                            {...viewState}
+                            onMove={(event) => setViewState(event.viewState)}
+                            style={{ width: "100%", height: "500px" }}
+                            mapStyle="mapbox://styles/mapbox/streets-v11"
+                        >
+                            <MapGeocoderControl
+                                mapboxAccessToken={mapBoxApiKey}
+                                position="top-left"
+                                onResult={onSearchLocation}
+                            />
+                            {!marker.hidden ? (
+                                <Marker
+                                    longitude={marker.longitude}
+                                    latitude={marker.latitude}
+                                    anchor="bottom"
+                                    draggable
+                                    onDrag={onMarkerDrag}
+                                    style={{ zIndex: "1" }}
+                                >
+                                    <MapPin size={20} />
+                                </Marker>
+                            ) : (
+                                <> </>
+                            )}
+
+                            <NavigationControl />
+                            <button
+                                className="map-draggable-pin"
+                                type="button"
+                                title={
+                                    marker.hidden
+                                        ? "Place draggable pin"
+                                        : "Hide draggable pin"
+                                }
+                                onClick={() =>
+                                    setMarker({
+                                        longitude: viewState.longitude,
+                                        latitude: viewState.latitude,
+                                        hidden: !marker.hidden,
+                                    })
+                                }
+                            >
+                                <MapPinNavigationIcon />
+                            </button>
+                        </ReactMapGL>
                     </div>
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property price</h5>

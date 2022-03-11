@@ -32,6 +32,7 @@
     <div id="main"></div>
     <script>
         let authUser = null;
+        const mapBoxApiKey = '{{ env("MAPBOX_API_KEY") }}';
         if ('{!! Auth::check() !!}') {
             authUser = JSON.parse('{!! Auth::user() !!}')
         }

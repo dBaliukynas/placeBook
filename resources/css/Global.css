@@ -182,3 +182,26 @@ nav.breadcrumb ol {
     border-color: #ced4da;
     color: #495057;
 }
+.mapboxgl-ctrl-geocoder--input:focus {
+    outline: auto;
+    outline-color: #0d6efd;
+}
+.mapboxgl-ctrl-icon {
+    cursor: pointer;
+}
+.map-draggable-pin {
+    top: 0;
+    right: 0;
+    position: absolute;
+    top: 120px;
+    right: 10px;
+    width: 29px;
+    height: 28px;
+    border: unset;
+    box-shadow: 0 0 0 2px rgb(0 0 0 / 10%);
+    background-color: white;
+    border-radius: 4px;
+}
+.map-draggable-pin:hover {
+    background-color: #efefef;
+}
