@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import PropertyDescription from "../components/PropertyDescription";
 import NotFound from "../components/NotFound";
 import Star from "../components/Star";
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from "react-responsive";
 
 const Property = () => {
     const { id } = useParams();
@@ -24,7 +24,7 @@ const Property = () => {
                 }
             });
     }, []);
-    const isMobileScreen = useMediaQuery({ query: '(min-width: 650px)' })
+    const isMobileScreen = useMediaQuery({ query: "(min-width: 650px)" });
     const [property, setProperty] = useState(undefined);
     const [error, setError] = useState(undefined);
     if (error?.status == 404) {
@@ -64,63 +64,71 @@ const Property = () => {
                         {property?.name}
                     </h1>
 
-                    { isMobileScreen ? (<div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            flexWrap: "wrap",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <div style={{ marginRight: "20px" }}>
-                            <h3 style={{ color: "ghostwhite" }}>City</h3>
-                            <h2 style={{ color: "ghostwhite" }}>Vilnius</h2>
+                    {isMobileScreen ? (
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                flexWrap: "wrap",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <div style={{ marginRight: "20px" }}>
+                                <h3 style={{ color: "ghostwhite" }}>City</h3>
+                                <h2 style={{ color: "ghostwhite" }}>Vilnius</h2>
+                            </div>
+                            <div className="property-vertical-line"></div>
+                            <div style={{ marginRight: "20px" }}>
+                                <h3 style={{ color: "ghostwhite" }}>Type</h3>
+                                <h2 style={{ color: "ghostwhite" }}>Hotel</h2>
+                            </div>
+                            <div className="property-vertical-line"></div>
+                            <div style={{ marginRight: "20px" }}>
+                                <Star />
+                                <h2
+                                    style={{
+                                        color: "ghostwhite",
+                                    }}
+                                >
+                                    10 / 10
+                                </h2>
+                                <h5 style={{ color: "ghostwhite" }}>
+                                    154 voters
+                                </h5>
+                            </div>
+                            <div className="property-vertical-line"></div>
+                            <div style={{ marginRight: "20px" }}>
+                                <h3
+                                    style={{
+                                        color: "ghostwhite",
+                                    }}
+                                >
+                                    Price starting from
+                                </h3>
+                                <h2 style={{ color: "ghostwhite" }}>300€</h2>
+                            </div>
+                            <div className="property-vertical-line"></div>
+                            <div style={{ marginRight: "20px" }}>
+                                <h3 style={{ color: "ghostwhite" }}>
+                                    Currently available rooms
+                                </h3>
+                                <h2 style={{ color: "ghostwhite" }}>6</h2>
+                            </div>
                         </div>
-                        <div className="property-vertical-line"></div>
-                        <div style={{ marginRight: "20px" }}>
-                            <h3 style={{ color: "ghostwhite" }}>Type</h3>
-                            <h2 style={{ color: "ghostwhite" }}>Hotel</h2>
-                        </div>
-                        <div className="property-vertical-line"></div>
-                        <div style={{ marginRight: "20px" }}>
-                            <Star />
-                            <h2
-                                style={{
-                                    color: "ghostwhite",
-                                }}
-                            >
-                                10 / 10
-                            </h2>
-                            <h5 style={{ color: "ghostwhite" }}>154 voters</h5>
-                        </div>
-                        <div className="property-vertical-line"></div>
-                        <div style={{ marginRight: "20px" }}>
-                            <h3
-                                style={{
-                                    color: "ghostwhite",
-                                }}
-                            >
-                                Price starting from
-                            </h3>
-                            <h2 style={{ color: "ghostwhite" }}>300€</h2>
-                        </div>
-                        <div className="property-vertical-line"></div>
-                        <div style={{ marginRight: "20px" }}>
-                            <h3 style={{ color: "ghostwhite" }}>
-                                Currently available rooms
-                            </h3>
-                            <h2 style={{ color: "ghostwhite" }}>6</h2>
-                        </div>
-                    </div>) : <> </>}
+                    ) : (
+                        <> </>
+                    )}
                     <div>
                         <button className="btn btn-outline-light rent-button">
                             Rent this place
                         </button>
-                      
                     </div>
                 </div>
             </div>
-            <nav className="breadcrumb breadcrumb-property" aria-label="breadcrumb">
+            <nav
+                className="breadcrumb breadcrumb-property"
+                aria-label="breadcrumb"
+            >
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item">
                         <Link to="/">Home</Link>
@@ -130,11 +138,33 @@ const Property = () => {
                     </li>
                 </ol>
             </nav>
-            <ul className="list-group list-group-horizontal" style={{height: "70px", textAlign: "center", fontSize: "18px"}}>
-            <button type="button" className="list-group-item list-group-item-action">Property</button>
-            <button type="button" className="list-group-item list-group-item-action">Rent</button>
-            <button type="button" className="list-group-item list-group-item-action">Reviews</button>
-</ul>
+            <ul
+                className="list-group list-group-horizontal"
+                style={{
+                    height: "70px",
+                    textAlign: "center",
+                    fontSize: "18px",
+                }}
+            >
+                <button
+                    type="button"
+                    className="list-group-item list-group-item-action"
+                >
+                    Property
+                </button>
+                <button
+                    type="button"
+                    className="list-group-item list-group-item-action"
+                >
+                    Rent
+                </button>
+                <button
+                    type="button"
+                    className="list-group-item list-group-item-action"
+                >
+                    Reviews
+                </button>
+            </ul>
             <div
                 className="main-container"
                 style={{
@@ -219,10 +249,14 @@ const Property = () => {
                         <span className="visually-hidden">Next</span>
                     </button>
                 </div>
-                <hr></hr>
-                <h1>{property?.name}</h1>
+
                 {property ? (
-                    <PropertyDescription property={property} />
+                    <div className="card">
+                        <div className="card-body">
+                            <h1>{property.name}</h1>
+                            <PropertyDescription property={property} />
+                        </div>
+                    </div>
                 ) : (
                     <> </>
                 )}
