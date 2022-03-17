@@ -6,6 +6,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { ToastContainer, toast } from "react-toastify";
 import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
 import MapGeocoderControl from "../components/MapGeocoderControl";
+import Slider from "../components/Slider";
 import MapPin from "../components/MapPin";
 import MapPinNavigationIcon from "../components/MapPinNavigationIcon";
 import "react-calendar/dist/Calendar.css";
@@ -229,16 +230,10 @@ const PropertyListing = () => {
                             onChange={handlePropertyPriceChange}
                         />
                     </div>
-                    <input
-                        type="range"
-                        className="form-range"
-                        min={minPropertyPrice}
-                        max={maxPropertyPrice}
-                        step={10}
-                        value={propertyPrice}
-                        onChange={handlePropertyPriceChange}
-                        id="customRange2"
-                    ></input>
+                    <Slider
+                        propertyPrice={propertyPrice}
+                        handlePropertyPriceChange={handlePropertyPriceChange}
+                    />
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Select property main image</h5>
                         <input

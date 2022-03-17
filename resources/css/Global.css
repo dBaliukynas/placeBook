@@ -205,3 +205,27 @@ nav.breadcrumb ol {
 .map-draggable-pin:hover {
     background-color: #efefef;
 }
+.property-photo {
+    max-height: 600px;
+    object-fit: cover;
+}
+
+.rent-button {
+    width: 200px;
+    height: 50px;
+    margin-top: 50px;
+    font-size: 18px;
+}
+.breadcrumb-property {
+    margin: unset;
+}
+.no-padding {
+    padding: unset;
+}
+div.card-wrapper div.no-margin-right {
+    margin-right: unset;
+}
+
+@media only screen and (max-width: 600px) {
+ 
+}

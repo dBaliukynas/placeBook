@@ -1,11 +1,19 @@
 import React from "react";
+import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+    const isMobileScreen = useMediaQuery({ query: "(min-width: 650px)" });
     return (
         <div className="container">
-            <footer className="row row-cols-5 py-5 my-5 border-top">
-                <div className="col">
+            <footer
+                className={
+                    isMobileScreen
+                        ? "row row-cols-5 py-5 my-5 border-top w-100"
+                        : "row row-cols-5 py-5 my-5 border-top center w-100"
+                }
+            >
+                <div className={ isMobileScreen ? "col" : "col no-padding"}>
                     <svg
                         viewBox="0 0 872 872"
                         height="40"
@@ -24,8 +32,7 @@ const Footer = () => {
                     <p className="text-muted">© 2022</p>
                 </div>
 
-                <div className="col">
-                    {" "}
+                <div className={ isMobileScreen ? "col" : "col no-padding"}>
                     <h5>Section</h5>
                     <ul className="nav flex-column">
                         <li className="nav-item mb-2">
@@ -56,7 +63,7 @@ const Footer = () => {
                     </ul>
                 </div>
 
-                <div className="col">
+                <div className={ isMobileScreen ? "col" : "col no-padding"}>
                     <h5>Section</h5>
                     <ul className="nav flex-column">
                         <li className="nav-item mb-2">
@@ -87,7 +94,7 @@ const Footer = () => {
                     </ul>
                 </div>
 
-                <div className="col">
+                <div className={ isMobileScreen ? "col" : "col no-padding"}>
                     <h5>Section</h5>
                     <ul className="nav flex-column">
                         <li className="nav-item mb-2">
@@ -118,7 +125,7 @@ const Footer = () => {
                     </ul>
                 </div>
 
-                <div className="col">
+                <div className={ isMobileScreen ? "col" : "col no-padding"}>
                     <h5>Section</h5>
                     <ul className="nav flex-column">
                         <li className="nav-item mb-2">

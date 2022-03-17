@@ -1,12 +1,13 @@
 import React from "react";
-
+import { useMediaQuery } from "react-responsive";
 const HomeCard = (props) => {
+    const isMobileScreen = useMediaQuery({ query: "(min-width: 650px)" });
     const cityName = props.cityName;
     const image = props.image;
     const favoriteProperty = props.favoriteProperty;
     const rating = props.rating;
     return [...Array(5)].map((e, i) => (
-        <div key={i} className="card property" style={{ width: "18rem" }}>
+        <div key={i} className={isMobileScreen ? "card property" : "card property no-margin-right"} style={{ width: "18rem" }}>
             <img src={image} className="card-img-top" alt="..." />
             <div className="card-body">
                 {favoriteProperty != null ? (
