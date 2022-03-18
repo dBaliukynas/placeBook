@@ -16,9 +16,16 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('user_id')->references('id')->on('users');
             $table->text('description');
-            $table->string('image_path');
+            $table->bigInteger('user_id')->references('id')->on('users');
+            $table->string('country');
+            $table->string('city');
+            $table->string('address');
+            $table->string('region')->nullable();
+            $table->string('postcode')->nullable();
+            $table->string('type');
+            $table->bigInteger('price');
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

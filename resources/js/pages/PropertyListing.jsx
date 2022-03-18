@@ -6,7 +6,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { ToastContainer, toast } from "react-toastify";
 import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
 import MapGeocoderControl from "../components/MapGeocoderControl";
-import Slider from "../components/Slider";
 import MapPin from "../components/MapPin";
 import MapPinNavigationIcon from "../components/MapPinNavigationIcon";
 import "react-calendar/dist/Calendar.css";
@@ -15,20 +14,46 @@ import "react-toastify/dist/ReactToastify.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const PropertyListing = () => {
-    useEffect(() => {
-        console.log(viewState);
-    });
-    const test = (event) => {
-        console.log(event.viewState.latitude);
-    };
+    // useEffect(() => {
+    //     console.log(viewState);
+    // });
     const onSearchLocation = (event) => {
-        console.log(event);
+        setPropertyCountry(
+            event.result.context.find((element) =>
+                element.id.includes("country")
+            )?.text
+        );
+        setPropertyCity(
+            event.result.context.find((element) =>
+                element.id.includes("region")
+            )?.text
+        );
+        setPropertyRegion(
+            event.result.context.find((element) => element.id.includes("place"))
+                ?.text
+        );
+        setPropertyAddress(
+            event.result.address
+                ? event.result.text + " " + event.result.address
+                : event.result.properties.address
+                ? event.result.text + " " + event.result.properties.address
+                : event.result.text
+        );
+        setPropertyPostcode(
+            event.result.context.find((element) =>
+                element.id.includes("postcode")
+            )?.text
+        );
     };
     const handleEditorChange = (_, editor) => {
         setEditor(editor);
     };
     const handlePropertyNameChange = (event) => {
         setPropertyName(event.target.value);
+    };
+    const handlePropertyTypeChange = (type) => {
+        setPropertyType(type);
+        console.log(propertyType);
     };
     const handlePropertyPriceChange = (event) => {
         if (event.target.value > maxPropertyPrice) {
@@ -57,7 +82,17 @@ const PropertyListing = () => {
             fetch("/api/property", {
                 method: "POST",
                 ...defaultFetchOptions,
-                body: JSON.stringify({ propertyName, propertyDescription }),
+                body: JSON.stringify({
+                    propertyName,
+                    propertyDescription,
+                    propertyAddress,
+                    propertyCountry,
+                    propertyCity,
+                    propertyRegion,
+                    propertyPostcode,
+                    propertyType,
+                    propertyPrice,
+                }),
             }).then((response) => {
                 if (!response.ok) {
                     toast.update(toastId.current, {
@@ -76,9 +111,16 @@ const PropertyListing = () => {
     const minPropertyPrice = 1;
     const maxPropertyPrice = 10001;
     const [propertyName, setPropertyName] = useState("");
+    const [propertyAddress, setPropertyAddress] = useState("");
+    const [propertyCountry, setPropertyCountry] = useState("");
+    const [propertyCity, setPropertyCity] = useState("");
+    const [propertyRegion, setPropertyRegion] = useState("");
+    const [propertyPostcode, setPropertyPostcode] = useState("");
+    const [propertyType, setPropertyType] = useState("");
     const [propertyPrice, setPropertyPrice] = useState(
         (maxPropertyPrice - minPropertyPrice) / 2
     );
+
     const [editor, setEditor] = useState("");
 
     const [viewState, setViewState] = useState({
@@ -135,38 +177,138 @@ const PropertyListing = () => {
                     >
                         <button
                             type="button"
-                            className="btn btn-primary property-type"
+                            className={
+                                propertyType == "Hotel"
+                                    ? "btn btn-primary property-type property-type-active"
+                                    : "btn btn-primary property-type"
+                            }
                             aria-current="true"
+                            onClick={() => handlePropertyTypeChange("Hotel")}
                         >
                             Hotel
                         </button>
                         <button
                             type="button"
-                            className="btn btn-primary property-type"
+                            className={
+                                propertyType == "Apartment"
+                                    ? "btn btn-primary property-type property-type-active"
+                                    : "btn btn-primary property-type"
+                            }
+                            onClick={() => handlePropertyTypeChange("Apartment")}
                         >
                             Apartment
                         </button>
                         <button
                             type="button"
-                            className="btn btn-primary property-type"
+                            className={
+                                propertyType == "Homestead"
+                                    ? "btn btn-primary property-type property-type-active"
+                                    : "btn btn-primary property-type"
+                            }
+                            onClick={() => handlePropertyTypeChange("Homestead")}
                         >
                             Homestead
                         </button>
                         <button
                             type="button"
-                            className="btn btn-primary property-type"
+                            className={
+                                propertyType == "Motel"
+                                    ? "btn btn-primary property-type property-type-active"
+                                    : "btn btn-primary property-type"
+                            }
+                            onClick={() => handlePropertyTypeChange("Motel")}
                         >
                             Motel
                         </button>
                         <button
                             type="button"
-                            className="btn btn-primary property-type"
+                            className={
+                                propertyType == "Villa"
+                                    ? "btn btn-primary property-type property-type-active"
+                                    : "btn btn-primary property-type"
+                            }
+                            onClick={() => handlePropertyTypeChange("Villa")}
                         >
                             Villa
                         </button>
                     </div>
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property location</h5>
+                        <form
+                            className="row g-3"
+                            style={{ marginBottom: "20px" }}
+                        >
+                            <div className="col-4">
+                                <label
+                                    htmlFor="inputAddress"
+                                    className="form-label"
+                                >
+                                    Address
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputAddress"
+                                    defaultValue={propertyAddress}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <label
+                                    htmlFor="inputCity"
+                                    className="form-label"
+                                >
+                                    Country
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputCountry"
+                                    defaultValue={propertyCountry}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <label
+                                    htmlFor="inputCity"
+                                    className="form-label"
+                                >
+                                    City
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputCity"
+                                    defaultValue={propertyCity}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <label
+                                    htmlFor="inputRegion"
+                                    className="form-label"
+                                >
+                                    Region
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputRegion"
+                                    defaultValue={propertyRegion}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <label
+                                    htmlFor="inputRegion"
+                                    className="form-label"
+                                >
+                                    Postcode
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputRegion"
+                                    defaultValue={propertyPostcode}
+                                />
+                            </div>
+                        </form>
                         <ReactMapGL
                             mapboxAccessToken={mapBoxApiKey}
                             {...viewState}
@@ -178,6 +320,7 @@ const PropertyListing = () => {
                                 mapboxAccessToken={mapBoxApiKey}
                                 position="top-left"
                                 onResult={onSearchLocation}
+                                language="en-US"
                             />
                             {!marker.hidden ? (
                                 <Marker
@@ -230,10 +373,16 @@ const PropertyListing = () => {
                             onChange={handlePropertyPriceChange}
                         />
                     </div>
-                    <Slider
-                        propertyPrice={propertyPrice}
-                        handlePropertyPriceChange={handlePropertyPriceChange}
-                    />
+                    <input
+                        type="range"
+                        className="form-range"
+                        min={minPropertyPrice}
+                        max={maxPropertyPrice}
+                        step={10}
+                        value={propertyPrice}
+                        onChange={handlePropertyPriceChange}
+                        id="customRange2"
+                    ></input>
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Select property main image</h5>
                         <input

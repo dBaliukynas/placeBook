@@ -20,8 +20,15 @@ class PropertyController extends Controller
 
         $property = Property::create([
             'name' => $data['propertyName'],
-            'user_id' => Auth::user()->id,
             'description' => str_replace(['"', "'"], ['\"', "\'"], $data['propertyDescription']),
+            'user_id' => Auth::user()->id,
+            'country' => $data['propertyCountry'],
+            'city' => $data['propertyCity'],
+            'address' => $data['propertyAddress'],
+            'region' => $data['propertyRegion'],
+            'postcode' => $data['propertyPostcode'],
+            'type' => $data['propertyType'],
+            'price' => $data['propertyPrice'],
             'image_path' => 'Test',
         ]);
 

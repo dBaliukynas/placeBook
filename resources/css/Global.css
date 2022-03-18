@@ -225,7 +225,18 @@ nav.breadcrumb ol {
 div.card-wrapper div.no-margin-right {
     margin-right: unset;
 }
-
-@media only screen and (max-width: 600px) {
- 
+.property-type-active {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+.property-type:active {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+.property-type:focus {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
 }
