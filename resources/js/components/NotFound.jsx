@@ -1,4 +1,4 @@
-import Logo from "./Logo";
+import LogoIcon from "./svgs/LogoIcon";
 
 const NotFound = (props) => {
     return (
@@ -12,7 +12,7 @@ const NotFound = (props) => {
                 marginTop: "20px",
             }}
         >
-            <Logo />
+            <LogoIcon />
             <h1>{props.status}</h1>
             <h2>{props.message}</h2>
         </div>

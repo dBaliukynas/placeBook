@@ -1,4 +1,4 @@
-const Logo = (props) => {
+const LogoIcon = (props) => {
     return (
         <svg
             viewBox="0 0 872 872"
@@ -18,4 +18,4 @@ const Logo = (props) => {
     );
 };
 
-export default Logo;
+export default LogoIcon;

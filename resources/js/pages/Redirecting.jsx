@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Logo from "../components/Logo";
+import LogoIcon from "../components/svgs/LogoIcon";
 
 const Redirecting = () => {
     useEffect(() => (window.location.href = "/login"));
@@ -14,7 +14,7 @@ const Redirecting = () => {
             }}
         >
             <div>
-                <Logo />
+                <LogoIcon />
                 <h1>Redirecting...</h1>
                 <div className="spinner-border text-primary" role="status">
                     <span className="visually-hidden">Loading...</span>

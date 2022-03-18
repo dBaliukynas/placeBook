@@ -9,7 +9,7 @@ const pinStyle = {
     stroke: "none",
 };
 
-function Pin(props) {
+function MapPinIcon(props) {
     const { size = 20 } = props;
 
     return (
@@ -19,4 +19,4 @@ function Pin(props) {
     );
 }
 
-export default React.memo(Pin);
+export default React.memo(MapPinIcon);

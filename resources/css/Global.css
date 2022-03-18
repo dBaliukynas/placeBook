@@ -230,13 +230,26 @@ div.card-wrapper div.no-margin-right {
     background-color: #0d6efd;
     border-color: #0d6efd;
 }
+.property-type-active:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    color: #fff;
+}
 .property-type:active {
     color: #fff;
     background-color: #0d6efd;
     border-color: #0d6efd;
 }
+
 .property-type:focus {
     color: #fff;
     background-color: #0d6efd;
     border-color: #0d6efd;
+}
+
+.property-info-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 50px;
 }

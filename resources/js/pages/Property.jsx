@@ -2,8 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import PropertyDescription from "../components/PropertyDescription";
 import NotFound from "../components/NotFound";
-import Star from "../components/Star";
+import StarIcon from "../components/svgs/StarIcon";
 import { useMediaQuery } from "react-responsive";
+import HouseIcon from "../components/svgs/HouseIcon";
+import EuroBanknoteIcon from "../components/svgs/EuroBanknoteIcon";
+import LetterIcon from "../components/svgs/LetterIcon";
+import PinIcon from "../components/svgs/PinIcon";
+import CountryIcon from "../components/svgs/CountryIcon";
+import CityIcon from "../components/svgs/CityIcon";
+import RegionIcon from "../components/svgs/RegionIcon";
+import NumbersIcon from "../components/svgs/NumbersIcon";
 
 const Property = () => {
     const { id } = useParams();
@@ -75,16 +83,20 @@ const Property = () => {
                         >
                             <div style={{ marginRight: "20px" }}>
                                 <h3 style={{ color: "ghostwhite" }}>City</h3>
-                                <h2 style={{ color: "ghostwhite" }}>Vilnius</h2>
+                                <h2 style={{ color: "ghostwhite" }}>
+                                    {property?.city}
+                                </h2>
                             </div>
                             <div className="property-vertical-line"></div>
                             <div style={{ marginRight: "20px" }}>
                                 <h3 style={{ color: "ghostwhite" }}>Type</h3>
-                                <h2 style={{ color: "ghostwhite" }}>Hotel</h2>
+                                <h2 style={{ color: "ghostwhite" }}>
+                                    {property?.type}
+                                </h2>
                             </div>
                             <div className="property-vertical-line"></div>
                             <div style={{ marginRight: "20px" }}>
-                                <Star />
+                                <StarIcon />
                                 <h2
                                     style={{
                                         color: "ghostwhite",
@@ -105,7 +117,9 @@ const Property = () => {
                                 >
                                     Price starting from
                                 </h3>
-                                <h2 style={{ color: "ghostwhite" }}>300€</h2>
+                                <h2 style={{ color: "ghostwhite" }}>
+                                    {property?.price}€
+                                </h2>
                             </div>
                             <div className="property-vertical-line"></div>
                             <div style={{ marginRight: "20px" }}>
@@ -251,12 +265,66 @@ const Property = () => {
                 </div>
 
                 {property ? (
-                    <div className="card">
-                        <div className="card-body">
-                            <h1>{property.name}</h1>
-                            <PropertyDescription property={property} />
+                    <>
+                        <div className="card">
+                            <div className="card-body">
+                                <h1>{property.name}</h1>
+                                <PropertyDescription property={property} />
+                            </div>
                         </div>
-                    </div>
+                        <div className="card">
+                            <div
+                                className="card-body"
+                                style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+                            >
+                                <div className="property-info-bottom">
+                                    <LetterIcon />
+                                    <strong>Name</strong> {property.name}
+                                </div>
+                                <div className="property-info-bottom">
+                                    <EuroBanknoteIcon />
+                                    <strong>Price starting from</strong>
+                                    {property.price}€
+                                </div>
+                                <div className="property-info-bottom">
+                                    <HouseIcon />
+                                    <strong>Type</strong> {property.type}
+                                </div>
+                                <div className="property-info-bottom">
+                                    <PinIcon />
+                                    <strong>Address</strong> {property.address}
+                                </div>
+                                <div className="property-info-bottom">
+                                    <CountryIcon />
+                                    <strong>Country</strong> {property.country}
+                                </div>
+                                <div className="property-info-bottom">
+                                    <CityIcon />
+                                    <strong>City</strong> {property.city}
+                                </div>
+
+                                {property.region ? (
+                                    <div className="property-info-bottom">
+                                        <RegionIcon />
+                                        <strong>Region</strong>{" "}
+                                        {property.region}
+                                    </div>
+                                ) : (
+                                    <> </>
+                                )}
+
+                                {property.postcode ? (
+                                    <div className="property-info-bottom">
+                                        <NumbersIcon />
+                                        <strong>Postcode</strong>{" "}
+                                        {property.postcode}
+                                    </div>
+                                ) : (
+                                    <> </>
+                                )}
+                            </div>
+                        </div>
+                    </>
                 ) : (
                     <> </>
                 )}

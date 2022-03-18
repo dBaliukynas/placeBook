@@ -6,7 +6,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { ToastContainer, toast } from "react-toastify";
 import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
 import MapGeocoderControl from "../components/MapGeocoderControl";
-import MapPin from "../components/MapPin";
+import MapPinIcon from "../components/svgs/MapPinIcon";
 import MapPinNavigationIcon from "../components/MapPinNavigationIcon";
 import "react-calendar/dist/Calendar.css";
 import "../../css/Calendar.css";
@@ -331,7 +331,7 @@ const PropertyListing = () => {
                                     onDrag={onMarkerDrag}
                                     style={{ zIndex: "1" }}
                                 >
-                                    <MapPin size={20} />
+                                    <MapPinIcon size={20} />
                                 </Marker>
                             ) : (
                                 <> </>
