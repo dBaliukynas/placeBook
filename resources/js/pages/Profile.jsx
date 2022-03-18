@@ -22,7 +22,7 @@ const Profile = () => {
                         <div className="card" style={{ width: "200px" }}>
                             <div className="card-body">
                                 <Link to="/property/4">
-                                    {authUser.properties[0].name}
+                                    {authUser.properties[0]?.name}
                                 </Link>
                             </div>
                         </div>
