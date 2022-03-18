@@ -1,5 +1,5 @@
 @extends('layouts.app')
-<title>placeBook - Password Reset</title>
+<title>Password Reset - placeBook</title>
 @section('content')
 <div class="container" style="height: 100vh; display: flex;">
     <main class="form-signin" style="width: 450px; text-align: center; margin: auto;">
