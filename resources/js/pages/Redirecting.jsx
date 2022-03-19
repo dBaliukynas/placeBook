@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import LogoIcon from "../components/svgs/LogoIcon";
 
-const Redirecting = () => {
-    useEffect(() => (window.location.href = "/login"));
+const Redirecting = (props) => {
+    useEffect(() => (window.location.href = `/${props.pathName}`));
     return (
         <div
             className="main-container"

@@ -51,7 +51,8 @@ const Main = () => {
                     ></Route>
                     <Route path="property/:id" element={<Property />}></Route>
                 </Route>
-                <Route path="login" element={<Redirecting />}></Route>
+                <Route path="login" element={<Redirecting pathName="login" />}></Route>
+                <Route path="register" element={<Redirecting pathName="register" />}></Route>
             </Routes>
         </Router>
     );

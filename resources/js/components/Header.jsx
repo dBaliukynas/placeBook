@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+    let navigate = useNavigate();
+    const changeRoute = (pathName) => {
+        const path = `/${pathName}`;
+        navigate(path);
+    };
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -77,19 +83,21 @@ const Header = () => {
                         <div className="navbar-button-wrapper">
                             {authUser == null ? (
                                 <>
-                                    {" "}
-                                    <a href="/login">
-                                        <button
-                                            className="btn btn-outline-light login-button"
-                                            type="submit"
-                                        >
-                                            Log in
-                                        </button>
-                                    </a>
+                                    <button
+                                        className="btn btn-outline-light login-button"
+                                        type="submit"
+                                        onClick={() => changeRoute("login")}
+                                    >
+                                        Log in
+                                    </button>
+
                                     <a href="/register">
                                         <button
                                             className="btn btn-outline-light"
                                             type="submit"
+                                            onClick={() =>
+                                                changeRoute("register")
+                                            }
                                         >
                                             Register
                                         </button>
