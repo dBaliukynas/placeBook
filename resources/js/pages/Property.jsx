@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import PropertyDescription from "../components/PropertyDescription";
 import NotFound from "../components/NotFound";
 import StarIcon from "../components/svgs/StarIcon";
@@ -12,9 +12,15 @@ import CountryIcon from "../components/svgs/CountryIcon";
 import CityIcon from "../components/svgs/CityIcon";
 import RegionIcon from "../components/svgs/RegionIcon";
 import NumbersIcon from "../components/svgs/NumbersIcon";
+import Breadcrumb from "../components/Breadcrumb";
 
-const Property = () => {
+const Property = (props) => {
     const { id } = useParams();
+    const location = useLocation();
+    useEffect(() => {
+        console.log(props);
+        console.log(location);
+    });
     useEffect(() => {
         fetch(`/api/property/${id}`, {
             method: "GET",
@@ -139,19 +145,7 @@ const Property = () => {
                     </div>
                 </div>
             </div>
-            <nav
-                className="breadcrumb breadcrumb-property"
-                aria-label="breadcrumb"
-            >
-                <ol className="breadcrumb">
-                    <li className="breadcrumb-item">
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li className="breadcrumb-item active" aria-current="page">
-                        Property
-                    </li>
-                </ol>
-            </nav>
+            <Breadcrumb location={location} />
             <ul
                 className="list-group list-group-horizontal"
                 style={{
@@ -275,7 +269,11 @@ const Property = () => {
                         <div className="card">
                             <div
                                 className="card-body"
-                                style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+                                style={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    justifyContent: "center",
+                                }}
                             >
                                 <div className="property-info-bottom">
                                     <LetterIcon />

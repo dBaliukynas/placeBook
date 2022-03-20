@@ -1,12 +1,12 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import React from "react";
 import ReactDOM from "react-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import RequireAuth from "./components/RequireAuth";
 import Redirecting from "./pages/Redirecting";
 import Layout from "./pages/Layout";
 import NotFound from "./components/NotFound";
-import RoutesForBreadcrumb from "./components/RoutesForBreadcrumb";
-
+import { routes } from "./utils/routes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const Main = () => {
@@ -20,18 +20,22 @@ const Main = () => {
                             <NotFound status={404} message="Page not found" />
                         }
                     />
-                    {RoutesForBreadcrumb().map((route, index) =>
+                    {routes.map((route, index) =>
                         route.isAuthRequired ? (
                             <Route
                                 key={index}
+                                exact
                                 path={route.path}
                                 element={
-                                    <RequireAuth>{<route.component />}</RequireAuth>
+                                    <RequireAuth>
+                                        <route.component />
+                                    </RequireAuth>
                                 }
                             />
                         ) : (
                             <Route
-                            key={index}
+                                key={index}
+                                exact
                                 path={route.path}
                                 element={<route.component />}
                             />
