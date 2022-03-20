@@ -31,6 +31,37 @@ const Home = () => {
             { cityName: "SSS", imagePath: "/images/property_type_villa.jpg" },
         ],
     ];
+    const propertyCitiesMatrix = [
+        [
+            {
+                cityName: "Vilnius",
+                imagePath: "/images/property_city_vilnius.jpg",
+            },
+            {
+                cityName: "Kaunas",
+                imagePath: "/images/property_city_kaunas.jpg",
+            },
+            {
+                cityName: "Klaipėda",
+                imagePath: "/images/property_city_klaipeda.jpg",
+            },
+            { cityName: "Šiauliai", imagePath: "/images/property_city_siauliai.jpg" },
+            { cityName: "Panevėžys", imagePath: "/images/property_city_panevezys.jpg" },
+        ],
+        [
+            { cityName: "Palanga", imagePath: "/images/property_city_palanga.jpg" },
+            {
+                cityName: "Utena",
+                imagePath: "/images/property_city_utena.jpg",
+            },
+            {
+                cityName: "Kėdainiai",
+                imagePath: "/images/property_city_kedainiai.jpg",
+            },
+            { cityName: "Anykščiai", imagePath: "/images/property_city_anyksciai.jpg" },
+            { cityName: "Marijampolė", imagePath: "/images/property_city_marijampole.jpg" },
+        ],
+    ];
     return (
         <>
             <div className="top-main-container">
@@ -107,11 +138,20 @@ const Home = () => {
 
             <div className="main-container">
                 <h3>Select a place by group</h3>
-                <CardCarousel propertyTypesMatrix={propertyTypesMatrix} id={0} />
+                <CardCarousel
+                    propertyTypesMatrix={propertyTypesMatrix}
+                    id={0}
+                />
                 <h3>Select a place by your country's city</h3>
-                <CardCarousel propertyTypesMatrix={propertyTypesMatrix} id={1} />
+                <CardCarousel
+                    propertyTypesMatrix={propertyCitiesMatrix}
+                    id={1}
+                />
                 <h3>Our users favorite places</h3>
-                <CardCarousel propertyTypesMatrix={propertyTypesMatrix} id={2} />
+                <CardCarousel
+                    propertyTypesMatrix={propertyTypesMatrix}
+                    id={2}
+                />
             </div>
         </>
     );
