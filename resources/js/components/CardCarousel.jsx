@@ -15,12 +15,12 @@ const CardCarousel = (props) => {
                             style={{ alignItems: "center" }}
                             className={
                                 index == 0
-                                    ? "carousel-item active center-horizontally"
-                                    : "carousel-item  center-horizontally"
+                                    ? "carousel-item home-carousel active center-horizontally"
+                                    : "carousel-item home-carousel  center-horizontally"
                             }
                         >
                             <button
-                                className="carousel-control-prev"
+                                className="carousel-control-prev home-carousel"
                                 type="button"
                                 data-bs-target={`#carouselExampleControls${props.id}`}
                                 data-bs-slide="prev"
@@ -35,7 +35,7 @@ const CardCarousel = (props) => {
                             </button>
                             <HomeCard propertyTypes={propertyTypes} />
                             <button
-                                className="carousel-control-next"
+                                className="carousel-control-next home-carousel"
                                 type="button"
                                 data-bs-target={`#carouselExampleControls${props.id}`}
                                 data-bs-slide="next"

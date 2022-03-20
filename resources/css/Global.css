@@ -265,9 +265,10 @@ div.card-wrapper div.no-margin-right {
     margin-right: 50px;
 }
 
-.carousel-control-prev,
-.carousel-control-next {
+.carousel-control-prev.home-carousel,
+.carousel-control-next.home-carousel {
     all: revert;
+    cursor: pointer;
     display: flex;
     z-index: 1;
     align-items: center;
@@ -279,17 +280,23 @@ div.card-wrapper div.no-margin-right {
     border-color: #0d6efd;
     opacity: unset;
 }
-.carousel-control-prev {
+.carousel-control-prev.home-carousel:hover,
+.carousel-control-next.home-carousel:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    transition: 0.15s ease-in-out;
+}
+.carousel-control-prev.home-carousel {
     left: 0;
     margin-right: 10px;
 }
-.carousel-control-next {
+.carousel-control-next.home-carousel {
     right: 0;
 }
 
-div.carousel-item:not(.active, .carousel-item-start, .carousel-item-end) {
+div.carousel-item.home-carousel:not(.active, .carousel-item-start, .carousel-item-end) {
     visibility: hidden;
 }
-div.carousel-item {
+div.carousel-item.home-carousel {
     transition: unset;
 }
