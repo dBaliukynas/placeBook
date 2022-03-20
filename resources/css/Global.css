@@ -290,6 +290,11 @@ div.card-wrapper div.no-margin-right {
     left: 0;
     margin-right: 10px;
 }
+@media only screen and (max-width: 500px) {
+    .carousel-control-prev.home-carousel {
+        margin-right: unset;
+    }
+}
 .carousel-control-next.home-carousel {
     right: 0;
 }

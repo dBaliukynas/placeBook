@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import HomeCard from "../components/HomeCard";
 
 const Profile = (props) => {
-    const location = useLocation();  
+    const location = useLocation();
     return (
         <div
             className="main-container"
@@ -17,11 +18,27 @@ const Profile = (props) => {
                 <div className="card">
                     <div className="card-body">
                         <h5>Created properties</h5>
-                        <div className="card" style={{ width: "200px" }}>
-                            <div className="card-body">
-                                <Link to="/property/1">
-                                    {authUser.properties[0]?.name}
-                                </Link>
+
+                        <div
+                            className="card"
+                            style={
+                                !authUser.properties ? { width: "200px" } : {}
+                            }
+                        >
+                            <div
+                                className="card-body"
+                                style={{ display: "flex" }}
+                            >
+                                {authUser.properties.map((property, index) => (
+                                    <HomeCard key={index}
+                                        propertyTypes={[ 
+                                            {
+                                                imagePath: "/images/hotel.jpg",
+                                                cityName: property.name,
+                                            },
+                                        ]}
+                                    />
+                                ))}
                             </div>
                         </div>
                         <h5>Rated properties</h5>
