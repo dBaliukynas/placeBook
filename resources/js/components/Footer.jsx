@@ -9,8 +9,8 @@ const Footer = () => {
             <footer
                 className={
                     isMobileScreen
-                        ? "row row-cols-5 py-5 my-5 border-top w-100"
-                        : "row row-cols-5 py-5 my-5 border-top center w-100"
+                        ? "row row-cols-5 py-5 my-5 border-top"
+                        : "row row-cols-5 py-5 my-5 border-top center"
                 }
             >
                 <div className={ isMobileScreen ? "col" : "col no-padding"}>

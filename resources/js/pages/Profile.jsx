@@ -30,13 +30,17 @@ const Profile = (props) => {
                                 style={{ display: "flex" }}
                             >
                                 {authUser.properties.map((property, index) => (
-                                    <PropertyCard key={index}
-                                        propertyTypes={[ 
+                                    <PropertyCard
+                                        key={index}
+                                        propertyTypes={[
                                             {
                                                 imagePath: "/images/hotel.jpg",
-                                                cityName: property.name,
+                                                cityName: property.city,
+                                                name: property.name
                                             },
                                         ]}
+                                        isProperty={true}
+                                        propertyId={property.id}
                                     />
                                 ))}
                             </div>

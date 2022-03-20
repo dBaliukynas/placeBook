@@ -13,6 +13,7 @@ import CityIcon from "../components/svgs/CityIcon";
 import RegionIcon from "../components/svgs/RegionIcon";
 import NumbersIcon from "../components/svgs/NumbersIcon";
 import Breadcrumb from "../components/Breadcrumb";
+import Spinner from "../components/Spinner";
 
 const Property = (props) => {
     const { id } = useParams();
@@ -45,6 +46,7 @@ const Property = (props) => {
             <div
                 className="top-main-container"
                 style={{
+                    textAlign: "center",
                     justifyContent: "center",
                     height: "450px",
                     marginBottom: "unset",
@@ -53,93 +55,110 @@ const Property = (props) => {
                     backgroundSize: "cover",
                 }}
             >
-                <div
-                    style={{
-                        textAlign: "center",
-                        marginTop: "30px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "column",
-                        textShadow: "black 2px 0px 5px",
-                    }}
-                >
-                    <h1
+                {property ? (
+                    <div
                         style={{
-                            wordBreak: "break-word",
-                            color: "ghostwhite",
-                            marginBottom: "50px",
+                            marginTop: "30px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            flexDirection: "column",
+                            textShadow: "black 2px 0px 5px",
                         }}
                     >
-                        {property?.name}
-                    </h1>
-
-                    {isMobileScreen ? (
-                        <div
+                        <h1
                             style={{
-                                display: "flex",
-                                alignItems: "center",
-                                flexWrap: "wrap",
-                                justifyContent: "center",
+                                wordBreak: "break-word",
+                                color: "ghostwhite",
+                                marginBottom: "50px",
                             }}
                         >
-                            <div style={{ marginRight: "20px" }}>
-                                <h3 style={{ color: "ghostwhite" }}>City</h3>
-                                <h2 style={{ color: "ghostwhite" }}>
-                                    {property?.city}
-                                </h2>
+                            {property?.name}
+                        </h1>
+
+                        {isMobileScreen ? (
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    flexWrap: "wrap",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                <div style={{ marginRight: "20px" }}>
+                                    <h3 style={{ color: "ghostwhite" }}>
+                                        City
+                                    </h3>
+                                    <h2 style={{ color: "ghostwhite" }}>
+                                        {property?.city}
+                                    </h2>
+                                </div>
+                                <div className="property-vertical-line"></div>
+                                <div style={{ marginRight: "20px" }}>
+                                    <h3 style={{ color: "ghostwhite" }}>
+                                        Type
+                                    </h3>
+                                    <h2 style={{ color: "ghostwhite" }}>
+                                        {property?.type}
+                                    </h2>
+                                </div>
+                                <div className="property-vertical-line"></div>
+                                <div style={{ marginRight: "20px" }}>
+                                    <StarIcon />
+                                    <h2
+                                        style={{
+                                            color: "ghostwhite",
+                                        }}
+                                    >
+                                        10 / 10
+                                    </h2>
+                                    <h5 style={{ color: "ghostwhite" }}>
+                                        154 voters
+                                    </h5>
+                                </div>
+                                <div className="property-vertical-line"></div>
+                                <div style={{ marginRight: "20px" }}>
+                                    <h3
+                                        style={{
+                                            color: "ghostwhite",
+                                        }}
+                                    >
+                                        Price starting from
+                                    </h3>
+                                    <h2 style={{ color: "ghostwhite" }}>
+                                        {property?.price}€
+                                    </h2>
+                                </div>
+                                <div className="property-vertical-line"></div>
+                                <div style={{ marginRight: "20px" }}>
+                                    <h3 style={{ color: "ghostwhite" }}>
+                                        Currently available rooms
+                                    </h3>
+                                    <h2 style={{ color: "ghostwhite" }}>6</h2>
+                                </div>
                             </div>
-                            <div className="property-vertical-line"></div>
-                            <div style={{ marginRight: "20px" }}>
-                                <h3 style={{ color: "ghostwhite" }}>Type</h3>
-                                <h2 style={{ color: "ghostwhite" }}>
-                                    {property?.type}
-                                </h2>
-                            </div>
-                            <div className="property-vertical-line"></div>
-                            <div style={{ marginRight: "20px" }}>
-                                <StarIcon />
-                                <h2
-                                    style={{
-                                        color: "ghostwhite",
-                                    }}
+                        ) : (
+                            <> </>
+                        )}
+                        <div>
+                            <button className="btn btn-outline-light rent-button">
+                                Rent this place
+                            </button>
+                            {authUser?.id == property?.user_id ? (
+                                <button
+                                    className="btn btn-outline-light rent-button"
+                                    style={{ marginLeft: "20px" }}
                                 >
-                                    10 / 10
-                                </h2>
-                                <h5 style={{ color: "ghostwhite" }}>
-                                    154 voters
-                                </h5>
-                            </div>
-                            <div className="property-vertical-line"></div>
-                            <div style={{ marginRight: "20px" }}>
-                                <h3
-                                    style={{
-                                        color: "ghostwhite",
-                                    }}
-                                >
-                                    Price starting from
-                                </h3>
-                                <h2 style={{ color: "ghostwhite" }}>
-                                    {property?.price}€
-                                </h2>
-                            </div>
-                            <div className="property-vertical-line"></div>
-                            <div style={{ marginRight: "20px" }}>
-                                <h3 style={{ color: "ghostwhite" }}>
-                                    Currently available rooms
-                                </h3>
-                                <h2 style={{ color: "ghostwhite" }}>6</h2>
-                            </div>
+                                    Edit
+                                </button>
+                            ) : (
+                                <> </>
+                            )}
                         </div>
-                    ) : (
-                        <> </>
-                    )}
-                    <div>
-                        <button className="btn btn-outline-light rent-button">
-                            Rent this place
-                        </button>
                     </div>
-                </div>
+                ) : (
+                    <Spinner color={"text-light"} />
+                )}
             </div>
             <Breadcrumb location={location} />
             <ul

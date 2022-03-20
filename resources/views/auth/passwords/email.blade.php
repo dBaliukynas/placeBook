@@ -21,6 +21,7 @@
                 <label for="email">Email address</label>
             </div>
             <button class="w-100 btn btn-lg btn-primary" style="margin-bottom: 10px; margin-top: 20px;" type="submit">Send Password Reset Link</button>
+            <div style="margin-top: 10px"><span>Go back to </span><a href="/login">Log in </a> or <span><a href="/register">Register</a></span></div>
             <p class="mt-5 mb-3 text-muted">© 2022</p>
         </form>
     </main>
