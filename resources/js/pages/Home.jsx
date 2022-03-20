@@ -1,8 +1,37 @@
 import React from "react";
 import HomeCard from "../components/HomeCard";
 import { Link } from "react-router-dom";
+import CardCarousel from "../components/CardCarousel";
 
 const Home = () => {
+    const propertyTypesMatrix = [
+        [
+            { cityName: "Hotel", imagePath: "/images/property_type_hotel.png" },
+            {
+                cityName: "Apartment",
+                imagePath: "/images/property_type_apartment.jpg",
+            },
+            {
+                cityName: "Homestead",
+                imagePath: "/images/property_type_homestead.jpeg",
+            },
+            { cityName: "Motel", imagePath: "/images/property_type_motel.jpg" },
+            { cityName: "Villa", imagePath: "/images/property_type_villa.jpg" },
+        ],
+        [
+            { cityName: "SSS", imagePath: "/images/property_type_hotel.png" },
+            {
+                cityName: "SSS",
+                imagePath: "/images/property_type_apartment.jpg",
+            },
+            {
+                cityName: "SSS",
+                imagePath: "/images/property_type_homestead.jpeg",
+            },
+            { cityName: "SSS", imagePath: "/images/property_type_motel.jpg" },
+            { cityName: "SSS", imagePath: "/images/property_type_villa.jpg" },
+        ],
+    ];
     return (
         <>
             <div className="top-main-container">
@@ -76,31 +105,14 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+
             <div className="main-container">
                 <h3>Select a place by group</h3>
-                <div className="card-wrapper">
-                    <HomeCard
-                        cityName="Hotels"
-                        image="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                    ></HomeCard>
-                </div>
-
+                <CardCarousel propertyTypesMatrix={propertyTypesMatrix} id={0} />
                 <h3>Select a place by your country's city</h3>
-                <div className="card-wrapper">
-                    <HomeCard
-                        cityName="Vilnius"
-                        image="https://live.staticflickr.com/8893/28373394686_b917ff36a0_b.jpg"
-                    ></HomeCard>
-                </div>
+                <CardCarousel propertyTypesMatrix={propertyTypesMatrix} id={1} />
                 <h3>Our users favorite places</h3>
-                <div className="card-wrapper">
-                    <HomeCard
-                        cityName="Druskininkai"
-                        image="https://exp.cdn-hotels.com/hotels/2000000/1590000/1580700/1580698/44869fc9_z.jpg?impolicy=fcrop&w=500&h=333&q=medium"
-                        favoriteProperty="Europa Royale"
-                        rating={9}
-                    ></HomeCard>
-                </div>
+                <CardCarousel propertyTypesMatrix={propertyTypesMatrix} id={2} />
             </div>
         </>
     );

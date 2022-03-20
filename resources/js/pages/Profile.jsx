@@ -3,9 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 
 const Profile = (props) => {
     const location = useLocation();  
-    useEffect(() => {
-        console.log(props);
-    });
     return (
         <div
             className="main-container"

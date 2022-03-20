@@ -18,10 +18,6 @@ const Property = (props) => {
     const { id } = useParams();
     const location = useLocation();
     useEffect(() => {
-        console.log(props);
-        console.log(location);
-    });
-    useEffect(() => {
         fetch(`/api/property/${id}`, {
             method: "GET",
         })

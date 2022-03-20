@@ -4,7 +4,6 @@ import PropertyListing from "../pages/PropertyListing";
 
 const RequireAuth = ({ children }) => {
     const location = useLocation();
-    console.log(location);
     if (authUser == null) {
         return <Navigate to="/login" />;
     } else {

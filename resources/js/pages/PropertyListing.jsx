@@ -14,9 +14,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const PropertyListing = () => {
-    // useEffect(() => {
-    //     console.log(viewState);
-    // });
     const onSearchLocation = (event) => {
         setPropertyCountry(
             event.result.context.find((element) =>
@@ -53,7 +50,6 @@ const PropertyListing = () => {
     };
     const handlePropertyTypeChange = (type) => {
         setPropertyType(type);
-        console.log(propertyType);
     };
     const handlePropertyPriceChange = (event) => {
         if (event.target.value > maxPropertyPrice) {
@@ -145,7 +141,7 @@ const PropertyListing = () => {
     return (
         <>
             <div
-                className="main-container center"
+                className="main-container center-vertically"
                 style={{
                     marginTop: "20px",
                     padding: "0px 50px 0px 50px",
