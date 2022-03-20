@@ -99,6 +99,13 @@ div.carousel-inner div.center-horizontally {
     display: flex;
     justify-content: center;
 }
+@media only screen and (max-width: 500px) {
+    div.carousel-inner div.center-horizontally {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
 
 .v1 {
     border-left: 3px solid #68a5ef;
@@ -258,8 +265,9 @@ div.card-wrapper div.no-margin-right {
     margin-right: 50px;
 }
 
-.carousel-control-prev, .carousel-control-next {
-    all:revert;
+.carousel-control-prev,
+.carousel-control-next {
+    all: revert;
     display: flex;
     z-index: 1;
     align-items: center;
@@ -279,7 +287,7 @@ div.card-wrapper div.no-margin-right {
     right: 0;
 }
 
-div.carousel-item:not(.active, .carousel-item-start, .carousel-item-end ) {
+div.carousel-item:not(.active, .carousel-item-start, .carousel-item-end) {
     visibility: hidden;
 }
 div.carousel-item {
