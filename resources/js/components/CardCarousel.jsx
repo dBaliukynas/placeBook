@@ -1,4 +1,4 @@
-import HomeCard from "./HomeCard";
+import PropertyCard from "./PropertyCard";
 const CardCarousel = (props) => {
     return (
         <>
@@ -33,7 +33,7 @@ const CardCarousel = (props) => {
                                     Previous
                                 </span>
                             </button>
-                            <HomeCard propertyTypes={propertyTypes} />
+                            <PropertyCard propertyTypes={propertyTypes} />
                             <button
                                 className="carousel-control-next home-carousel"
                                 type="button"

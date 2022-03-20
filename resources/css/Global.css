@@ -99,13 +99,6 @@ div.carousel-inner div.center-horizontally {
     display: flex;
     justify-content: center;
 }
-@media only screen and (max-width: 500px) {
-    div.carousel-inner div.center-horizontally {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-}
 
 .v1 {
     border-left: 3px solid #68a5ef;
@@ -233,7 +226,7 @@ nav.breadcrumb ol {
 .no-padding {
     padding: unset;
 }
-div.card-wrapper div.no-margin-right {
+div.carousel-item div div.no-margin-right {
     margin-right: unset;
 }
 .property-type-active {
@@ -291,10 +284,15 @@ div.card-wrapper div.no-margin-right {
     margin-right: 10px;
 }
 @media only screen and (max-width: 500px) {
-    .carousel-control-prev.home-carousel {
-        margin-right: unset;
+    div.carousel-inner div.center-horizontally {
+        display: unset;
+    }
+    .carousel-control-prev.home-carousel,
+    .carousel-control-next.home-carousel {
+        margin: auto;
     }
 }
+
 .carousel-control-next.home-carousel {
     right: 0;
 }

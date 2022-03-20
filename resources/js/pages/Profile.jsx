@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import HomeCard from "../components/HomeCard";
+import PropertyCard from "../components/PropertyCard";
 
 const Profile = (props) => {
     const location = useLocation();
@@ -30,7 +30,7 @@ const Profile = (props) => {
                                 style={{ display: "flex" }}
                             >
                                 {authUser.properties.map((property, index) => (
-                                    <HomeCard key={index}
+                                    <PropertyCard key={index}
                                         propertyTypes={[ 
                                             {
                                                 imagePath: "/images/hotel.jpg",

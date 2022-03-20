@@ -1,5 +1,4 @@
 import React from "react";
-import HomeCard from "../components/HomeCard";
 import { Link } from "react-router-dom";
 import CardCarousel from "../components/CardCarousel";
 

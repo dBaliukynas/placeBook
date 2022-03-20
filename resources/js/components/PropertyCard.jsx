@@ -1,7 +1,7 @@
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 
-const HomeCard = (props) => {
+const PropertyCard = (props) => {
     const isMobileScreen = useMediaQuery({ query: "(min-width: 650px)" });
 
     return (
@@ -38,4 +38,4 @@ const HomeCard = (props) => {
     );
 };
 
-export default HomeCard;
+export default PropertyCard;
