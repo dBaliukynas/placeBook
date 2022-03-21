@@ -175,7 +175,7 @@ const PropertyListing = () => {
                             type="button"
                             className={
                                 propertyType == "Hotel"
-                                    ? "btn btn-primary property-type property-type-active"
+                                    ? "btn btn-primary property-type button-active"
                                     : "btn btn-primary property-type"
                             }
                             aria-current="true"
@@ -187,7 +187,7 @@ const PropertyListing = () => {
                             type="button"
                             className={
                                 propertyType == "Apartment"
-                                    ? "btn btn-primary property-type property-type-active"
+                                    ? "btn btn-primary property-type button-active"
                                     : "btn btn-primary property-type"
                             }
                             onClick={() => handlePropertyTypeChange("Apartment")}
@@ -198,7 +198,7 @@ const PropertyListing = () => {
                             type="button"
                             className={
                                 propertyType == "Homestead"
-                                    ? "btn btn-primary property-type property-type-active"
+                                    ? "btn btn-primary property-type button-active"
                                     : "btn btn-primary property-type"
                             }
                             onClick={() => handlePropertyTypeChange("Homestead")}
@@ -209,7 +209,7 @@ const PropertyListing = () => {
                             type="button"
                             className={
                                 propertyType == "Motel"
-                                    ? "btn btn-primary property-type property-type-active"
+                                    ? "btn btn-primary property-type button-active"
                                     : "btn btn-primary property-type"
                             }
                             onClick={() => handlePropertyTypeChange("Motel")}
@@ -220,7 +220,7 @@ const PropertyListing = () => {
                             type="button"
                             className={
                                 propertyType == "Villa"
-                                    ? "btn btn-primary property-type property-type-active"
+                                    ? "btn btn-primary property-type button-active"
                                     : "btn btn-primary property-type"
                             }
                             onClick={() => handlePropertyTypeChange("Villa")}

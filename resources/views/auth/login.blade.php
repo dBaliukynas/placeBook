@@ -44,7 +44,7 @@
                 {{ __('Forgot Your Password?') }}
             </a>
             @endif
-            <div style="margin-top: 10px"><span>Do not have account yet? </span><a href="/register">Register</a></div>
+            <div style="margin-top: 10px"><span>Do not have an account yet? </span><a href="/register">Register</a></div>
             <p class="mt-5 mb-3 text-muted">© 2022</p>
         </form>
     </main>

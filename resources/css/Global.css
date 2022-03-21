@@ -229,23 +229,23 @@ nav.breadcrumb ol {
 div.carousel-item div div.no-margin-right {
     margin-right: unset;
 }
-.property-type-active {
+.button-active {
     color: #fff;
     background-color: #0d6efd;
     border-color: #0d6efd;
 }
-.property-type-active:hover {
+.button-active:hover {
     background-color: #0b5ed7;
     border-color: #0a58ca;
     color: #fff;
 }
-.property-type:active {
+.button-active:active {
     color: #fff;
     background-color: #0d6efd;
     border-color: #0d6efd;
 }
 
-.property-type:focus {
+.button-active:focus {
     color: #fff;
     background-color: #0d6efd;
     border-color: #0d6efd;
