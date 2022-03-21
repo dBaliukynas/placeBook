@@ -182,7 +182,7 @@ const Property = (props) => {
                     type="button"
                     className={
                         mainContent.name == "Property"
-                            ? "list-group-item list-group-item-action button-active"
+                            ? "list-group-item list-group-item-action button-selected"
                             : "list-group-item list-group-item-action"
                     }
                     onClick={() => handleMainContentChange("Property")}
@@ -193,7 +193,7 @@ const Property = (props) => {
                     type="button"
                     className={
                         mainContent.name == "Rent"
-                            ? "list-group-item list-group-item-action button-active"
+                            ? "list-group-item list-group-item-action button-selected"
                             : "list-group-item list-group-item-action"
                     }
                     onClick={() => handleMainContentChange("Rent", Rent)}
@@ -204,7 +204,7 @@ const Property = (props) => {
                     type="button"
                     className={
                         mainContent.name == "Reviews"
-                            ? "list-group-item list-group-item-action button-active"
+                            ? "list-group-item list-group-item-action button-selected"
                             : "list-group-item list-group-item-action"
                     }
                     onClick={() => handleMainContentChange("Reviews", Reviews)}

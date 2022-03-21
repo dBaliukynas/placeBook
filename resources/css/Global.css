@@ -229,23 +229,23 @@ nav.breadcrumb ol {
 div.carousel-item div div.no-margin-right {
     margin-right: unset;
 }
-.button-active {
+.button-selected {
     color: #fff;
     background-color: #0d6efd;
     border-color: #0d6efd;
 }
-.button-active:hover {
+.button-selected:hover {
     background-color: #0b5ed7;
     border-color: #0a58ca;
     color: #fff;
 }
-.button-active:active {
+.button-selected:active {
     color: #fff;
     background-color: #0d6efd;
     border-color: #0d6efd;
 }
 
-.button-active:focus {
+.button-selected:focus {
     color: #fff;
     background-color: #0d6efd;
     border-color: #0d6efd;
