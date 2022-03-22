@@ -1,5 +1,5 @@
 const Reviews = (props) => {
-    return <div>Reviews Component</div>;
+    return <div>There are currently no reviews about this property.</div>;
 };
 
 export default Reviews;

@@ -7,8 +7,9 @@ button.react-calendar__tile--active {
     background: #f9cf4f;
 }
 
-button.react-calendar__navigation__label {
+div.react-calendar__navigation button.react-calendar__navigation__label {
     color: black;
+    background-color: white;
 }
 div.react-calendar {
     border: 1px solid rgba(0, 0, 0, 0.125);

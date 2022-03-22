@@ -70,38 +70,108 @@ const PropertyListing = () => {
 
         setPropertyPrice(event.target.value);
     };
+    const handlePropertyAddressChange = (event) => {
+        setPropertyAddress(event.target.value);
+    };
+    const handlePropertyCountryChange = (event) => {
+        setPropertyCountry(event.target.value);
+    };
+    const handlePropertyCityChange = (event) => {
+        setPropertyCity(event.target.value);
+    };
+    const handlePropertyRegionChange = (event) => {
+        setPropertyRegion(event.target.value);
+    };
+    const handlePropertyPostcodeChange = (event) => {
+        setPropertyPostcode(event.target.value);
+    };
+    const validateInputs = () => {
+        if (!propertyName.match("^[a-zA-Z0-9]{4,10}$")) {
+            setErrorPropertyName(
+                "Property name cannot be empty, include special characters and its length has to be between 4 and 10 letters."
+            );
+        } else {
+            setErrorPropertyName("");
+        }
+        if (!propertyType) {
+            setErrorPropertyType("Property type has to be selected.");
+        } else {
+            setErrorPropertyType("");
+        }
+        if (!propertyAddress.match("^[a-zA-Z0-9]")) {
+            setErrorPropertyAddress(
+                "Property address cannot be empty and include special characters."
+            );
+        } else {
+            setErrorPropertyAddress("");
+        }
+        if (!propertyCountry.match("^[a-zA-Z0-9]")) {
+            setErrorPropertyCountry(
+                "Property country cannot be empty and include special characters."
+            );
+        } else {
+            setErrorPropertyCountry("");
+        }
+        if (!propertyCity.match("^$[a-zA-Z0-9]")) {
+            setErrorPropertyCity(
+                "Property city cannot be empty and include special characters."
+            );
+        } else {
+            setErrorPropertyCity("");
+        }
+        if (!propertyRegion.match("^[$a-zA-Z0-9]?$")) {
+            setErrorPropertyRegion(
+                "Property region cannot include special characters."
+            );
+        } else {
+            setErrorPropertyRegion("");
+        }
+        if (!propertyPostcode.match("^[$a-zA-Z0-9]?$")) {
+            setErrorPropertyPostcode(
+                "Property postcode cannot include special characters."
+            );
+        } else {
+            setErrorPropertyPostcode("");
+        }
+        if (!propertyPrice) {
+            setErrorPropertyPrice(
+                "Property price has to be selected and cannot include special characters."
+            );
+        } else {
+            setErrorPropertyPrice("");
+        }
+    };
     const createProperty = () => {
+        const toastId = toast.loading("Listing a property...");
+        validateInputs();
         const propertyDescription = editor.getData();
         setPropertyName("");
         editor.setData("");
-        toast.promise(
-            fetch("/api/property", {
-                method: "POST",
-                ...defaultFetchOptions,
-                body: JSON.stringify({
-                    propertyName,
-                    propertyDescription,
-                    propertyAddress,
-                    propertyCountry,
-                    propertyCity,
-                    propertyRegion,
-                    propertyPostcode,
-                    propertyType,
-                    propertyPrice,
-                }),
-            }).then((response) => {
-                if (!response.ok) {
-                    toast.update(toastId.current, {
-                        type: toast.TYPE.WARNING,
+        fetch("/api/property", {
+            method: "POST",
+            ...defaultFetchOptions,
+            body: JSON.stringify({
+                propertyName,
+                propertyDescription,
+                propertyAddress,
+                propertyCountry,
+                propertyCity,
+                propertyRegion,
+                propertyPostcode,
+                propertyType,
+                propertyPrice,
+            }),
+        }).then((response) =>
+            response.json().then((data) => {
+                if (data.errors) {
+                    toast.update(toastId, {
+                        render: data.errors.join(" "),
+                        type: "error",
                         autoClose: 5000,
+                        isLoading: false,
                     });
                 }
-            }),
-            {
-                pending: "Listing a property...",
-                success: "Property has been successfully listed",
-                error: "Property has not been listed due to an error",
-            }
+            })
         );
     };
     const minPropertyPrice = 1;
@@ -116,6 +186,15 @@ const PropertyListing = () => {
     const [propertyPrice, setPropertyPrice] = useState(
         (maxPropertyPrice - minPropertyPrice) / 2
     );
+
+    const [errorPropertyName, setErrorPropertyName] = useState("");
+    const [errorPropertyAddress, setErrorPropertyAddress] = useState("");
+    const [errorPropertyCountry, setErrorPropertyCountry] = useState("");
+    const [errorPropertyCity, setErrorPropertyCity] = useState("");
+    const [errorPropertyRegion, setErrorPropertyRegion] = useState("");
+    const [errorPropertyPostcode, setErrorPropertyPostcode] = useState("");
+    const [errorPropertyType, setErrorPropertyType] = useState("");
+    const [errorPropertyPrice, setErrorPropertyPrice] = useState("");
 
     const [editor, setEditor] = useState("");
 
@@ -152,82 +231,114 @@ const PropertyListing = () => {
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property name</h5>
                         <input
-                            className="form-control form-control-lg"
+                            className={
+                                errorPropertyName
+                                    ? "form-control form-control-lg input-error"
+                                    : "form-control form-control-lg"
+                            }
                             type="text"
                             placeholder="Property name"
                             aria-label=".form-control-lg"
                             value={propertyName}
                             onChange={handlePropertyNameChange}
                         />
+                        <span className="input-error-message">
+                            {errorPropertyName}
+                        </span>
                     </div>
                     <div style={{ marginBottom: "15px" }}>
-                        <h5>Property type</h5>
+                        <div style={{ marginBottom: "15px" }}>
+                            <h5>Property type</h5>
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                flexWrap: "wrap",
+                            }}
+                        >
+                            <button
+                                type="button"
+                                className={
+                                    propertyType == "Hotel"
+                                        ? "btn btn-primary property-type button-selected"
+                                        : errorPropertyType
+                                        ? "btn btn-primary property-type input-error"
+                                        : "btn btn-primary property-type"
+                                }
+                                aria-current="true"
+                                onClick={() =>
+                                    handlePropertyTypeChange("Hotel")
+                                }
+                            >
+                                Hotel
+                            </button>
+                            <button
+                                type="button"
+                                className={
+                                    propertyType == "Apartment"
+                                        ? "btn btn-primary property-type button-selected"
+                                        : errorPropertyType
+                                        ? "btn btn-primary property-type input-error"
+                                        : "btn btn-primary property-type"
+                                }
+                                onClick={() =>
+                                    handlePropertyTypeChange("Apartment")
+                                }
+                            >
+                                Apartment
+                            </button>
+                            <button
+                                type="button"
+                                className={
+                                    propertyType == "Homestead"
+                                        ? "btn btn-primary property-type button-selected"
+                                        : errorPropertyType
+                                        ? "btn btn-primary property-type input-error"
+                                        : "btn btn-primary property-type"
+                                }
+                                onClick={() =>
+                                    handlePropertyTypeChange("Homestead")
+                                }
+                            >
+                                Homestead
+                            </button>
+                            <button
+                                type="button"
+                                className={
+                                    propertyType == "Motel"
+                                        ? "btn btn-primary property-type button-selected"
+                                        : errorPropertyType
+                                        ? "btn btn-primary property-type input-error"
+                                        : "btn btn-primary property-type"
+                                }
+                                onClick={() =>
+                                    handlePropertyTypeChange("Motel")
+                                }
+                            >
+                                Motel
+                            </button>
+                            <button
+                                type="button"
+                                className={
+                                    propertyType == "Villa"
+                                        ? "btn btn-primary property-type button-selected"
+                                        : errorPropertyType
+                                        ? "btn btn-primary property-type input-error"
+                                        : "btn btn-primary property-type"
+                                }
+                                onClick={() =>
+                                    handlePropertyTypeChange("Villa")
+                                }
+                            >
+                                Villa
+                            </button>
+                        </div>
+                        <span className="input-error-message">
+                            {errorPropertyType}
+                        </span>
                     </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            marginBottom: "15px",
-                            flexWrap: "wrap",
-                        }}
-                    >
-                        <button
-                            type="button"
-                            className={
-                                propertyType == "Hotel"
-                                    ? "btn btn-primary property-type button-selected"
-                                    : "btn btn-primary property-type"
-                            }
-                            aria-current="true"
-                            onClick={() => handlePropertyTypeChange("Hotel")}
-                        >
-                            Hotel
-                        </button>
-                        <button
-                            type="button"
-                            className={
-                                propertyType == "Apartment"
-                                    ? "btn btn-primary property-type button-selected"
-                                    : "btn btn-primary property-type"
-                            }
-                            onClick={() => handlePropertyTypeChange("Apartment")}
-                        >
-                            Apartment
-                        </button>
-                        <button
-                            type="button"
-                            className={
-                                propertyType == "Homestead"
-                                    ? "btn btn-primary property-type button-selected"
-                                    : "btn btn-primary property-type"
-                            }
-                            onClick={() => handlePropertyTypeChange("Homestead")}
-                        >
-                            Homestead
-                        </button>
-                        <button
-                            type="button"
-                            className={
-                                propertyType == "Motel"
-                                    ? "btn btn-primary property-type button-selected"
-                                    : "btn btn-primary property-type"
-                            }
-                            onClick={() => handlePropertyTypeChange("Motel")}
-                        >
-                            Motel
-                        </button>
-                        <button
-                            type="button"
-                            className={
-                                propertyType == "Villa"
-                                    ? "btn btn-primary property-type button-selected"
-                                    : "btn btn-primary property-type"
-                            }
-                            onClick={() => handlePropertyTypeChange("Villa")}
-                        >
-                            Villa
-                        </button>
-                    </div>
+
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property location</h5>
                         <form
@@ -242,11 +353,20 @@ const PropertyListing = () => {
                                     Address
                                 </label>
                                 <input
+                                    required
                                     type="text"
-                                    className="form-control"
+                                    className={
+                                        errorPropertyAddress
+                                            ? "form-control input-error"
+                                            : "form-control"
+                                    }
                                     id="inputAddress"
                                     defaultValue={propertyAddress}
+                                    onChange={handlePropertyAddressChange}
                                 />
+                                <span className="input-error-message">
+                                    {errorPropertyAddress}
+                                </span>
                             </div>
                             <div className="col-md-4">
                                 <label
@@ -257,10 +377,18 @@ const PropertyListing = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={
+                                        errorPropertyCountry
+                                            ? "form-control input-error"
+                                            : "form-control"
+                                    }
                                     id="inputCountry"
                                     defaultValue={propertyCountry}
+                                    onChange={handlePropertyCountryChange}
                                 />
+                                <span className="input-error-message">
+                                    {errorPropertyCountry}
+                                </span>
                             </div>
                             <div className="col-md-4">
                                 <label
@@ -271,10 +399,18 @@ const PropertyListing = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={
+                                        errorPropertyCity
+                                            ? "form-control input-error"
+                                            : "form-control"
+                                    }
                                     id="inputCity"
                                     defaultValue={propertyCity}
+                                    onChange={handlePropertyCityChange}
                                 />
+                                <span className="input-error-message">
+                                    {errorPropertyCity}
+                                </span>
                             </div>
                             <div className="col-md-4">
                                 <label
@@ -285,10 +421,18 @@ const PropertyListing = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={
+                                        errorPropertyRegion
+                                            ? "form-control input-error"
+                                            : "form-control"
+                                    }
                                     id="inputRegion"
                                     defaultValue={propertyRegion}
+                                    onChange={handlePropertyRegionChange}
                                 />
+                                <span className="input-error-message">
+                                    {errorPropertyRegion}
+                                </span>
                             </div>
                             <div className="col-md-4">
                                 <label
@@ -299,13 +443,21 @@ const PropertyListing = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={
+                                        errorPropertyPostcode
+                                            ? "form-control input-error"
+                                            : "form-control"
+                                    }
                                     id="inputRegion"
                                     defaultValue={propertyPostcode}
+                                    onChange={handlePropertyPostcodeChange}
                                 />
+                                <span className="input-error-message">
+                                    {errorPropertyPostcode}
+                                </span>
                             </div>
                         </form>
-                        <ReactMapGL
+                        {/* <ReactMapGL
                             mapboxAccessToken={mapBoxApiKey}
                             {...viewState}
                             onMove={(event) => setViewState(event.viewState)}
@@ -352,11 +504,14 @@ const PropertyListing = () => {
                             >
                                 <MapPinNavigationIcon />
                             </button>
-                        </ReactMapGL>
+                        </ReactMapGL> */}
                     </div>
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property price</h5>
                     </div>
+                    <span className="input-error-message">
+                        {errorPropertyPrice}
+                    </span>
                     <div
                         className="input-group mb-3"
                         style={{ marginBottom: "15px" }}
@@ -364,7 +519,11 @@ const PropertyListing = () => {
                         <span className="input-group-text">€</span>
                         <input
                             type="number"
-                            className="form-control"
+                            className={
+                                errorPropertyPrice
+                                    ? "form-control input-error"
+                                    : "form-control"
+                            }
                             value={propertyPrice}
                             onChange={handlePropertyPriceChange}
                         />
@@ -387,6 +546,7 @@ const PropertyListing = () => {
                             id="formFile"
                         />
                     </div>
+                    <span></span>
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property description</h5>
                     </div>
@@ -410,6 +570,7 @@ const PropertyListing = () => {
                             }}
                         />
                     </div>
+                    <span></span>
                 </div>
                 <button
                     id="submit"

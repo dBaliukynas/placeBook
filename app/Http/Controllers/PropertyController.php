@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Property;
+use Illuminate\Support\Facades\Validator;
 
 class PropertyController extends Controller
 {
@@ -17,6 +18,14 @@ class PropertyController extends Controller
     public function create(Request $request)
     {
         $data = $request->input();
+
+        $validator = Validator::make($data, [
+            'propertyName' => 'required|max:10',
+            'propertyType' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()], 422);
+        }
 
         $property = Property::create([
             'name' => $data['propertyName'],
@@ -32,7 +41,7 @@ class PropertyController extends Controller
             'image_path' => 'Test',
         ]);
 
-        return response($property, 200);
+        return response()->json($property);
     }
 
 

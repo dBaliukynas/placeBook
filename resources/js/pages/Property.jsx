@@ -37,18 +37,15 @@ const Property = (props) => {
                 }
             });
     }, []);
-    useEffect(() => {
-        console.log(mainContent);
-    });
     const isMobileScreen = useMediaQuery({ query: "(min-width: 650px)" });
     const [property, setProperty] = useState(undefined);
     const [error, setError] = useState(undefined);
-    const [mainContent, setMainContent] = useState({name: "Property"});
+    const [mainContent, setMainContent] = useState({ name: "Property" });
     if (error?.status == 404) {
         return <NotFound status={error.status} message="Page not found" />;
     }
     const handleMainContentChange = (name, component) => {
-        setMainContent({name, component});
+        setMainContent({ name, component });
     };
     return (
         <>
@@ -209,7 +206,7 @@ const Property = (props) => {
                     }
                     onClick={() => handleMainContentChange("Reviews", Reviews)}
                 >
-                    Reviews
+                    Reviews <span style={{ fontSize: "16px" }}>(0)</span>
                 </button>
             </ul>
             <div
@@ -378,7 +375,7 @@ const Property = (props) => {
                         )}
                     </div>
                 ) : (
-                    <mainContent.component />
+                    <mainContent.component property={property} />
                 )}
             </div>
         </>
