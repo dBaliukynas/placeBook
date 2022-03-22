@@ -319,3 +319,6 @@ div.carousel-item.home-carousel {
     border-color: #ff7878;
     outline: 0;
 }
+.Toastify__toast-body > div:last-child {
+    white-space: break-spaces;
+}

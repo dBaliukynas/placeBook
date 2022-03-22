@@ -165,8 +165,15 @@ const PropertyListing = () => {
             response.json().then((data) => {
                 if (data.errors) {
                     toast.update(toastId, {
-                        render: data.errors.join(" "),
+                        render: <span>• {data.errors.join("\n • ")}</span>,
                         type: "error",
+                        autoClose: 4000 * data.errors.length,
+                        isLoading: false,
+                    });
+                } else {
+                    toast.update(toastId, {
+                        render: "Property has been successfully listed.",
+                        type: "success",
                         autoClose: 5000,
                         isLoading: false,
                     });
