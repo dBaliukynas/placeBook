@@ -201,9 +201,7 @@ const PropertyListing = () => {
     const [propertyRegion, setPropertyRegion] = useState("");
     const [propertyPostcode, setPropertyPostcode] = useState("");
     const [propertyType, setPropertyType] = useState("");
-    const [propertyPrice, setPropertyPrice] = useState(
-        (maxPropertyPrice - minPropertyPrice) / 2
-    );
+    const [propertyPrice, setPropertyPrice] = useState("");
 
     const [errorPropertyName, setErrorPropertyName] = useState("");
     const [errorPropertyDescription, setErrorPropertyDescription] =
@@ -245,7 +243,13 @@ const PropertyListing = () => {
                     maxWidth: "1500px",
                 }}
             >
-                <div style={{ width: "100%", textAlign: "start" }}>
+                <div
+                    style={{
+                        width: "100%",
+                        textAlign: "start",
+                        position: "relative",
+                    }}
+                >
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property name</h5>
                         <input
@@ -527,13 +531,8 @@ const PropertyListing = () => {
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property price</h5>
                     </div>
-                    <span className="input-error-message">
-                        {errorPropertyPrice}
-                    </span>
-                    <div
-                        className="input-group mb-3"
-                        style={{ marginBottom: "15px" }}
-                    >
+
+                    <div className="input-group">
                         <span className="input-group-text">€</span>
                         <input
                             type="number"
@@ -546,6 +545,9 @@ const PropertyListing = () => {
                             onChange={handlePropertyPriceChange}
                         />
                     </div>
+                    <span className="input-error-message">
+                        {errorPropertyPrice}
+                    </span>
                     <input
                         type="range"
                         className="form-range"
@@ -555,6 +557,7 @@ const PropertyListing = () => {
                         value={propertyPrice}
                         onChange={handlePropertyPriceChange}
                         id="customRange2"
+                        style={{ marginTop: "15px" }}
                     ></input>
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Select property main image</h5>
@@ -589,6 +592,11 @@ const PropertyListing = () => {
                             }}
                         />
                     </div>
+                    {errorPropertyDescription ? (
+                        <div className="input-error-border"></div>
+                    ) : (
+                        <> </>
+                    )}
                     <span className="input-error-message">
                         {errorPropertyDescription}
                     </span>
@@ -596,7 +604,7 @@ const PropertyListing = () => {
                 <button
                     id="submit"
                     className="btn btn-primary"
-                    style={{ marginTop: "20px", width: "100%" }}
+                    style={{ width: "100%", marginTop: "20px" }}
                     onClick={createProperty}
                 >
                     Create property

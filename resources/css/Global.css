@@ -322,3 +322,12 @@ div.carousel-item.home-carousel {
 .toastify-error {
     text-align: initial;
 }
+
+.input-error-border {
+    border: 1px solid #ff7878;
+    pointer-events: none; 
+    height: 54.78px;
+    width: 100%;
+    position: absolute;
+    bottom: 24px;
+}
