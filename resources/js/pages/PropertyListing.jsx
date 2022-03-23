@@ -88,7 +88,7 @@ const PropertyListing = () => {
     const validateInputs = () => {
         if (!propertyName.match("^[a-zA-Z0-9]{4,40}$")) {
             setErrorPropertyName(
-                "Property name cannot be empty, include special characters and its length has to be between 4 and 40 letters."
+                "Property name cannot be empty, include special characters and its length has to be between 4 and 40 characters."
             );
         } else {
             setErrorPropertyName("");
@@ -121,28 +121,28 @@ const PropertyListing = () => {
         }
         if (!propertyCity.match("^[a-zA-Z0-9]")) {
             setErrorPropertyCity(
-                "Property city cannot be empty and include special characters."
+                "Property city cannot be empty."
             );
         } else {
             setErrorPropertyCity("");
         }
-        if (!propertyRegion.match("^[$a-zA-Z0-9]?$")) {
+        if (!propertyRegion.match("^.{0,100}$")) {
             setErrorPropertyRegion(
-                "Property region cannot include special characters."
+                "Property region cannot be longer than 100 characters."
             );
         } else {
             setErrorPropertyRegion("");
         }
-        if (!propertyPostcode.match("^[$a-zA-Z0-9]?$")) {
+        if (!propertyPostcode.match("^.{0,100}$")) {
             setErrorPropertyPostcode(
-                "Property postcode cannot include special characters."
+                "Property postcode cannot be longer than 100 characters."
             );
         } else {
             setErrorPropertyPostcode("");
         }
         if (!propertyPrice) {
             setErrorPropertyPrice(
-                "Property price has to be selected and cannot include special characters."
+                "Property price cannot be empty and include special characters."
             );
         } else {
             setErrorPropertyPrice("");

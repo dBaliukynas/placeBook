@@ -1,15 +1,27 @@
-import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import Pagination from "../components/Pagination";
 import PropertyCard from "../components/PropertyCard";
 
-const Profile = (props) => {
-    const location = useLocation();
+const Profile = () => {
+    const changePage = (pageIndex) => {
+        setCurrentPage(pageIndex);
+    };
+
+    const itemsPerPage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+    const currentProperties = authUser.properties.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+    );
     return (
         <div
             className="main-container"
             style={{
                 marginTop: "20px",
-                maxWidth: "1500px",
+                maxWidth: "1700px",
                 padding: "0px 50px 0px 50px",
             }}
         >
@@ -27,16 +39,20 @@ const Profile = (props) => {
                         >
                             <div
                                 className="card-body"
-                                style={{ display: "flex" }}
+                                style={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    justifyContent: "center",
+                                }}
                             >
-                                {authUser.properties.map((property, index) => (
+                                {currentProperties.map((property, index) => (
                                     <PropertyCard
                                         key={index}
                                         propertyTypes={[
                                             {
                                                 imagePath: "/images/hotel.jpg",
                                                 cityName: property.city,
-                                                name: property.name
+                                                name: property.name,
                                             },
                                         ]}
                                         isProperty={true}
@@ -44,6 +60,12 @@ const Profile = (props) => {
                                     />
                                 ))}
                             </div>
+                            <Pagination
+                                itemsLength={authUser.properties.length}
+                                itemsPerPage={itemsPerPage}
+                                changePage={changePage}
+                                currentPage={currentPage}
+                            />
                         </div>
                         <h5>Rated properties</h5>
                         <div className="card" style={{ width: "200px" }}>

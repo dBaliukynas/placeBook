@@ -25,7 +25,10 @@ class PropertyController extends Controller
             'propertyAddress' => 'required',
             'propertyCountry' => 'required',
             'propertyCity' => 'required',
+            'propertyRegion' => 'required|max:100',
+            'propertyPostcode' => 'required|max:100',
             'propertyPrice' => 'required|max:10001',
+            'propertyDescription' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()], 422);
