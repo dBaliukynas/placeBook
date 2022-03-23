@@ -20,8 +20,12 @@ class PropertyController extends Controller
         $data = $request->input();
 
         $validator = Validator::make($data, [
-            'propertyName' => 'required|max:10',
+            'propertyName' => 'required|min:4|max:40',
             'propertyType' => 'required',
+            'propertyAddress' => 'required',
+            'propertyCountry' => 'required',
+            'propertyCity' => 'required',
+            'propertyPrice' => 'required|max:10001',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()], 422);

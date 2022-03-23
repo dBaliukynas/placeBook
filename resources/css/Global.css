@@ -314,11 +314,11 @@ div.carousel-item.home-carousel {
 }
 
 .input-error {
-    color: #212529;
-    background-color: #fff;
     border-color: #ff7878;
-    outline: 0;
 }
 .Toastify__toast-body > div:last-child {
     white-space: break-spaces;
+}
+.toastify-error {
+    text-align: initial;
 }

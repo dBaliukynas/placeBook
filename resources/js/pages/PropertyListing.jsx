@@ -43,7 +43,7 @@ const PropertyListing = () => {
         );
     };
     const handleEditorChange = (_, editor) => {
-        setEditor(editor);
+        setPropertyDescription(editor.getData());
     };
     const handlePropertyNameChange = (event) => {
         setPropertyName(event.target.value);
@@ -86,12 +86,19 @@ const PropertyListing = () => {
         setPropertyPostcode(event.target.value);
     };
     const validateInputs = () => {
-        if (!propertyName.match("^[a-zA-Z0-9]{4,10}$")) {
+        if (!propertyName.match("^[a-zA-Z0-9]{4,40}$")) {
             setErrorPropertyName(
-                "Property name cannot be empty, include special characters and its length has to be between 4 and 10 letters."
+                "Property name cannot be empty, include special characters and its length has to be between 4 and 40 letters."
             );
         } else {
             setErrorPropertyName("");
+        }
+        if (!propertyDescription) {
+            setErrorPropertyDescription(
+                "Property description cannot be empty."
+            );
+        } else {
+            setErrorPropertyDescription("");
         }
         if (!propertyType) {
             setErrorPropertyType("Property type has to be selected.");
@@ -112,7 +119,7 @@ const PropertyListing = () => {
         } else {
             setErrorPropertyCountry("");
         }
-        if (!propertyCity.match("^$[a-zA-Z0-9]")) {
+        if (!propertyCity.match("^[a-zA-Z0-9]")) {
             setErrorPropertyCity(
                 "Property city cannot be empty and include special characters."
             );
@@ -142,11 +149,10 @@ const PropertyListing = () => {
         }
     };
     const createProperty = () => {
-        const toastId = toast.loading("Listing a property...");
+        const toastId = toast("Listing a property...", { isLoading: true });
         validateInputs();
-        const propertyDescription = editor.getData();
         setPropertyName("");
-        editor.setData("");
+        setPropertyDescription("");
         fetch("/api/property", {
             method: "POST",
             ...defaultFetchOptions,
@@ -165,10 +171,14 @@ const PropertyListing = () => {
             response.json().then((data) => {
                 if (data.errors) {
                     toast.update(toastId, {
-                        render: <span>• {data.errors.join("\n • ")}</span>,
+                        render: <span>• {data.errors.join("\n• ")}</span>,
                         type: "error",
-                        autoClose: 4000 * data.errors.length,
+                        autoClose:
+                            data.errors.length == 1
+                                ? 5000
+                                : 4000 * data.errors.length,
                         isLoading: false,
+                        className: "toastify-error",
                     });
                 } else {
                     toast.update(toastId, {
@@ -184,6 +194,7 @@ const PropertyListing = () => {
     const minPropertyPrice = 1;
     const maxPropertyPrice = 10001;
     const [propertyName, setPropertyName] = useState("");
+    const [propertyDescription, setPropertyDescription] = useState("");
     const [propertyAddress, setPropertyAddress] = useState("");
     const [propertyCountry, setPropertyCountry] = useState("");
     const [propertyCity, setPropertyCity] = useState("");
@@ -195,6 +206,8 @@ const PropertyListing = () => {
     );
 
     const [errorPropertyName, setErrorPropertyName] = useState("");
+    const [errorPropertyDescription, setErrorPropertyDescription] =
+        useState("");
     const [errorPropertyAddress, setErrorPropertyAddress] = useState("");
     const [errorPropertyCountry, setErrorPropertyCountry] = useState("");
     const [errorPropertyCity, setErrorPropertyCity] = useState("");
@@ -202,8 +215,6 @@ const PropertyListing = () => {
     const [errorPropertyPostcode, setErrorPropertyPostcode] = useState("");
     const [errorPropertyType, setErrorPropertyType] = useState("");
     const [errorPropertyPrice, setErrorPropertyPrice] = useState("");
-
-    const [editor, setEditor] = useState("");
 
     const [viewState, setViewState] = useState({
         longitude: 25.2797,
@@ -557,10 +568,11 @@ const PropertyListing = () => {
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property description</h5>
                     </div>
-                    <div style={{ marginBottom: "15px" }}>
+                    <div>
                         <CKEditor
                             editor={ClassicEditor}
                             onChange={handleEditorChange}
+                            data={propertyDescription}
                             config={{
                                 ckfinder: {
                                     uploadUrl: "/api/editor",
@@ -577,7 +589,9 @@ const PropertyListing = () => {
                             }}
                         />
                     </div>
-                    <span></span>
+                    <span className="input-error-message">
+                        {errorPropertyDescription}
+                    </span>
                 </div>
                 <button
                     id="submit"
