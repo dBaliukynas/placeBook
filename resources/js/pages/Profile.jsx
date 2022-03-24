@@ -1,4 +1,3 @@
-import { max } from "lodash-es";
 import React, { useEffect, useState } from "react";
 import Pagination from "../components/Pagination";
 import PropertyCard from "../components/PropertyCard";
@@ -8,8 +7,8 @@ const Profile = () => {
         setCurrentPage(pageIndex);
     };
 
-    const itemsPerPage = 5;
-    const maxPagesShown = 4;
+    const itemsPerPage = 2;
+    const maxPagesShown = 5;
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;

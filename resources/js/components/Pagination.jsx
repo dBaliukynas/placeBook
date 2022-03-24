@@ -4,25 +4,44 @@ const Pagination = (props) => {
     useEffect(() => {
         if (pageCount >= 7) {
             if (
-                props.currentPage >= props.maxPagesShown &&
-                !(props.currentPage >= pageCount - (props.maxPagesShown - 1))
+                props.maxPagesShown % 2 == 0
+                    ? props.currentPage >=
+                          props.maxPagesShown -
+                              Math.floor(props.maxPagesShown / 2) +
+                              2 &&
+                      !(
+                          props.currentPage >=
+                          pageCount -
+                              (props.maxPagesShown -
+                                  Math.floor(props.maxPagesShown / 2))
+                      )
+                    : props.currentPage >=
+                          props.maxPagesShown -
+                              Math.floor(props.maxPagesShown / 2) +
+                              1 &&
+                      !(
+                          props.currentPage >=
+                          pageCount -
+                              (props.maxPagesShown -
+                                  Math.floor(props.maxPagesShown / 2))
+                      )
             ) {
-                setTemp([
-                    1,
-                    dots,
-                    props.currentPage - 1,
-                    props.currentPage,
-                    props.currentPage + 1,
-                    dots,
-                    pageCount,
-                ]);
+                const testin = Array.from(
+                    { length: props.maxPagesShown - 2 },
+                    (_, index) =>
+                        index +
+                        props.currentPage -
+                        Math.floor((props.maxPagesShown - 2) / 2)
+                );
+                setTemp([1, dots, ...testin, dots, pageCount]);
             } else if (
                 props.currentPage >=
-                pageCount - (props.maxPagesShown - 1)
+                pageCount -
+                    (props.maxPagesShown - Math.floor(props.maxPagesShown / 2))
             ) {
                 const testing = Array.from(
-                    { length: props.maxPagesShown + 1 },
-                    (_, index) => index + pageCount - props.maxPagesShown
+                    { length: props.maxPagesShown },
+                    (_, index) => index + pageCount - props.maxPagesShown + 1
                 );
                 setTemp([1, dots, ...testing]);
             } else {
@@ -54,7 +73,7 @@ const Pagination = (props) => {
         pageCount < 7
             ? Array.from({ length: pageCount }, (_, index) => index + 1)
             : Array.from(
-                  { length: props.maxPagesShown + 1 },
+                  { length: props.maxPagesShown },
                   (_, index) => index + 1
               );
     const dots = "...";
@@ -96,6 +115,8 @@ const Pagination = (props) => {
                                         ? pageNumber == dots
                                             ? "page-item disabled"
                                             : "page-item active"
+                                        : pageNumber == dots
+                                        ? "page-item disabled"
                                         : "page-item"
                                 }
                             >
