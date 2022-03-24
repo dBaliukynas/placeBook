@@ -42,7 +42,7 @@ const PropertyListing = () => {
             )?.text
         );
     };
-    const handleEditorChange = (_, editor) => {
+    const handlePropertyDescriptionChange = (_, editor) => {
         setPropertyDescription(editor.getData());
     };
     const handlePropertyNameChange = (event) => {
@@ -574,7 +574,7 @@ const PropertyListing = () => {
                     <div>
                         <CKEditor
                             editor={ClassicEditor}
-                            onChange={handleEditorChange}
+                            onChange={handlePropertyDescriptionChange}
                             data={propertyDescription}
                             config={{
                                 ckfinder: {

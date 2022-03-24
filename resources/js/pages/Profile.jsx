@@ -1,3 +1,4 @@
+import { max } from "lodash-es";
 import React, { useEffect, useState } from "react";
 import Pagination from "../components/Pagination";
 import PropertyCard from "../components/PropertyCard";
@@ -8,6 +9,7 @@ const Profile = () => {
     };
 
     const itemsPerPage = 5;
+    const maxPagesShown = 4;
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -60,12 +62,17 @@ const Profile = () => {
                                     />
                                 ))}
                             </div>
-                            <Pagination
-                                itemsLength={authUser.properties.length}
-                                itemsPerPage={itemsPerPage}
-                                changePage={changePage}
-                                currentPage={currentPage}
-                            />
+                            {authUser.properties.length != 0 ? (
+                                <Pagination
+                                    itemsLength={authUser.properties.length}
+                                    itemsPerPage={itemsPerPage}
+                                    changePage={changePage}
+                                    currentPage={currentPage}
+                                    maxPagesShown={maxPagesShown}
+                                />
+                            ) : (
+                                <span>You have not created any properties yet.</span>
+                            )}
                         </div>
                         <h5>Rated properties</h5>
                         <div className="card" style={{ width: "200px" }}>
