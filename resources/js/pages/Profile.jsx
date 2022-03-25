@@ -70,7 +70,14 @@ const Profile = () => {
                                     maxPagesShown={maxPagesShown}
                                 />
                             ) : (
-                                <span>You have not created any properties yet.</span>
+                                <span
+                                    style={{
+                                        padding: "0px 0px 32px 0px",
+                                        margin: "auto",
+                                    }}
+                                >
+                                    You have not created any properties yet.
+                                </span>
                             )}
                         </div>
                         <h5>Rated properties</h5>

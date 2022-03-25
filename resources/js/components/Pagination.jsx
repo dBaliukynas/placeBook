@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const Pagination = (props) => {
     useEffect(() => {
-        if (pageCount >= 7) {
+        if (pageCount >= props.maxPagesShown + 2) {
             if (
                 props.maxPagesShown % 2 == 0
                     ? props.currentPage >=
@@ -70,7 +70,7 @@ const Pagination = (props) => {
             : Math.floor(props.itemsLength / props.itemsPerPage + 1);
 
     const pageNumbers =
-        pageCount < 7
+        pageCount < props.maxPagesShown + 2
             ? Array.from({ length: pageCount }, (_, index) => index + 1)
             : Array.from(
                   { length: props.maxPagesShown },
@@ -78,7 +78,7 @@ const Pagination = (props) => {
               );
     const dots = "...";
     const [currentPages, setCurrentPages] =
-        pageCount >= 7
+        pageCount >= props.maxPagesShown + 2
             ? useState([...pageNumbers, "...", pageCount])
             : useState([...pageNumbers]);
 
@@ -106,25 +106,27 @@ const Pagination = (props) => {
                     </button>
                 </li>
 
-                {currentPages.map((pageNumber, index) => (
+                {currentPages.map((currentPage, index) => (
                     <React.Fragment key={index}>
                         {
                             <li
                                 className={
-                                    props.currentPage == pageNumber
-                                        ? pageNumber == dots
+                                    props.currentPage == currentPage
+                                        ? currentPage == dots
                                             ? "page-item disabled"
                                             : "page-item active"
-                                        : pageNumber == dots
+                                        : currentPage == dots
                                         ? "page-item disabled"
                                         : "page-item"
                                 }
                             >
                                 <button
                                     className="page-link"
-                                    onClick={() => props.changePage(pageNumber)}
+                                    onClick={() =>
+                                        props.changePage(currentPage)
+                                    }
                                 >
-                                    {pageNumber}
+                                    {currentPage}
                                 </button>
                             </li>
                         }
@@ -169,6 +171,15 @@ const Pagination = (props) => {
                         }
                     >
                         Next
+                    </button>
+                </li>
+                <li className="page-item">
+                    <button
+                        className="page-link"
+                        style={{ marginLeft: "10px" }}
+                        onClick={undefined}
+                    >
+                        Select page
                     </button>
                 </li>
             </ul>
