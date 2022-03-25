@@ -26,26 +26,26 @@ const Pagination = (props) => {
                                   Math.floor(props.maxPagesShown / 2))
                       )
             ) {
-                const testin = Array.from(
+                const pagesMiddle = Array.from(
                     { length: props.maxPagesShown - 2 },
                     (_, index) =>
                         index +
                         props.currentPage -
                         Math.floor((props.maxPagesShown - 2) / 2)
                 );
-                setTemp([1, dots, ...testin, dots, pageCount]);
+                setCurrentPages([1, dots, ...pagesMiddle, dots, pageCount]);
             } else if (
                 props.currentPage >=
                 pageCount -
                     (props.maxPagesShown - Math.floor(props.maxPagesShown / 2))
             ) {
-                const testing = Array.from(
+                const pagesEnd = Array.from(
                     { length: props.maxPagesShown },
                     (_, index) => index + pageCount - props.maxPagesShown + 1
                 );
-                setTemp([1, dots, ...testing]);
+                setCurrentPages([1, dots, ...pagesEnd]);
             } else {
-                setTemp([...pageNumbers, dots, pageCount]);
+                setCurrentPages([...pageNumbers, dots, pageCount]);
             }
         }
     }, [props.currentPage]);
@@ -77,7 +77,7 @@ const Pagination = (props) => {
                   (_, index) => index + 1
               );
     const dots = "...";
-    const [temp, setTemp] =
+    const [currentPages, setCurrentPages] =
         pageCount >= 7
             ? useState([...pageNumbers, "...", pageCount])
             : useState([...pageNumbers]);
@@ -106,7 +106,7 @@ const Pagination = (props) => {
                     </button>
                 </li>
 
-                {temp.map((pageNumber, index) => (
+                {currentPages.map((pageNumber, index) => (
                     <React.Fragment key={index}>
                         {
                             <li

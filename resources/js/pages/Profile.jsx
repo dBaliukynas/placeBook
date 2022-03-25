@@ -7,7 +7,7 @@ const Profile = () => {
         setCurrentPage(pageIndex);
     };
 
-    const itemsPerPage = 2;
+    const itemsPerPage = 5;
     const maxPagesShown = 5;
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * itemsPerPage;
