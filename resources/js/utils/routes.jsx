@@ -4,6 +4,7 @@ import Profile from "../pages/Profile";
 import Property from "../pages/Property";
 import PropertyListing from "../pages/PropertyListing";
 import PropertySearch from "../pages/PropertySearch";
+import AdminPanel from "../pages/AdminPanel";
 
 export const routes = [
     { path: "/", name: "Home", component: Home, isAuthRequired: false },
@@ -37,6 +38,12 @@ export const routes = [
         component: Property,
         isAuthRequired: false,
         parent: "property-search",
+    },
+    {
+        path: "admin-panel",
+        name: "Admin Panel",
+        component: AdminPanel,
+        isAuthRequired: true,
     },
 ];
 

@@ -3,7 +3,7 @@ const CardCarousel = (props) => {
     return (
         <>
             <div
-                id={`carouselExampleControls${props.id}`}
+                id={`carouselControls${props.id}`}
                 className="carousel slide"
                 data-bs-ride="carousel"
                 data-bs-interval="false"
@@ -22,7 +22,7 @@ const CardCarousel = (props) => {
                             <button
                                 className="carousel-control-prev home-carousel"
                                 type="button"
-                                data-bs-target={`#carouselExampleControls${props.id}`}
+                                data-bs-target={`#carouselControls${props.id}`}
                                 data-bs-slide="prev"
                             >
                                 <span
@@ -37,7 +37,7 @@ const CardCarousel = (props) => {
                             <button
                                 className="carousel-control-next home-carousel"
                                 type="button"
-                                data-bs-target={`#carouselExampleControls${props.id}`}
+                                data-bs-target={`#carouselControls${props.id}`}
                                 data-bs-slide="next"
                             >
                                 <span

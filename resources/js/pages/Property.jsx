@@ -220,7 +220,7 @@ const Property = (props) => {
                 {mainContent.name == "Property" ? (
                     <div>
                         <div
-                            id="carouselExampleIndicators"
+                            id="carouselIndicators"
                             className="carousel slide"
                             data-bs-ride="carousel"
                             style={{ marginBottom: "50px" }}
@@ -228,7 +228,7 @@ const Property = (props) => {
                             <div className="carousel-indicators">
                                 <button
                                     type="button"
-                                    data-bs-target="#carouselExampleIndicators"
+                                    data-bs-target="#carouselIndicators"
                                     data-bs-slide-to="0"
                                     className="active"
                                     aria-current="true"
@@ -236,13 +236,13 @@ const Property = (props) => {
                                 ></button>
                                 <button
                                     type="button"
-                                    data-bs-target="#carouselExampleIndicators"
+                                    data-bs-target="#carouselIndicators"
                                     data-bs-slide-to="1"
                                     aria-label="Slide 2"
                                 ></button>
                                 <button
                                     type="button"
-                                    data-bs-target="#carouselExampleIndicators"
+                                    data-bs-target="#carouselIndicators"
                                     data-bs-slide-to="2"
                                     aria-label="Slide 3"
                                 ></button>
@@ -273,7 +273,7 @@ const Property = (props) => {
                             <button
                                 className="carousel-control-prev"
                                 type="button"
-                                data-bs-target="#carouselExampleIndicators"
+                                data-bs-target="#carouselIndicators"
                                 data-bs-slide="prev"
                             >
                                 <span
@@ -287,7 +287,7 @@ const Property = (props) => {
                             <button
                                 className="carousel-control-next"
                                 type="button"
-                                data-bs-target="#carouselExampleIndicators"
+                                data-bs-target="#carouselIndicators"
                                 data-bs-slide="next"
                             >
                                 <span
