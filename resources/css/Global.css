@@ -325,9 +325,17 @@ div.carousel-item.home-carousel {
 
 .input-error-border {
     border: 1px solid #ff7878;
-    pointer-events: none; 
+    pointer-events: none;
     height: 54.78px;
     width: 100%;
     position: absolute;
-    bottom: 24px;
+    bottom: 0px;
+}
+
+ul.list-group.list-group-horizontal
+    button.list-group-item.top-navigation-first {
+    border-radius: unset;
+}
+ul.list-group.list-group-horizontal button.list-group-item.top-navigation-last {
+    border-radius: unset;
 }

@@ -329,7 +329,6 @@ const PropertyListing = () => {
                     style={{
                         width: "100%",
                         textAlign: "start",
-                        position: "relative",
                     }}
                 >
                     <div style={{ marginBottom: "15px" }}>
@@ -653,7 +652,7 @@ const PropertyListing = () => {
                     <div style={{ marginBottom: "15px" }}>
                         <h5>Property description</h5>
                     </div>
-                    <div>
+                    <div style={{ position: "relative"}}>
                         <CKEditor
                             editor={ClassicEditor}
                             onChange={handlePropertyDescriptionChange}
@@ -673,12 +672,13 @@ const PropertyListing = () => {
                                 },
                             }}
                         />
+                        {errorPropertyDescription ? (
+                            <div className="input-error-border"></div>
+                        ) : (
+                            <> </>
+                        )}
                     </div>
-                    {errorPropertyDescription ? (
-                        <div className="input-error-border"></div>
-                    ) : (
-                        <> </>
-                    )}
+
                     <span className="input-error-message">
                         {errorPropertyDescription}
                     </span>

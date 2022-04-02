@@ -19,25 +19,33 @@ const Reviews = (props) => {
                     <h5 style={{ marginBottom: "15px", textAlign: "left" }}>
                         Leave a review
                     </h5>
-                    <CKEditor
-                        editor={ClassicEditor}
-                        onChange={handlePropertyReviewChange}
-                        data={propertyReview}
-                        config={{
-                            ckfinder: {
-                                uploadUrl: "/api/editor",
+                    <div style={{ position: "relative" }}>
+                        <CKEditor
+                            editor={ClassicEditor}
+                            onChange={handlePropertyReviewChange}
+                            data={propertyReview}
+                            config={{
+                                ckfinder: {
+                                    uploadUrl: "/api/editor",
 
-                                image: {
-                                    upload: {
-                                        types: ["png", "jpeg"],
+                                    image: {
+                                        upload: {
+                                            types: ["png", "jpeg"],
+                                        },
                                     },
                                 },
-                            },
-                            mediaEmbed: {
-                                previewsInData: true,
-                            },
-                        }}
-                    />
+                                mediaEmbed: {
+                                    previewsInData: true,
+                                },
+                            }}
+                        />
+                        {true ? (
+                            <div className="input-error-border"></div>
+                        ) : (
+                            <> </>
+                        )}
+                    </div>
+
                     <button
                         className="btn btn-primary"
                         style={{ marginTop: "20px", width: "100%" }}

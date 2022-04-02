@@ -24,8 +24,8 @@ const AdminPanel = () => {
                     type="button"
                     className={
                         mainContent.name == "Dashboard"
-                            ? "list-group-item list-group-item-action button-selected"
-                            : "list-group-item list-group-item-action"
+                            ? "list-group-item list-group-item-action button-selected top-navigation-first"
+                            : "list-group-item list-group-item-action top-navigation-first"
                     }
                     onClick={() => handleMainContentChange("Dashboard")}
                 >
@@ -46,8 +46,8 @@ const AdminPanel = () => {
                     type="button"
                     className={
                         mainContent.name == "Other"
-                            ? "list-group-item list-group-item-action button-selected"
-                            : "list-group-item list-group-item-action"
+                            ? "list-group-item list-group-item-action button-selected top-navigation-last "
+                            : "list-group-item list-group-item-action top-navigation-last "
                     }
                     onClick={() => handleMainContentChange("Other", Other)}
                 >
