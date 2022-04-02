@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rating extends Model
+class Review extends Model
 {
     use HasFactory;
 
@@ -13,5 +13,7 @@ class Rating extends Model
         'author_id',
         'user_id',
         'property_id',
+        'rating',
+        'description'
     ];
 }
