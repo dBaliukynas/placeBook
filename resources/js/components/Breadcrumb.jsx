@@ -7,8 +7,12 @@ const Breadcrumb = (props) => {
             matchPath({ path: route.path }, props.location.pathname)
         );
         let crumbs = [];
-        let parent = leaf?.parent;
+        
+        if (!leaf) {
+            return undefined;
+        }
 
+        let parent = leaf.parent;
         crumbs.push(leaf);
         if (parent) {
             crumbs.push(routesMap[parent]);
@@ -25,7 +29,7 @@ const Breadcrumb = (props) => {
 
     const crumbs = getCrumbs();
 
-    return (
+    return crumbs ? (
         <nav className="breadcrumb breadcrumb-property" aria-label="breadcrumb">
             <ol className="breadcrumb">
                 <li className="breadcrumb-item">
@@ -48,6 +52,8 @@ const Breadcrumb = (props) => {
                 })}
             </ol>
         </nav>
+    ) : (
+        <></>
     );
 };
 
