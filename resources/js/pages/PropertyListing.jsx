@@ -123,69 +123,7 @@ const PropertyListing = () => {
             "limited100Chars"
         );
     };
-    const validateInputs = () => {
-        if (!propertyName.match("^[a-zA-Z0-9]{2,60}$")) {
-            setErrorPropertyName(
-                "Property name cannot be empty, include special characters and its length has to be between 2 and 60 characters."
-            );
-        } else {
-            setErrorPropertyName("");
-        }
-        if (!propertyDescription) {
-            setErrorPropertyDescription(
-                "Property description cannot be empty."
-            );
-        } else {
-            setErrorPropertyDescription("");
-        }
-        if (!propertyType) {
-            setErrorPropertyType("Property type has to be selected.");
-        } else {
-            setErrorPropertyType("");
-        }
-        if (!propertyAddress.match("^.{0,100}$") || !propertyAddress) {
-            setErrorPropertyAddress(
-                "Property address cannot be empty and contain more than 100 characters."
-            );
-        } else {
-            setErrorPropertyAddress("");
-        }
-        if (!propertyCountry.match("^.{0,100}$") || !propertyCountry) {
-            setErrorPropertyCountry(
-                "Property country cannot be empty and contain more than 100 characters."
-            );
-        } else {
-            setErrorPropertyCountry("");
-        }
-        if (!propertyCity.match("^.{0,100}$") || !propertyCity) {
-            setErrorPropertyCity(
-                "Property city cannot be empty and contain more than 100 characters."
-            );
-        } else {
-            setErrorPropertyCity("");
-        }
-        if (!propertyRegion.match("^.{0,100}$")) {
-            setErrorPropertyRegion(
-                "Property region cannot contain more than 100 characters."
-            );
-        } else {
-            setErrorPropertyRegion("");
-        }
-        if (!propertyPostcode.match("^.{0,100}$")) {
-            setErrorPropertyPostcode(
-                "Property postcode cannot contain more than 100 characters."
-            );
-        } else {
-            setErrorPropertyPostcode("");
-        }
-        if (!propertyPrice) {
-            setErrorPropertyPrice(
-                "Property price cannot be empty and contain special characters."
-            );
-        } else {
-            setErrorPropertyPrice("");
-        }
-    };
+
     const handlePropertyErrorCases = (propertyFieldName, errorMessage) => {
         switch (propertyFieldName) {
             case "Property name":
@@ -221,7 +159,7 @@ const PropertyListing = () => {
         if (group == "nonEmptyLimited100Chars") {
             if (propertyField.match("^.{0,100}$") && propertyField) {
                 handlePropertyErrorCases(propertyFieldName, "");
-            } else if (!propertyField.match("^.{0,100}$")) {
+            } else if (!propertyField.match("^.{0,100}$") || !propertyField) {
                 handlePropertyErrorCases(
                     propertyFieldName,
                     `${propertyFieldName} cannot be empty and contain more than 100 characters.`
@@ -269,46 +207,47 @@ const PropertyListing = () => {
     };
     const createProperty = () => {
         const toastId = toast("Listing a property...", { isLoading: true });
-        validateInputs();
-        setPropertyName("");
-        setPropertyDescription("");
-        fetch("/api/property", {
-            method: "POST",
-            ...defaultFetchOptions,
-            body: JSON.stringify({
-                propertyName,
-                propertyDescription,
-                propertyAddress,
-                propertyCountry,
-                propertyCity,
-                propertyRegion,
-                propertyPostcode,
-                propertyType,
-                propertyPrice,
-            }),
-        }).then((response) =>
-            response.json().then((data) => {
-                if (data.errors) {
-                    toast.update(toastId, {
-                        render: <span>• {data.errors.join("\n• ")}</span>,
-                        type: "error",
-                        autoClose:
-                            data.errors.length == 1
-                                ? 5000
-                                : 4000 * data.errors.length,
-                        isLoading: false,
-                        className: "toastify-error",
-                    });
-                } else {
-                    toast.update(toastId, {
-                        render: "Property has been successfully listed.",
-                        type: "success",
-                        autoClose: 5000,
-                        isLoading: false,
-                    });
-                }
-            })
-        );
+        if (propertyFields.every((propertyField) => propertyField != "")) {
+            setPropertyName("");
+            setPropertyDescription("");
+            fetch("/api/property", {
+                method: "POST",
+                ...defaultFetchOptions,
+                body: JSON.stringify({
+                    propertyName,
+                    propertyDescription,
+                    propertyAddress,
+                    propertyCountry,
+                    propertyCity,
+                    propertyRegion,
+                    propertyPostcode,
+                    propertyType,
+                    propertyPrice,
+                }),
+            }).then((response) =>
+                response.json().then((data) => {
+                    if (data.errors) {
+                        toast.update(toastId, {
+                            render: <span>• {data.errors.join("\n• ")}</span>,
+                            type: "error",
+                            autoClose:
+                                data.errors.length == 1
+                                    ? 5000
+                                    : 4000 * data.errors.length,
+                            isLoading: false,
+                            className: "toastify-error",
+                        });
+                    } else {
+                        toast.update(toastId, {
+                            render: "Property has been successfully listed.",
+                            type: "success",
+                            autoClose: 5000,
+                            isLoading: false,
+                        });
+                    }
+                })
+            );
+        }
     };
     const minPropertyPrice = 1;
     const maxPropertyPrice = 10001;
@@ -332,6 +271,26 @@ const PropertyListing = () => {
     const [errorPropertyPostcode, setErrorPropertyPostcode] = useState("");
     const [errorPropertyType, setErrorPropertyType] = useState("");
     const [errorPropertyPrice, setErrorPropertyPrice] = useState("");
+    const propertyFields = [
+        propertyName,
+        propertyDescription,
+        propertyAddress,
+        propertyCountry,
+        propertyCity,
+        propertyType,
+        propertyPrice,
+    ];
+    const errors = [
+        errorPropertyName,
+        errorPropertyDescription,
+        errorPropertyAddress,
+        errorPropertyCountry,
+        errorPropertyCity,
+        errorPropertyRegion,
+        errorPropertyPostcode,
+        errorPropertyType,
+        errorPropertyPrice,
+    ];
 
     const [viewState, setViewState] = useState({
         longitude: 25.2797,
@@ -722,7 +681,13 @@ const PropertyListing = () => {
                 </div>
                 <button
                     id="submit"
-                    className="btn btn-primary"
+                    className={
+                        propertyFields.every(
+                            (propertyField) => propertyField != ""
+                        ) && errors.every((error) => error == "")
+                            ? "btn btn-primary"
+                            : "btn btn-primary disabled"
+                    }
                     style={{ width: "100%", marginTop: "20px" }}
                     onClick={createProperty}
                 >

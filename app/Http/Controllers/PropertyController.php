@@ -20,7 +20,7 @@ class PropertyController extends Controller
         $data = $request->input();
 
         $validator = Validator::make($data, [
-            'propertyName' => 'required|min:4|max:40',
+            'propertyName' => 'required|min:2|max:40',
             'propertyType' => 'required',
             'propertyAddress' => 'required',
             'propertyCountry' => 'required',
