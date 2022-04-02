@@ -44,14 +44,26 @@ const PropertyListing = () => {
     };
     const handlePropertyDescriptionChange = (_, editor) => {
         setPropertyDescription(editor.getData());
+        handlePropertyError(
+            editor.getData(),
+            "Property description",
+            "nonEmpty"
+        );
     };
     const handlePropertyNameChange = (event) => {
         setPropertyName(event.target.value);
+        handlePropertyError(
+            event.target.value,
+            "Property name",
+            "nonEmptyLimited60Chars"
+        );
     };
     const handlePropertyTypeChange = (type) => {
         setPropertyType(type);
+        handlePropertyError(type, "Property type", "nonEmpty");
     };
     const handlePropertyPriceChange = (event) => {
+        handlePropertyError(event.target.value, "Property price", "nonEmpty");
         if (event.target.value > maxPropertyPrice) {
             setPropertyPrice(maxPropertyPrice);
             return;
@@ -72,23 +84,49 @@ const PropertyListing = () => {
     };
     const handlePropertyAddressChange = (event) => {
         setPropertyAddress(event.target.value);
+        handlePropertyError(
+            event.target.value,
+            "Property address",
+            "nonEmptyLimited100Chars"
+        );
     };
+
     const handlePropertyCountryChange = (event) => {
         setPropertyCountry(event.target.value);
+        handlePropertyError(
+            event.target.value,
+            "Property country",
+            "nonEmptyLimited100Chars"
+        );
     };
     const handlePropertyCityChange = (event) => {
         setPropertyCity(event.target.value);
+        handlePropertyError(
+            event.target.value,
+            "Property city",
+            "nonEmptyLimited100Chars"
+        );
     };
     const handlePropertyRegionChange = (event) => {
         setPropertyRegion(event.target.value);
+        handlePropertyError(
+            event.target.value,
+            "Property region",
+            "limited100Chars"
+        );
     };
     const handlePropertyPostcodeChange = (event) => {
         setPropertyPostcode(event.target.value);
+        handlePropertyError(
+            event.target.value,
+            "Property postcode",
+            "limited100Chars"
+        );
     };
     const validateInputs = () => {
-        if (!propertyName.match("^[a-zA-Z0-9]{4,40}$")) {
+        if (!propertyName.match("^[a-zA-Z0-9]{2,60}$")) {
             setErrorPropertyName(
-                "Property name cannot be empty, include special characters and its length has to be between 4 and 40 characters."
+                "Property name cannot be empty, include special characters and its length has to be between 2 and 60 characters."
             );
         } else {
             setErrorPropertyName("");
@@ -105,47 +143,128 @@ const PropertyListing = () => {
         } else {
             setErrorPropertyType("");
         }
-        if (!propertyAddress.match("^[a-zA-Z0-9]")) {
+        if (!propertyAddress.match("^.{0,100}$") || !propertyAddress) {
             setErrorPropertyAddress(
-                "Property address cannot be empty and include special characters."
+                "Property address cannot be empty and contain more than 100 characters."
             );
         } else {
             setErrorPropertyAddress("");
         }
-        if (!propertyCountry.match("^[a-zA-Z0-9]")) {
+        if (!propertyCountry.match("^.{0,100}$") || !propertyCountry) {
             setErrorPropertyCountry(
-                "Property country cannot be empty and include special characters."
+                "Property country cannot be empty and contain more than 100 characters."
             );
         } else {
             setErrorPropertyCountry("");
         }
-        if (!propertyCity.match("^[a-zA-Z0-9]")) {
+        if (!propertyCity.match("^.{0,100}$") || !propertyCity) {
             setErrorPropertyCity(
-                "Property city cannot be empty."
+                "Property city cannot be empty and contain more than 100 characters."
             );
         } else {
             setErrorPropertyCity("");
         }
         if (!propertyRegion.match("^.{0,100}$")) {
             setErrorPropertyRegion(
-                "Property region cannot be longer than 100 characters."
+                "Property region cannot contain more than 100 characters."
             );
         } else {
             setErrorPropertyRegion("");
         }
         if (!propertyPostcode.match("^.{0,100}$")) {
             setErrorPropertyPostcode(
-                "Property postcode cannot be longer than 100 characters."
+                "Property postcode cannot contain more than 100 characters."
             );
         } else {
             setErrorPropertyPostcode("");
         }
         if (!propertyPrice) {
             setErrorPropertyPrice(
-                "Property price cannot be empty and include special characters."
+                "Property price cannot be empty and contain special characters."
             );
         } else {
             setErrorPropertyPrice("");
+        }
+    };
+    const handlePropertyErrorCases = (propertyFieldName, errorMessage) => {
+        switch (propertyFieldName) {
+            case "Property name":
+                setErrorPropertyName(errorMessage);
+                break;
+            case "Property type":
+                setErrorPropertyType(errorMessage);
+                break;
+            case "Property address":
+                setErrorPropertyAddress(errorMessage);
+                break;
+            case "Property country":
+                setErrorPropertyCountry(errorMessage);
+                break;
+            case "Property city":
+                setErrorPropertyCity(errorMessage);
+                break;
+            case "Property region":
+                setErrorPropertyRegion(errorMessage);
+                break;
+            case "Property postcode":
+                setErrorPropertyPostcode(errorMessage);
+                break;
+            case "Property price":
+                setErrorPropertyPrice(errorMessage);
+                break;
+            case "Property description":
+                setErrorPropertyDescription(errorMessage);
+                break;
+        }
+    };
+    const handlePropertyError = (propertyField, propertyFieldName, group) => {
+        if (group == "nonEmptyLimited100Chars") {
+            if (propertyField.match("^.{0,100}$") && propertyField) {
+                handlePropertyErrorCases(propertyFieldName, "");
+            } else if (!propertyField.match("^.{0,100}$")) {
+                handlePropertyErrorCases(
+                    propertyFieldName,
+                    `${propertyFieldName} cannot be empty and contain more than 100 characters.`
+                );
+            }
+        } else if (group == "limited100Chars") {
+            if (propertyField.match("^.{0,100}$")) {
+                handlePropertyErrorCases(propertyFieldName, "");
+            } else if (!propertyField.match("^.{0,100}$")) {
+                handlePropertyErrorCases(
+                    propertyFieldName,
+                    `${propertyFieldName} cannot contain more than 100 characters.`
+                );
+            }
+        } else if (group == "nonEmptyLimited60Chars") {
+            if (propertyField.match("^[a-zA-Z0-9]{2,60}$")) {
+                handlePropertyErrorCases(propertyFieldName, "");
+            } else if (!propertyField.match("^[a-zA-Z0-9]{2,60}$")) {
+                handlePropertyErrorCases(
+                    propertyFieldName,
+                    `${propertyFieldName} cannot be empty, 
+                    include special characters and its length has to be between 2 and 60 characters.`
+                );
+            }
+        } else if (group == "nonEmpty") {
+            if (
+                propertyFieldName == "Property Price"
+                    ? propertyField &&
+                      propertyFieldName == "Property price" &&
+                      !isNaN(propertyField)
+                    : propertyField
+            ) {
+                handlePropertyErrorCases(propertyFieldName, "");
+            } else {
+                handlePropertyErrorCases(
+                    propertyFieldName,
+                    propertyFieldName == "Property price"
+                        ? `${propertyFieldName} cannot be empty and contain special characters.`
+                        : propertyFieldName == "Property type"
+                        ? `${propertyFieldName} has to be selected.`
+                        : `${propertyFieldName} cannot be empty.`
+                );
+            }
         }
     };
     const createProperty = () => {
