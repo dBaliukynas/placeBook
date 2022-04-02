@@ -34,24 +34,24 @@ const AdminPanel = () => {
                 <button
                     type="button"
                     className={
-                        mainContent.name == "Rent"
+                        mainContent.name == "History"
                             ? "list-group-item list-group-item-action button-selected"
                             : "list-group-item list-group-item-action"
                     }
-                    onClick={() => handleMainContentChange("Rent", Rent)}
+                    onClick={() => handleMainContentChange("History", History)}
                 >
-                    Rent
+                    History
                 </button>
                 <button
                     type="button"
                     className={
-                        mainContent.name == "Reviews"
+                        mainContent.name == "Other"
                             ? "list-group-item list-group-item-action button-selected"
                             : "list-group-item list-group-item-action"
                     }
-                    onClick={() => handleMainContentChange("Reviews", Reviews)}
+                    onClick={() => handleMainContentChange("Other", Other)}
                 >
-                    Reviews <span style={{ fontSize: "16px" }}>(0)</span>
+                    Other
                 </button>
             </ul>
 
@@ -152,7 +152,7 @@ const AdminPanel = () => {
                                                     <div
                                                         style={{
                                                             display: "flex",
-                                                            marginLeft: "auto"
+                                                            marginLeft: "auto",
                                                         }}
                                                     >
                                                         <button

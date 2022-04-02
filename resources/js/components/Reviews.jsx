@@ -5,13 +5,14 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { ToastContainer, toast } from "react-toastify";
 import "../../css/Reviews.css";
+import Spinner from "./Spinner";
 
 const Reviews = (props) => {
     const handlePropertyReviewChange = (_, editor) => {
         setPropertyReview(editor.getData());
     };
     const [propertyReview, setPropertyReview] = useState("");
-    return (
+    return props.property ? (
         <div>
             {authUser?.id != props.property?.user_id && authUser != null ? (
                 <>
@@ -61,6 +62,8 @@ const Reviews = (props) => {
 
             <span>There are currently no reviews about this property.</span>
         </div>
+    ) : (
+        <Spinner color={"text-primary"} />
     );
 };
 
