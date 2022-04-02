@@ -160,6 +160,22 @@ const Property = (props) => {
                             ) : (
                                 <> </>
                             )}
+                            {authUser?.id != property?.user_id ? (
+                                <button
+                                    className="btn btn-outline-light rent-button"
+                                    style={{ marginLeft: "20px" }}
+                                    onClick={() =>
+                                        handleMainContentChange(
+                                            "Reviews",
+                                            Reviews
+                                        )
+                                    }
+                                >
+                                    Leave a review
+                                </button>
+                            ) : (
+                                <> </>
+                            )}
                         </div>
                     </div>
                 ) : (

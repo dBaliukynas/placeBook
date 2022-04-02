@@ -14,7 +14,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const PropertyListing = () => {
-    useEffect(() => console.log(errors));
     const onSearchLocation = (event) => {
         setPropertyCountry(
             event.result.context.find((element) =>
