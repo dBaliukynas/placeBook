@@ -19,12 +19,25 @@ const Reviews = (props) => {
                     <h5 style={{ marginBottom: "15px", textAlign: "left" }}>
                         Leave a review
                     </h5>
-                    <div style={{ position: "relative" }}>
+                    <div
+                        className="ckeditor-wrapper error"
+                        style={{ position: "relative" }}
+                    >
                         <CKEditor
                             editor={ClassicEditor}
                             onChange={handlePropertyReviewChange}
                             data={propertyReview}
                             config={{
+                                toolbar: [
+                                    "heading",
+                                    "bold",
+                                    "italic",
+                                    "bulletedList",
+                                    "numberedList",
+                                    "blockQuote",
+                                    "undo",
+                                    "redo",
+                                ],
                                 ckfinder: {
                                     uploadUrl: "/api/editor",
 
@@ -39,11 +52,7 @@ const Reviews = (props) => {
                                 },
                             }}
                         />
-                        {true ? (
-                            <div className="input-error-border"></div>
-                        ) : (
-                            <> </>
-                        )}
+                        
                     </div>
 
                     <button

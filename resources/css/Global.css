@@ -322,14 +322,16 @@ div.carousel-item.home-carousel {
 .toastify-error {
     text-align: initial;
 }
-
-.input-error-border {
-    border: 1px solid #ff7878;
-    pointer-events: none;
-    height: 54.78px;
-    width: 100%;
-    position: absolute;
-    bottom: 0px;
+.ckeditor-wrapper.error
+    div.ck.ck-reset.ck-editor.ck-rounded-corners
+    div.ck.ck-editor__main
+    .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
+    border-color: #ff7878;
+}
+.ckeditor-wrapper.error
+    div.ck.ck-reset.ck-editor.ck-rounded-corners
+    div.ck.ck-editor__main:focus-within {
+    border: unset;
 }
 
 ul.list-group.list-group-horizontal
