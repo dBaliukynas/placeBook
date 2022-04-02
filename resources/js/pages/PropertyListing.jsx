@@ -206,8 +206,8 @@ const PropertyListing = () => {
         }
     };
     const createProperty = () => {
-        const toastId = toast("Listing a property...", { isLoading: true });
         if (propertyFields.every((propertyField) => propertyField != "")) {
+            const toastId = toast("Listing a property...", { isLoading: true });
             setPropertyName("");
             setPropertyDescription("");
             fetch("/api/property", {
