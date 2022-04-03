@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('postcode')->nullable();
             $table->string('type');
             $table->bigInteger('price');
-            $table->tinyInteger('rating')->nullable();
+            $table->float('rating', 10, 2)->nullable();
             $table->bigInteger('review_count')->nullable();
             $table->string('image_path')->nullable();
             $table->timestamps();

@@ -35,9 +35,10 @@ class ReviewController extends Controller
         ]);
 
         $property = Property::find($property_id);
-        $property->rating = ($property->rating * $property->review_count + $data['selectedRating']) / $property->review_count + 1;
+        $property->rating = ($property->rating * (float)$property->review_count + $data['selectedRating']) / (float)($property->review_count + 1);
         $property->review_count += 1;
-        
+        $property->save();
+
         return response()->json($review);
     }
 

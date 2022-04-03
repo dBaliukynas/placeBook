@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role');
+            $table->string('role')->after('email');
 
             $table->foreign('role')->references('name')->on('roles');
         });

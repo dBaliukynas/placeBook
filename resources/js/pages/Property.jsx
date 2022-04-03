@@ -120,10 +120,24 @@ const Property = (props) => {
                                             color: "ghostwhite",
                                         }}
                                     >
-                                        10 / 10
+                                        {property.rating ? (
+                                            <>
+                                                {property.rating}
+                                                <span> / 10 </span>
+                                            </>
+                                        ) : (
+                                            <></>
+                                        )}
                                     </h2>
                                     <h5 style={{ color: "ghostwhite" }}>
-                                        154 reviews
+                                        {property.review_count ? (
+                                            <>
+                                                {property.review_count}
+                                                <span> reviews</span>
+                                            </>
+                                        ) : (
+                                            <span>Not rated yet</span>
+                                        )}
                                     </h5>
                                 </div>
                                 <div className="property-vertical-line"></div>
@@ -226,7 +240,7 @@ const Property = (props) => {
                     }
                     onClick={() => handleMainContentChange("Reviews", Reviews)}
                 >
-                    Reviews <span style={{ fontSize: "16px" }}>(0)</span>
+                    Reviews <span style={{ fontSize: "16px" }}>({property?.review_count})</span>
                 </button>
             </ul>
             <div

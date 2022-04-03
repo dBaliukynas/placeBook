@@ -137,7 +137,11 @@ const Reviews = (props) => {
                 <></>
             )}
 
-            <span>There are currently no reviews about this property.</span>
+            {props.property.review_count ? (
+                <>{props.property.review_count}</>
+            ) : (
+                <span>There are currently no reviews about this property.</span>
+            )}
             {/* <PropertyDescription descriptionType={review}/> */}
         </div>
     ) : (
