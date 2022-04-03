@@ -9,10 +9,10 @@ const PropertyDescription = (props) => {
                 flexDirection: "column",
                 alignItems: "center",
             }}
-            className="property-description"
+            className="description"
             dangerouslySetInnerHTML={{
-                __html: props.property
-                    ? props.property.description.replaceAll('\\"', '"')
+                __html: props.descriptionType
+                    ? props.descriptionType.description.replaceAll('\\"', '"')
                     : "",
             }}
         ></div>

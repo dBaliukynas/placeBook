@@ -110,7 +110,11 @@ const Property = (props) => {
                                 </div>
                                 <div className="property-vertical-line"></div>
                                 <div style={{ marginRight: "20px" }}>
-                                    <StarIcon stroke="#f8f8ff" width="50" height="50"/>
+                                    <StarIcon
+                                        stroke="#f8f8ff"
+                                        width="50"
+                                        height="50"
+                                    />
                                     <h2
                                         style={{
                                             color: "ghostwhite",
@@ -119,7 +123,7 @@ const Property = (props) => {
                                         10 / 10
                                     </h2>
                                     <h5 style={{ color: "ghostwhite" }}>
-                                        154 voters
+                                        154 reviews
                                     </h5>
                                 </div>
                                 <div className="property-vertical-line"></div>
@@ -150,7 +154,7 @@ const Property = (props) => {
                             <button className="btn btn-outline-light rent-button">
                                 Rent this place
                             </button>
-                            {authUser?.id == property?.user_id ? (
+                            {authUser?.id == property?.author_id ? (
                                 <button
                                     className="btn btn-outline-light rent-button"
                                     style={{ marginLeft: "20px" }}
@@ -160,7 +164,7 @@ const Property = (props) => {
                             ) : (
                                 <> </>
                             )}
-                            {authUser?.id != property?.user_id ? (
+                            {authUser?.id != property?.author_id ? (
                                 <button
                                     className="btn btn-outline-light rent-button"
                                     style={{ marginLeft: "20px" }}
@@ -320,7 +324,7 @@ const Property = (props) => {
                                     <div className="card-body">
                                         <h1>{property.name}</h1>
                                         <PropertyDescription
-                                            property={property}
+                                            descriptionType={property}
                                         />
                                     </div>
                                 </div>

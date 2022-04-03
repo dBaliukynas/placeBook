@@ -699,16 +699,6 @@ const PropertyListing = () => {
                 >
                     Create property
                 </button>
-                <ToastContainer
-                    position="top-left"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    pauseOnFocusLoss={false}
-                    draggable
-                    pauseOnHover
-                />
             </div>
         </>
     );

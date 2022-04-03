@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Outlet, useLocation } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
+import { ToastContainer } from "react-toastify";
 
 const Layout = () => {
     const location = useLocation();
@@ -20,6 +21,16 @@ const Layout = () => {
                 <Outlet />
             </main>
             <Footer></Footer>
+            <ToastContainer
+                    position="top-left"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover
+                />
         </>
     );
 };

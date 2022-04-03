@@ -7,21 +7,55 @@ import { ToastContainer, toast } from "react-toastify";
 import "../../css/Reviews.css";
 import StarIcon from "../components/svgs/StarIcon";
 import Spinner from "./Spinner";
+import PropertyDescription from "./PropertyDescription";
 
 const Reviews = (props) => {
-    const handlePropertyReviewChange = (_, editor) => {
-        setPropertyReview(editor.getData());
+    const handleReviewDescriptionChange = (_, editor) => {
+        setReviewDescription(editor.getData());
     };
     const handleRatingChange = (index) => {
         setSelectedRating(index);
     };
-    const [propertyReview, setPropertyReview] = useState("");
+    const createReview = () => {
+        const toastId = toast("Creating a review...", { isLoading: true });
+        fetch(`/api/property/${props.property.id}/review`, {
+            method: "POST",
+            ...defaultFetchOptions,
+            body: JSON.stringify({
+                selectedRating,
+                reviewDescription,
+            }),
+        }).then((response) =>
+            response.json().then((data) => {
+                if (data.errors) {
+                    toast.update(toastId, {
+                        render: <span>• {data.errors.join("\n• ")}</span>,
+                        type: "error",
+                        autoClose:
+                            data.errors.length == 1
+                                ? 5000
+                                : 4000 * data.errors.length,
+                        isLoading: false,
+                        className: "toastify-error",
+                    });
+                } else {
+                    toast.update(toastId, {
+                        render: "Review has been successfully posted.",
+                        type: "success",
+                        autoClose: 5000,
+                        isLoading: false,
+                    });
+                }
+            })
+        );
+    };
+    const [reviewDescription, setReviewDescription] = useState("");
     const [selectedRating, setSelectedRating] = useState(undefined);
     return props.property ? (
         <div>
-            {authUser?.id != props.property?.user_id && authUser != null ? (
+            {authUser?.id != props.property?.author_id && authUser != null ? (
                 <>
-                    <h5 style={{ marginBottom: "15px", textAlign: "left" }}>
+                    <h5 style={{ marginBottom: "5px", textAlign: "left" }}>
                         Leave a review
                     </h5>
                     <div style={{ display: "flex" }}>
@@ -51,8 +85,8 @@ const Reviews = (props) => {
                     >
                         <CKEditor
                             editor={ClassicEditor}
-                            onChange={handlePropertyReviewChange}
-                            data={propertyReview}
+                            onChange={handleReviewDescriptionChange}
+                            data={reviewDescription}
                             config={{
                                 toolbar: [
                                     "heading",
@@ -83,6 +117,7 @@ const Reviews = (props) => {
                     <button
                         className="btn btn-primary"
                         style={{ marginTop: "20px", width: "100%" }}
+                        onClick={createReview}
                     >
                         Post
                     </button>
@@ -103,6 +138,7 @@ const Reviews = (props) => {
             )}
 
             <span>There are currently no reviews about this property.</span>
+            {/* <PropertyDescription descriptionType={review}/> */}
         </div>
     ) : (
         <Spinner color={"text-primary"} />

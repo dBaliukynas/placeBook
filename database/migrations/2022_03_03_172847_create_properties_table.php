@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->bigInteger('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('author_id');
             $table->string('country');
             $table->string('city');
             $table->string('address');
@@ -25,8 +25,12 @@ return new class extends Migration
             $table->string('postcode')->nullable();
             $table->string('type');
             $table->bigInteger('price');
+            $table->tinyInteger('rating')->nullable();
+            $table->bigInteger('review_count')->nullable();
             $table->string('image_path')->nullable();
             $table->timestamps();
+
+            $table->foreign('author_id')->references('id')->on('users');
         });
     }
 

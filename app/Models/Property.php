@@ -18,8 +18,10 @@ class Property extends Model
         'postcode',
         'type',
         'price',
-        'user_id',
+        'author_id',
         'description',
+        'rating',
+        'review_count',
         'image_path',
     ];
 

@@ -14,6 +14,7 @@
     flex-direction: row-reverse;
     flex-wrap: wrap-reverse;
     justify-content: flex-end;
+    margin-bottom: 20px;
 }
 .property-review-star:hover ~ .property-review-star,
 .property-review-star:hover ~ .property-review-star-selected {
