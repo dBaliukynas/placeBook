@@ -112,14 +112,18 @@ const Header = () => {
                                                 Profile
                                             </Link>
                                         </li>
-                                        <li>
-                                            <Link
-                                                to="/admin-panel"
-                                                className="dropdown-item"
-                                            >
-                                                Admin Panel
-                                            </Link>
-                                        </li>
+                                        {authUser.role == "admin" ? (
+                                            <li>
+                                                <Link
+                                                    to="/admin-panel"
+                                                    className="dropdown-item"
+                                                >
+                                                    Admin Panel
+                                                </Link>
+                                            </li>
+                                        ) : (
+                                            <></>
+                                        )}
                                         <li>
                                             <a
                                                 className="dropdown-item"

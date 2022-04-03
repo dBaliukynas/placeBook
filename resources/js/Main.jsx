@@ -5,9 +5,10 @@ import ReactDOM from "react-dom";
 import RequireAuth from "./components/RequireAuth";
 import Redirecting from "./pages/Redirecting";
 import Layout from "./pages/Layout";
-import NotFound from "./components/NotFound";
 import { routes } from "./utils/routes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HTTPError from "./components/HTTPError";
+import RequireRole from "./components/RequireRole";
 
 const Main = () => {
     return (
@@ -17,7 +18,7 @@ const Main = () => {
                     <Route
                         path="*"
                         element={
-                            <NotFound status={404} message="Page not found" />
+                            <HTTPError status={404} message="Page not found" />
                         }
                     />
                     {routes.map((route, index) =>
@@ -27,9 +28,17 @@ const Main = () => {
                                 exact
                                 path={route.path}
                                 element={
-                                    <RequireAuth>
-                                        <route.component />
-                                    </RequireAuth>
+                                    route.roleRequired ? (
+                                        <RequireAuth>
+                                            <RequireRole>
+                                                <route.component />
+                                            </RequireRole>
+                                        </RequireAuth>
+                                    ) : (
+                                        <RequireAuth>
+                                            <route.component />
+                                        </RequireAuth>
+                                    )
                                 }
                             />
                         ) : (

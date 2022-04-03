@@ -7,12 +7,17 @@ import PropertySearch from "../pages/PropertySearch";
 import AdminPanel from "../pages/AdminPanel";
 
 export const routes = [
-    { path: "/", name: "Home", component: Home, isAuthRequired: false },
+    {
+        path: "/",
+        name: "Home",
+        component: Home,
+        isAuthRequired: false,
+        defaultBreadcrumbPosition: false,
+    },
     {
         path: "about",
         name: "About",
         component: About,
-        isAuthRequired: false,
     },
     {
         path: "property-listing",
@@ -24,7 +29,6 @@ export const routes = [
         path: "property-search",
         name: "Property search",
         component: PropertySearch,
-        isAuthRequired: false,
     },
     {
         path: "profile",
@@ -36,14 +40,15 @@ export const routes = [
         path: "property/:id",
         name: "Property",
         component: Property,
-        isAuthRequired: false,
         parent: "property-search",
+        defaultBreadcrumbPosition: false,
     },
     {
         path: "admin-panel",
         name: "Admin Panel",
         component: AdminPanel,
         isAuthRequired: true,
+        roleRequired: "admin",
     },
 ];
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import PropertyDescription from "../components/PropertyDescription";
-import NotFound from "../components/NotFound";
 import StarIcon from "../components/svgs/StarIcon";
 import { useMediaQuery } from "react-responsive";
 import HouseIcon from "../components/svgs/HouseIcon";
@@ -16,6 +15,7 @@ import Breadcrumb from "../components/Breadcrumb";
 import Spinner from "../components/Spinner";
 import Rent from "../components/Rent";
 import Reviews from "../components/Reviews";
+import HTTPError from "../components/HTTPError";
 
 const Property = (props) => {
     const { id } = useParams();
@@ -42,7 +42,7 @@ const Property = (props) => {
     const [error, setError] = useState(undefined);
     const [mainContent, setMainContent] = useState({ name: "Property" });
     if (error?.status == 404) {
-        return <NotFound status={error.status} message="Page not found" />;
+        return <HTTPError status={error.status} message="Page not found" />;
     }
     const handleMainContentChange = (name, component) => {
         setMainContent({ name, component });

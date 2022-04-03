@@ -1,6 +1,6 @@
 import LogoIcon from "./svgs/LogoIcon";
 
-const NotFound = (props) => {
+const HTTPError = (props) => {
     return (
         <div
             className="main-container"
@@ -19,4 +19,4 @@ const NotFound = (props) => {
     );
 };
 
-export default NotFound;
+export default HTTPError;
