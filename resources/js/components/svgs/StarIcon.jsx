@@ -1,12 +1,14 @@
 const StarIcon = (props) => {
     return (
         <svg
+            className={props.className}
+            onClick={props.onClick}
             xmlns="http://www.w3.org/2000/svg"
-            width="50"
-            height="50"
+            width={props.width}
+            height={props.height}
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#f8f8ff"
+            stroke={props.stroke}
             strokeWidth="1"
             strokeLinecap="round"
             strokeLinejoin="round"

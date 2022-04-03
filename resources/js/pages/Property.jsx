@@ -110,7 +110,7 @@ const Property = (props) => {
                                 </div>
                                 <div className="property-vertical-line"></div>
                                 <div style={{ marginRight: "20px" }}>
-                                    <StarIcon />
+                                    <StarIcon stroke="#f8f8ff" width="50" height="50"/>
                                     <h2
                                         style={{
                                             color: "ghostwhite",

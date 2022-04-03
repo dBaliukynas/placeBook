@@ -8,3 +8,22 @@
 .property-review-not-logged-in-button {
     margin-top: 10px;
 }
+
+.property-review-star-wrapper {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
+    justify-content: flex-end;
+}
+.property-review-star:hover ~ .property-review-star,
+.property-review-star:hover ~ .property-review-star-selected {
+    fill: #ffd858;
+}
+.property-review-star-selected ~ .property-review-star,
+.property-review-star-selected {
+    fill: #ffbb00;
+}
+.property-review-star:hover {
+    fill: #ffbb00;
+    cursor: pointer;
+}
