@@ -8,6 +8,8 @@ import "../../css/Reviews.css";
 import StarIcon from "../components/svgs/StarIcon";
 import Spinner from "./Spinner";
 import PropertyDescription from "./PropertyDescription";
+import ListGroupItem from "./ListGroupItem";
+import PropertySearch from "../pages/PropertySearch";
 
 const Reviews = (props) => {
     useEffect(() => {
@@ -135,7 +137,7 @@ const Reviews = (props) => {
                     </div>
 
                     <button
-                        className="btn btn-primary"
+                        className="btn btn-primary property-review-post-button"
                         style={{ marginTop: "20px", width: "100%" }}
                         onClick={createReview}
                     >
@@ -162,7 +164,6 @@ const Reviews = (props) => {
             ) : (
                 <span>There are currently no reviews about this property.</span>
             )} */}
-
             {reviews ? (
                 reviews.length == 0 ? (
                     <span>
@@ -171,9 +172,7 @@ const Reviews = (props) => {
                 ) : (
                     reviews.map((review, index) => (
                         <div key={index}>
-                            {review.user.name}
-                            {review.rating}
-                            <PropertyDescription descriptionType={review} />
+                            <ListGroupItem review={review} />
                         </div>
                     ))
                 )

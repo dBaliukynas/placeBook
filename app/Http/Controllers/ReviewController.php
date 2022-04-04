@@ -45,7 +45,7 @@ class ReviewController extends Controller
 
     public function read_all($property_id)
     {
-        $reviews = Review::where('property_id', $property_id)->with('user')->get();
+        $reviews = Review::where('property_id', $property_id)->with('user')->latest("updated_at")->get();
         return response($reviews, 200);
     }
 

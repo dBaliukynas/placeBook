@@ -32,3 +32,17 @@
     fill: #ffd858;
     cursor: pointer;
 }
+.property-review-rating-wrapper,
+.property-review-description-wrapper {
+    text-align: initial;
+    margin-top: 10px;
+}
+.property-review-description-wrapper {
+    word-wrap: break-word;
+}
+.property-review-rating-wrapper {
+    display: flex;
+}
+.property-review-post-button {
+    margin-bottom: 100px;
+}

@@ -122,8 +122,9 @@ const Property = (props) => {
                                     >
                                         {property.rating ? (
                                             <>
-                                                {property.rating}
-                                                <span>/10 </span>
+                                                <span>
+                                                    {property.rating}/10{" "}
+                                                </span>
                                             </>
                                         ) : (
                                             <></>
@@ -132,8 +133,10 @@ const Property = (props) => {
                                     <h5 style={{ color: "ghostwhite" }}>
                                         {property.review_count ? (
                                             <>
-                                                {property.review_count}
-                                                <span> reviews</span>
+                                                <span>
+                                                    {property.review_count}{" "}
+                                                    reviews
+                                                </span>
                                             </>
                                         ) : (
                                             <span>Not rated yet</span>

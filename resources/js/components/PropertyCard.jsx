@@ -51,8 +51,10 @@ const PropertyCard = (props) => {
                                                     width="25"
                                                     height="25"
                                                 />
-                                                {props.property.rating}
-                                                <span>/10</span>
+
+                                                <span>
+                                                    {props.property.rating}/10
+                                                </span>
                                             </div>
                                         ) : (
                                             <div className="property-card-star-wrapper">
@@ -75,8 +77,13 @@ const PropertyCard = (props) => {
                                     <span>
                                         {props.property.review_count ? (
                                             <>
-                                                {props.property.review_count}
-                                                <span> reviews</span>
+                                                <span>
+                                                    {
+                                                        props.property
+                                                            .review_count
+                                                    }
+                                                    reviews
+                                                </span>
                                             </>
                                         ) : (
                                             <></>
