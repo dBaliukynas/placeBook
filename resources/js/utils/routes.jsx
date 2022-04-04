@@ -12,7 +12,6 @@ export const routes = [
         name: "Home",
         component: Home,
         isAuthRequired: false,
-        defaultBreadcrumbPosition: false,
     },
     {
         path: "about",
@@ -41,7 +40,6 @@ export const routes = [
         name: "Property",
         component: Property,
         parent: "property-search",
-        defaultBreadcrumbPosition: false,
     },
     {
         path: "admin-panel",

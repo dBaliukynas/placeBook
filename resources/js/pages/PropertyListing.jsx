@@ -208,11 +208,6 @@ const PropertyListing = () => {
     const createProperty = () => {
         if (propertyFields.every((propertyField) => propertyField != "")) {
             const toastId = toast("Listing a property...", { isLoading: true });
-            setPropertyName("");
-            setPropertyDescription("");
-            setTimeout(() => {
-                setErrorPropertyDescription("");
-            }, 0);
 
             fetch("/api/property", {
                 method: "POST",
@@ -242,6 +237,18 @@ const PropertyListing = () => {
                             className: "toastify-error",
                         });
                     } else {
+                        setPropertyName("");
+                        setPropertyType("");
+                        setPropertyAddress("");
+                        setPropertyCountry("");
+                        setPropertyCity("");
+                        setPropertyRegion("");
+                        setPropertyPostcode("");
+                        setPropertyPrice("");
+                        setPropertyDescription("");
+                        setTimeout(() => {
+                            setErrorPropertyDescription("");
+                        }, 0);
                         toast.update(toastId, {
                             render: "Property has been successfully listed.",
                             type: "success",
@@ -464,7 +471,7 @@ const PropertyListing = () => {
                                             : "form-control"
                                     }
                                     id="inputAddress"
-                                    defaultValue={propertyAddress}
+                                    value={propertyAddress}
                                     onChange={handlePropertyAddressChange}
                                 />
                                 <span className="input-error-message">
@@ -486,7 +493,7 @@ const PropertyListing = () => {
                                             : "form-control"
                                     }
                                     id="inputCountry"
-                                    defaultValue={propertyCountry}
+                                    value={propertyCountry}
                                     onChange={handlePropertyCountryChange}
                                 />
                                 <span className="input-error-message">
@@ -508,7 +515,7 @@ const PropertyListing = () => {
                                             : "form-control"
                                     }
                                     id="inputCity"
-                                    defaultValue={propertyCity}
+                                    value={propertyCity}
                                     onChange={handlePropertyCityChange}
                                 />
                                 <span className="input-error-message">
@@ -530,7 +537,7 @@ const PropertyListing = () => {
                                             : "form-control"
                                     }
                                     id="inputRegion"
-                                    defaultValue={propertyRegion}
+                                    value={propertyRegion}
                                     onChange={handlePropertyRegionChange}
                                 />
                                 <span className="input-error-message">
@@ -552,7 +559,7 @@ const PropertyListing = () => {
                                             : "form-control"
                                     }
                                     id="inputRegion"
-                                    defaultValue={propertyPostcode}
+                                    value={propertyPostcode}
                                     onChange={handlePropertyPostcodeChange}
                                 />
                                 <span className="input-error-message">

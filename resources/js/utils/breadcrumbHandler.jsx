@@ -1,5 +1,5 @@
 export const breadcrumbHandler = (location) => {
-    if (authUser.role == "admin") {
+    if (authUser?.role == "admin") {
         if (location.pathname == "/admin-panel") {
             return true;
         }
