@@ -123,7 +123,7 @@ const Property = (props) => {
                                         {property.rating ? (
                                             <>
                                                 {property.rating}
-                                                <span> / 10 </span>
+                                                <span>/10 </span>
                                             </>
                                         ) : (
                                             <></>

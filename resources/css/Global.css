@@ -341,3 +341,7 @@ ul.list-group.list-group-horizontal
 ul.list-group.list-group-horizontal button.list-group-item.top-navigation-last {
     border-radius: unset;
 }
+.property-card-star-wrapper {
+    display: flex;
+    justify-content: center;
+}

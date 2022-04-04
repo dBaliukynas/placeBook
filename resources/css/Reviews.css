@@ -17,14 +17,14 @@
     margin-bottom: 20px;
 }
 .property-review-star:hover ~ .property-review-star,
-.property-review-star:hover ~ .property-review-star-selected{
+.property-review-star:hover ~ .property-review-star-selected {
     fill: #ffd858;
 }
 .property-review-star:hover::after {
     fill: white;
 }
 .property-review-star-selected ~ .property-review-star,
-.property-review-star-selected{
+.property-review-star-selected {
     fill: #ffbb00;
 }
 

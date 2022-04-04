@@ -17,7 +17,11 @@ const Profile = () => {
             })
             .then((data) => {
                 if (data) {
-                    setProperties(data);
+                    setProperties(
+                        data.filter(
+                            (property) => property.author_id == authUser.id
+                        )
+                    );
                 }
             });
     }, []);

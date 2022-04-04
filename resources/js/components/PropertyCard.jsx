@@ -1,6 +1,7 @@
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
+import StarIcon from "./svgs/StarIcon";
 
 const PropertyCard = (props) => {
     const isMobileScreen = useMediaQuery({ query: "(min-width: 650px)" });
@@ -41,21 +42,42 @@ const PropertyCard = (props) => {
                                     }}
                                 >
                                     <span>{propertyType.cityName}</span>
-                                    <span>
-                                        <strong>
-                                            {props.property.rating ? (
-                                                <>
-                                                    {props.property.rating}
-                                                    <span>/ 10</span>
-                                                </>
-                                            ) : (
-                                                <span>Not rated yet</span>
-                                            )}
-                                        </strong>
-                                    </span>
+
+                                    <strong>
+                                        {props.property.rating ? (
+                                            <div className="property-card-star-wrapper">
+                                                <StarIcon
+                                                    stroke="#222222f0"
+                                                    width="25"
+                                                    height="25"
+                                                />
+                                                {props.property.rating}
+                                                <span>/10</span>
+                                            </div>
+                                        ) : (
+                                            <div className="property-card-star-wrapper">
+                                                <StarIcon
+                                                    stroke="#222222f0"
+                                                    width="25"
+                                                    height="25"
+                                                />
+                                                <span
+                                                    style={{
+                                                        marginBottom: "25px",
+                                                    }}
+                                                >
+                                                    Not rated yet
+                                                </span>
+                                            </div>
+                                        )}
+                                    </strong>
+
                                     <span>
                                         {props.property.review_count ? (
-                                            props.property.review_count
+                                            <>
+                                                {props.property.review_count}
+                                                <span> reviews</span>
+                                            </>
                                         ) : (
                                             <></>
                                         )}
@@ -79,7 +101,6 @@ const PropertyCard = (props) => {
                             </Link>
                         ) : (
                             <Link to="#">
-                                {" "}
                                 <button className="btn btn-primary">
                                     Visit
                                 </button>
