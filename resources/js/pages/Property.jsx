@@ -249,97 +249,99 @@ const Property = (props) => {
                     </span>
                 </button>
             </ul>
-            <div
-                className="main-container"
-                style={{
-                    marginTop: "20px",
-                    maxWidth: "1500px",
-                    padding: "0px 50px 0px 50px",
-                }}
-            >
-                {mainContent.name == "Property" ? (
-                    <div>
-                        <div
-                            id="carouselIndicators"
-                            className="carousel slide"
-                            data-bs-ride="carousel"
-                            style={{ marginBottom: "50px" }}
-                        >
-                            <div className="carousel-indicators">
-                                <button
-                                    type="button"
-                                    data-bs-target="#carouselIndicators"
-                                    data-bs-slide-to="0"
-                                    className="active"
-                                    aria-current="true"
-                                    aria-label="Slide 1"
-                                ></button>
-                                <button
-                                    type="button"
-                                    data-bs-target="#carouselIndicators"
-                                    data-bs-slide-to="1"
-                                    aria-label="Slide 2"
-                                ></button>
-                                <button
-                                    type="button"
-                                    data-bs-target="#carouselIndicators"
-                                    data-bs-slide-to="2"
-                                    aria-label="Slide 3"
-                                ></button>
-                            </div>
-                            <div className="carousel-inner">
-                                <div className="carousel-item active">
-                                    <img
-                                        src="/images/hotel.jpg"
-                                        className="d-block w-100 property-photo"
-                                        alt="..."
-                                    />
+            {
+                <div
+                    className="main-container"
+                    style={{
+                        marginTop: "20px",
+                        maxWidth: "1500px",
+                        padding: "0px 50px 0px 50px",
+                    }}
+                >
+                    {mainContent.name == "Property" ? (
+                        property ? (
+                            <div>
+                                <div
+                                    id="carouselIndicators"
+                                    className="carousel slide"
+                                    data-bs-ride="carousel"
+                                    style={{ marginBottom: "50px" }}
+                                >
+                                    <div className="carousel-indicators">
+                                        <button
+                                            type="button"
+                                            data-bs-target="#carouselIndicators"
+                                            data-bs-slide-to="0"
+                                            className="active"
+                                            aria-current="true"
+                                            aria-label="Slide 1"
+                                        ></button>
+                                        <button
+                                            type="button"
+                                            data-bs-target="#carouselIndicators"
+                                            data-bs-slide-to="1"
+                                            aria-label="Slide 2"
+                                        ></button>
+                                        <button
+                                            type="button"
+                                            data-bs-target="#carouselIndicators"
+                                            data-bs-slide-to="2"
+                                            aria-label="Slide 3"
+                                        ></button>
+                                    </div>
+                                    <div className="carousel-inner">
+                                        <div className="carousel-item active">
+                                            <img
+                                                src="/images/hotel.jpg"
+                                                className="d-block w-100 property-photo"
+                                                alt="..."
+                                            />
+                                        </div>
+                                        <div className="carousel-item">
+                                            <img
+                                                src="/images/hotel.jpg"
+                                                className="d-block w-100 property-photo"
+                                                alt="..."
+                                            />
+                                        </div>
+                                        <div className="carousel-item">
+                                            <img
+                                                src="/images/hotel.jpg"
+                                                className="d-block w-100 property-photo"
+                                                alt="..."
+                                            />
+                                        </div>
+                                    </div>
+                                    <button
+                                        className="carousel-control-prev"
+                                        type="button"
+                                        data-bs-target="#carouselIndicators"
+                                        data-bs-slide="prev"
+                                    >
+                                        <span
+                                            className="carousel-control-prev-icon"
+                                            aria-hidden="true"
+                                        ></span>
+                                        <span className="visually-hidden">
+                                            Previous
+                                        </span>
+                                    </button>
+                                    <button
+                                        className="carousel-control-next"
+                                        type="button"
+                                        data-bs-target="#carouselIndicators"
+                                        data-bs-slide="next"
+                                    >
+                                        <span
+                                            className="carousel-control-next-icon"
+                                            aria-hidden="true"
+                                        ></span>
+                                        <span className="visually-hidden">
+                                            Next
+                                        </span>
+                                    </button>
                                 </div>
-                                <div className="carousel-item">
-                                    <img
-                                        src="/images/hotel.jpg"
-                                        className="d-block w-100 property-photo"
-                                        alt="..."
-                                    />
-                                </div>
-                                <div className="carousel-item">
-                                    <img
-                                        src="/images/hotel.jpg"
-                                        className="d-block w-100 property-photo"
-                                        alt="..."
-                                    />
-                                </div>
-                            </div>
-                            <button
-                                className="carousel-control-prev"
-                                type="button"
-                                data-bs-target="#carouselIndicators"
-                                data-bs-slide="prev"
-                            >
-                                <span
-                                    className="carousel-control-prev-icon"
-                                    aria-hidden="true"
-                                ></span>
-                                <span className="visually-hidden">
-                                    Previous
-                                </span>
-                            </button>
-                            <button
-                                className="carousel-control-next"
-                                type="button"
-                                data-bs-target="#carouselIndicators"
-                                data-bs-slide="next"
-                            >
-                                <span
-                                    className="carousel-control-next-icon"
-                                    aria-hidden="true"
-                                ></span>
-                                <span className="visually-hidden">Next</span>
-                            </button>
-                        </div>
 
-                        {property ? (
-                            <>
                                 <div className="card">
                                     <div className="card-body">
                                         <h1>{property.name}</h1>
@@ -409,15 +411,15 @@ const Property = (props) => {
                                         )}
                                     </div>
                                 </div>
-                            </>
+                            </div>
                         ) : (
-                            <Spinner color={"text-primary"} />
-                        )}
-                    </div>
-                ) : (
-                    <mainContent.component property={property} />
-                )}
-            </div>
+                            <Spinner color="text-primary"/>
+                        )
+                    ) : (
+                        <mainContent.component property={property} />
+                    )}
+                </div>
+            }
         </>
     );
 };

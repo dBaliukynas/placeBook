@@ -1,6 +1,8 @@
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
+import PropertyRating from "./PropertyRating";
+import PropertyReviewCount from "./PropertyReviewCount";
 import StarIcon from "./svgs/StarIcon";
 
 const PropertyCard = (props) => {
@@ -43,52 +45,9 @@ const PropertyCard = (props) => {
                                 >
                                     <span>{propertyType.cityName}</span>
 
-                                    <strong>
-                                        {props.property.rating ? (
-                                            <div className="property-card-star-wrapper">
-                                                <StarIcon
-                                                    stroke="#222222f0"
-                                                    width="25"
-                                                    height="25"
-                                                />
+                                    <PropertyRating property={props.property} />
 
-                                                <span>
-                                                    {props.property.rating}/10
-                                                </span>
-                                            </div>
-                                        ) : (
-                                            <div className="property-card-star-wrapper">
-                                                <StarIcon
-                                                    stroke="#222222f0"
-                                                    width="25"
-                                                    height="25"
-                                                />
-                                                <span
-                                                    style={{
-                                                        marginBottom: "25px",
-                                                    }}
-                                                >
-                                                    Not rated yet
-                                                </span>
-                                            </div>
-                                        )}
-                                    </strong>
-
-                                    <span>
-                                        {props.property.review_count ? (
-                                            <>
-                                                <span>
-                                                    {
-                                                        props.property
-                                                            .review_count
-                                                    }
-                                                    reviews
-                                                </span>
-                                            </>
-                                        ) : (
-                                            <></>
-                                        )}
-                                    </span>
+                                   <PropertyReviewCount property={props.property} />
                                 </div>
                             </>
                         ) : (

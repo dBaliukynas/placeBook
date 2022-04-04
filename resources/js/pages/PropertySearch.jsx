@@ -1,7 +1,27 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
+import PropertyCardHorizontal from "../components/PropertyCardHorizonal";
+import PropertyCardHorizontalPlaceHolder from "../components/PropertyCardHorizontalPlaceholder";
 import PropertySearchNavigation from "../components/PropertySearchNavigation";
+import Spinner from "../components/Spinner";
 
 const PropertySearch = () => {
+    useEffect(() => {
+        fetch(`/api/properties`, {
+            method: "GET",
+        })
+            .then((response) => {
+                if (!response.ok) {
+                } else {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                if (data) {
+                    setProperties(data);
+                }
+            });
+    }, []);
+    const [properties, setProperties] = useState(undefined);
     return (
         <>
             <div style={{ margin: "auto 50px 50px" }}>
@@ -43,59 +63,24 @@ const PropertySearch = () => {
                     }}
                 >
                     <PropertySearchNavigation />
-                    <div style={{ display: "flex" }}>
-                        <div className="list-group" style={{ width: "100%" }}>
-                            <a
-                                href="#"
-                                className="list-group-item list-group-item-action"
-                                aria-current="true"
-                                style={{ marginBottom: "20px" }}
-                            >
-                                <div className="d-flex w-100 justify-content-between">
-                                    <h5 className="mb-1">
-                                        List group item heading
-                                    </h5>
-                                    <small>3 days ago</small>
-                                </div>
-                                <p className="mb-1">
-                                    Some placeholder content in a paragraph.
-                                </p>
-                                <small>And some small print.</small>
-                            </a>
-                            <a
-                                href="#"
-                                className="list-group-item list-group-item-action"
-                                aria-current="true"
-                                style={{ marginBottom: "20px" }}
-                            >
-                                <div className="d-flex w-100 justify-content-between">
-                                    <h5 className="mb-1">
-                                        List group item heading
-                                    </h5>
-                                    <small>3 days ago</small>
-                                </div>
-                                <p className="mb-1">
-                                    Some placeholder content in a paragraph.
-                                </p>
-                                <small>And some small print.</small>
-                            </a>
-                            <a
-                                href="#"
-                                className="list-group-item list-group-item-action"
-                                aria-current="true"
-                            >
-                                <div className="d-flex w-100 justify-content-between">
-                                    <h5 className="mb-1">
-                                        List group item heading
-                                    </h5>
-                                    <small>3 days ago</small>
-                                </div>
-                                <p className="mb-1">
-                                    Some placeholder content in a paragraph.
-                                </p>
-                                <small>And some small print.</small>
-                            </a>
-                        </div>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        {properties
+                            ? properties.map((property, index) => (
+                                  <div key={index}>
+                                      <PropertyCardHorizontal
+                                          property={property}
+                                      />
+                                  </div>
+                              ))
+                            : Array.from({ length: 10 }, (_, index) => (
+                                  <PropertyCardHorizontalPlaceHolder key={index} />
+                              ))}
                     </div>
                 </div>
             </div>
