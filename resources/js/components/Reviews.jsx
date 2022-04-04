@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import defaultFetchOptions from "../components/DefaultFetchOptions";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -10,6 +10,25 @@ import Spinner from "./Spinner";
 import PropertyDescription from "./PropertyDescription";
 
 const Reviews = (props) => {
+    useEffect(() => {
+        if (props.property) {
+            fetch(`/api/property/${props.property.id}/reviews`, {
+                method: "GET",
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                    } else {
+                        return response.json();
+                    }
+                })
+                .then((data) => {
+                    if (data) {
+                        setReviews(data);
+                    }
+                });
+        }
+    }, [props.property]);
+
     const handleReviewDescriptionChange = (_, editor) => {
         setReviewDescription(editor.getData());
     };
@@ -49,6 +68,7 @@ const Reviews = (props) => {
             })
         );
     };
+    const [reviews, setReviews] = useState(undefined);
     const [reviewDescription, setReviewDescription] = useState("");
     const [selectedRating, setSelectedRating] = useState(undefined);
     return props.property ? (
@@ -137,12 +157,29 @@ const Reviews = (props) => {
                 <></>
             )}
 
-            {props.property.review_count ? (
+            {/* {props.property.review_count ? (
                 <>{props.property.review_count}</>
             ) : (
                 <span>There are currently no reviews about this property.</span>
+            )} */}
+
+            {reviews ? (
+                reviews.length == 0 ? (
+                    <span>
+                        There are currently no reviews about this property.
+                    </span>
+                ) : (
+                    reviews.map((review, index) => (
+                        <div key={index}>
+                            {review.user.name}
+                            {review.rating}
+                            <PropertyDescription descriptionType={review} />
+                        </div>
+                    ))
+                )
+            ) : (
+                <Spinner color={"text-primary"} />
             )}
-            {/* <PropertyDescription descriptionType={review}/> */}
         </div>
     ) : (
         <Spinner color={"text-primary"} />

@@ -33,7 +33,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    protected $with = ['properties'];
+    // protected $with = ['properties'];
 
     /**
      * The attributes that should be cast.
@@ -47,5 +47,10 @@ class User extends Authenticatable
     public function properties()
     {
         return $this->hasMany(Property::class, 'author_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'author_id');
     }
 }

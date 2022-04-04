@@ -43,12 +43,10 @@ class ReviewController extends Controller
     }
 
 
-    public function read_all()
+    public function read_all($property_id)
     {
-    }
-
-    public function read($id)
-    {
+        $reviews = Review::where('property_id', $property_id)->with('user')->get();
+        return response($reviews, 200);
     }
 
     public function update(Request $request, $id)

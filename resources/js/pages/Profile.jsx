@@ -10,7 +10,6 @@ const Profile = () => {
         })
             .then((response) => {
                 if (!response.ok) {
-                    setError(response);
                 } else {
                     return response.json();
                 }
