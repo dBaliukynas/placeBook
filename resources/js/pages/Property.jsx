@@ -240,7 +240,10 @@ const Property = (props) => {
                     }
                     onClick={() => handleMainContentChange("Reviews", Reviews)}
                 >
-                    Reviews <span style={{ fontSize: "16px" }}>({property?.review_count})</span>
+                    Reviews{" "}
+                    <span style={{ fontSize: "16px" }}>
+                        ({property?.review_count ? property.review_count : 0})
+                    </span>
                 </button>
             </ul>
             <div

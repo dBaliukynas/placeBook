@@ -42,9 +42,24 @@ const PropertyCard = (props) => {
                                 >
                                     <span>{propertyType.cityName}</span>
                                     <span>
-                                        <strong>9 / 10</strong>
+                                        <strong>
+                                            {props.property.rating ? (
+                                                <>
+                                                    {props.property.rating}
+                                                    <span>/ 10</span>
+                                                </>
+                                            ) : (
+                                                <span>Not rated yet</span>
+                                            )}
+                                        </strong>
                                     </span>
-                                    <span>by 123 reviewers</span>
+                                    <span>
+                                        {props.property.review_count ? (
+                                            props.property.review_count
+                                        ) : (
+                                            <></>
+                                        )}
+                                    </span>
                                 </div>
                             </>
                         ) : (
@@ -57,7 +72,7 @@ const PropertyCard = (props) => {
                             and make up the bulk of the card's content.
                         </p>
                         {props.isProperty ? (
-                            <Link to={`/property/${props.propertyId}`}>
+                            <Link to={`/property/${props.property.id}`}>
                                 <button className="btn btn-primary">
                                     Visit
                                 </button>

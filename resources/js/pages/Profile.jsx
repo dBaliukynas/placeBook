@@ -1,11 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Pagination from "../components/Pagination";
 import PropertyCard from "../components/PropertyCard";
+import Spinner from "../components/Spinner";
 
 const Profile = () => {
+    useEffect(() => {
+        fetch(`/api/properties`, {
+            method: "GET",
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    setError(response);
+                } else {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                if (data) {
+                    setProperties(data);
+                }
+            });
+    }, []);
+
     const changePage = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
+
+    const [properties, setProperties] = useState(undefined);
 
     const itemsPerPage = 5;
     const maxPagesShown = 5;
@@ -13,7 +34,7 @@ const Profile = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-    const currentProperties = authUser.properties.slice(
+    const currentProperties = properties?.slice(
         indexOfFirstItem,
         indexOfLastItem
     );
@@ -32,12 +53,7 @@ const Profile = () => {
                     <div className="card-body">
                         <h5>Created properties</h5>
 
-                        <div
-                            className="card"
-                            style={
-                                !authUser.properties ? { width: "200px" } : {}
-                            }
-                        >
+                        <div className="card">
                             <div
                                 className="card-body"
                                 style={{
@@ -46,46 +62,56 @@ const Profile = () => {
                                     justifyContent: "center",
                                 }}
                             >
-                                {currentProperties.map((property, index) => (
-                                    <PropertyCard
-                                        key={index}
-                                        propertyTypes={[
-                                            {
-                                                imagePath: "/images/hotel.jpg",
-                                                cityName: property.city,
-                                                name: property.name,
-                                            },
-                                        ]}
-                                        isProperty={true}
-                                        propertyId={property.id}
-                                    />
-                                ))}
+                                {properties ? (
+                                    currentProperties.map((property, index) => (
+                                        <PropertyCard
+                                            key={index}
+                                            propertyTypes={[
+                                                {
+                                                    imagePath:
+                                                        "/images/hotel.jpg",
+                                                    cityName: property.city,
+                                                    name: property.name,
+                                                },
+                                            ]}
+                                            isProperty={true}
+                                            property={property}
+                                        />
+                                    ))
+                                ) : (
+                                    <Spinner color={"text-primary"} />
+                                )}
                             </div>
-                            {authUser.properties.length != 0 ? (
-                                <Pagination
-                                    itemsLength={authUser.properties.length}
-                                    itemsPerPage={itemsPerPage}
-                                    changePage={changePage}
-                                    currentPage={currentPage}
-                                    maxPagesShown={maxPagesShown}
-                                />
+                            {properties ? (
+                                properties.length != 0 ? (
+                                    <Pagination
+                                        itemsLength={properties.length}
+                                        itemsPerPage={itemsPerPage}
+                                        changePage={changePage}
+                                        currentPage={currentPage}
+                                        maxPagesShown={maxPagesShown}
+                                    />
+                                ) : (
+                                    <span
+                                        style={{
+                                            padding: "0px 0px 32px 0px",
+                                            margin: "auto",
+                                        }}
+                                    >
+                                        You have not created any properties yet.
+                                    </span>
+                                )
                             ) : (
-                                <span
-                                    style={{
-                                        padding: "0px 0px 32px 0px",
-                                        margin: "auto",
-                                    }}
-                                >
-                                    You have not created any properties yet.
-                                </span>
+                                <></>
                             )}
                         </div>
+
                         <h5>Rated properties</h5>
-                        <div className="card" style={{ width: "200px" }}>
+                        <div className="card">
                             <div className="card-body"></div>
                         </div>
                         <h5>Checkout history</h5>
-                        <div className="card" style={{ width: "200px" }}>
+                        <div className="card">
                             <div className="card-body"></div>
                         </div>
                     </div>
