@@ -3,7 +3,7 @@ import Calendar from "react-calendar";
 import defaultFetchOptions from "../components/DefaultFetchOptions";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
 import MapGeocoderControl from "../components/MapGeocoderControl";
 import MapPinIcon from "../components/svgs/MapPinIcon";

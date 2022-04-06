@@ -86,4 +86,16 @@ class PropertyController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        $data = $request->input();
+
+        if ($data[0] == "") {
+            return response()->json("");
+        }
+
+        $properties = Property::where("name", "LIKE", "{$data[0]}%")->get();
+        return response()->json($properties);
+    }
 }
