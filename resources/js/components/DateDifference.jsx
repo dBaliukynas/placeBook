@@ -1,8 +1,8 @@
 const DateDifference = (props) => {
     const dateDifference = parseInt(props.dateDifference);
-    console.log(dateDifference / 1000 / 60 / 60 / 24 )
+
     if (Math.floor(dateDifference / 1000) < 60) {
-        const dateDifferenceInSeconds = Math.floor(dateDifference / 1000) < 60;
+        const dateDifferenceInSeconds = Math.floor(dateDifference / 1000);
         return (
             <span>
                 {dateDifferenceInSeconds}{" "}

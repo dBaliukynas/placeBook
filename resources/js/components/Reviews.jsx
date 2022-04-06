@@ -34,7 +34,7 @@ const Reviews = (props) => {
         setReviewDescription(reviewDescription);
         if (!reviewDescription.match("^.{1,1000}$")) {
             setErrorReviewDescription(
-                "Property description cannot be empty and contain more than 1000 characters."
+                "Property description cannot be empty and contain more than 10000 characters."
             );
         } else {
             setErrorReviewDescription("");

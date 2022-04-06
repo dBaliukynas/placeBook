@@ -345,3 +345,12 @@ ul.list-group.list-group-horizontal button.list-group-item.top-navigation-last {
     display: flex;
     justify-content: center;
 }
+.search-list {
+    z-index: 1;
+    top: 42px;
+    width: 100%;
+    border: 1px solid #ced4da;
+}
+.search-list-item {
+    border: unset;
+}

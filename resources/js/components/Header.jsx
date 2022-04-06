@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Search from "./Search";
+import SearchList from "./SearchList";
 
 const Header = () => {
     return (
@@ -60,20 +62,7 @@ const Header = () => {
                                 </Link>
                             </li>
                         </ul>
-                        <form className="d-flex navbar-search">
-                            <input
-                                className="form-control me-2"
-                                type="search"
-                                placeholder="Search"
-                                aria-label="Search"
-                            />
-                            <button
-                                className="btn btn-outline-light"
-                                type="submit"
-                            >
-                                Search
-                            </button>
-                        </form>
+                        <Search />
                         <div className="navbar-button-wrapper">
                             {authUser == null ? (
                                 <>

@@ -1,13 +1,13 @@
 const PropertyCardHorizontalPlaceholder = (props) => {
     return (
-        <div className="card mb-3" style={{ width: "100%" }}>
-            <div className="row g-0">
-                <div className="col-md-4">
+        <div className="card mb-3" style={{ width: "100%", minHeight: "193px"}}>
+            <div className="row g-0" style={{ height: "inherit" }}>
+                <div className="col-md-4" style={{minHeight: "180px"}}>
                     <img
+                        style={{ width: "100%", height: "191px"}}
                         src="/images/placeholder.jpg"
                         className="img-fluid rounded-start"
                         alt="..."
-                        style={{ width: "100%" }}
                     />
                 </div>
                 <div className="col-md-8">

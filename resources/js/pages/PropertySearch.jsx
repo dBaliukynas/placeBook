@@ -79,7 +79,9 @@ const PropertySearch = () => {
                                   </div>
                               ))
                             : Array.from({ length: 10 }, (_, index) => (
-                                  <PropertyCardHorizontalPlaceHolder key={index} />
+                                  <PropertyCardHorizontalPlaceHolder
+                                      key={index}
+                                  />
                               ))}
                     </div>
                 </div>
