@@ -36,7 +36,7 @@ const Property = (props) => {
                     setProperty(data);
                 }
             });
-    }, []);
+    }, [id]);
     const isMobileScreen = useMediaQuery({ query: "(max-width: 650px)" });
     const [property, setProperty] = useState(undefined);
     const [error, setError] = useState(undefined);

@@ -89,6 +89,7 @@ class PropertyController extends Controller
 
     public function search(Request $request)
     {
+        ignore_user_abort(true);
         $data = $request->input();
 
         if ($data[0] == "") {

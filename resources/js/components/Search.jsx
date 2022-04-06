@@ -1,13 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import defaultFetchOptions from "../components/DefaultFetchOptions";
 import SearchList from "./SearchList";
 
 const Search = (props) => {
     const [searchField, setSearchField] = useState("");
+
+    const abortController = useRef();
+
     useEffect(() => {
+        if (abortController.current) {
+            abortController.current.abort();
+        }
+        abortController.current = new AbortController();
+        const { signal } = abortController.current;
+
         setIsLoading(true);
         const debounce = setTimeout(() => {
             fetch("/api/properties/search", {
+                signal,
                 method: "POST",
                 ...defaultFetchOptions,
                 body: JSON.stringify(searchField),
@@ -16,11 +26,11 @@ const Search = (props) => {
                     setProperties(data);
                     setIsLoading(false);
                 })
-            );
-        }, 250);
+            ).catch(error => {});
+        }, 350);
 
         return () => clearTimeout(debounce);
-    }, [searchField]);
+    }, [abortController, searchField]);
 
     const handleSearchFieldChange = (event) => {
         setSearchField(event.target.value);
