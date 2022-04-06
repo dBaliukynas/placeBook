@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import PropertyDescription from "../components/PropertyDescription";
 import StarIcon from "../components/svgs/StarIcon";
 import { useMediaQuery } from "react-responsive";
@@ -37,7 +37,7 @@ const Property = (props) => {
                 }
             });
     }, []);
-    const isMobileScreen = useMediaQuery({ query: "(min-width: 650px)" });
+    const isMobileScreen = useMediaQuery({ query: "(max-width: 650px)" });
     const [property, setProperty] = useState(undefined);
     const [error, setError] = useState(undefined);
     const [mainContent, setMainContent] = useState({ name: "Property" });
@@ -82,7 +82,7 @@ const Property = (props) => {
                             {property?.name}
                         </h1>
 
-                        {isMobileScreen ? (
+                        {!isMobileScreen ? (
                             <div
                                 style={{
                                     display: "flex",
@@ -413,7 +413,7 @@ const Property = (props) => {
                                 </div>
                             </div>
                         ) : (
-                            <Spinner color="text-primary"/>
+                            <Spinner color="text-primary" />
                         )
                     ) : (
                         <mainContent.component property={property} />

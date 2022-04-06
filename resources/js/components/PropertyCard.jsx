@@ -6,7 +6,7 @@ import PropertyReviewCount from "./PropertyReviewCount";
 import StarIcon from "./svgs/StarIcon";
 
 const PropertyCard = (props) => {
-    const isMobileScreen = useMediaQuery({ query: "(min-width: 650px)" });
+    const isMobileScreen = useMediaQuery({ query: "(max-width: 650px)" });
 
     return (
         <div
@@ -20,7 +20,7 @@ const PropertyCard = (props) => {
                 <div
                     key={index}
                     className={
-                        isMobileScreen
+                        !isMobileScreen
                             ? "card property"
                             : "card property no-margin-right"
                     }

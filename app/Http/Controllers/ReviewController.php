@@ -22,6 +22,7 @@ class ReviewController extends Controller
 
         $validator = Validator::make($data, [
             'selectedRating' => 'required|min:1|max:10',
+            'reviewDescription' => 'required|max:10000',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()], 422);

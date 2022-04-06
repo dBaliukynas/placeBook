@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 import defaultFetchOptions from "../components/DefaultFetchOptions";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "../../css/Reviews.css";
 import StarIcon from "../components/svgs/StarIcon";
 import Spinner from "./Spinner";
-import PropertyDescription from "./PropertyDescription";
 import ListGroupItem from "./ListGroupItem";
-import PropertySearch from "../pages/PropertySearch";
 
 const Reviews = (props) => {
     useEffect(() => {
@@ -32,7 +30,15 @@ const Reviews = (props) => {
     }, [props.property]);
 
     const handleReviewDescriptionChange = (_, editor) => {
-        setReviewDescription(editor.getData());
+        const reviewDescription = editor.getData();
+        setReviewDescription(reviewDescription);
+        if (!reviewDescription.match("^.{1,1000}$")) {
+            setErrorReviewDescription(
+                "Property description cannot be empty and contain more than 1000 characters."
+            );
+        } else {
+            setErrorReviewDescription("");
+        }
     };
     const handleRatingChange = (index) => {
         setSelectedRating(index);
@@ -60,6 +66,8 @@ const Reviews = (props) => {
                         className: "toastify-error",
                     });
                 } else {
+                    setSelectedRating("");
+                    setReviewDescription("");
                     toast.update(toastId, {
                         render: "Review has been successfully posted.",
                         type: "success",
@@ -72,7 +80,11 @@ const Reviews = (props) => {
     };
     const [reviews, setReviews] = useState(undefined);
     const [reviewDescription, setReviewDescription] = useState("");
-    const [selectedRating, setSelectedRating] = useState(undefined);
+    const [selectedRating, setSelectedRating] = useState("");
+    const [errorReviewDescription, setErrorReviewDescription] = useState("");
+    const reviewFields = [selectedRating, reviewDescription];
+    const errors = [errorReviewDescription];
+
     return props.property ? (
         <div>
             {authUser?.id != props.property?.author_id && authUser != null ? (
@@ -102,7 +114,11 @@ const Reviews = (props) => {
                     </div>
 
                     <div
-                        className="ckeditor-wrapper error"
+                        className={
+                            errorReviewDescription
+                                ? "ckeditor-wrapper error"
+                                : "ckeditor-wrapper"
+                        }
                         style={{ position: "relative" }}
                     >
                         <CKEditor
@@ -135,9 +151,21 @@ const Reviews = (props) => {
                             }}
                         />
                     </div>
+                    <span
+                        className="input-error-message"
+                        style={{ display: "flex" }}
+                    >
+                        {errorReviewDescription}
+                    </span>
 
                     <button
-                        className="btn btn-primary property-review-post-button"
+                        className={
+                            reviewFields.every(
+                                (reviewField) => reviewField != ""
+                            ) && errors.every((error) => error == "")
+                                ? "btn btn-primary property-review-post-button"
+                                : "btn btn-primary property-review-post-button disabled"
+                        }
                         style={{ marginTop: "20px", width: "100%" }}
                         onClick={createReview}
                     >

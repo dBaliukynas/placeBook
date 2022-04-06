@@ -1,4 +1,5 @@
 import PropertyDescription from "./PropertyDescription";
+import DateDifference from "./DateDifference";
 import StarIcon from "./svgs/StarIcon";
 
 const ListGroupItem = (props) => {
@@ -31,15 +32,12 @@ const ListGroupItem = (props) => {
                         })}
                     >
                         Last updated:{" "}
-                        {Math.floor(
-                            parseInt(
+                        <DateDifference
+                            dateDifference={
                                 present_date - new Date(props.review.updated_at)
-                            ) /
-                                1000 /
-                                60 /
-                                60
-                        )}{" "}
-                        hours ago
+                            }
+                        />{" "}
+                        ago
                     </small>
                 </div>
                 <div className="property-review-rating-wrapper">
