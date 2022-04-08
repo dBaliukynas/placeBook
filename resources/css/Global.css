@@ -373,12 +373,18 @@ div.rc-slider.rc-slider-horizontal .rc-slider-rail {
 .rc-slider-handle.rc-slider-handle-1,
 .rc-slider-handle.rc-slider-handle-2 {
     cursor: pointer;
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
     border: solid 2px #0d6efd;
-    margin-top: unset;
+    margin-top: -2px;
     opacity: unset;
     user-select: none;
+}
+.rc-slider-handle.rc-slider-handle-1 {
+    transform: translateX(-10%) !important;
+}
+.rc-slider-handle.rc-slider-handle-2 {
+    transform: translateX(-90%) !important;
 }
 div.rc-slider.rc-slider-horizontal
     .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
