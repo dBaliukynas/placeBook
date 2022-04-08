@@ -1,8 +1,9 @@
 import { React, useEffect, useState } from "react";
-import PropertyCardHorizontal from "../components/PropertyCardHorizonal";
-import PropertyCardHorizontalPlaceHolder from "../components/PropertyCardHorizontalPlaceholder";
 import PropertySearchNavigation from "../components/PropertySearchNavigation";
-import Spinner from "../components/Spinner";
+import PropertyCardHorizontal from "../components/PropertyCardHorizontal";
+import PropertyCardHorizontalPlaceholder from "../components/PropertyCardHorizontalPlaceholder";
+import Range from "rc-slider";
+import "rc-slider/assets/index.css";
 
 const PropertySearch = () => {
     useEffect(() => {
@@ -59,7 +60,7 @@ const PropertySearch = () => {
                                         type="text"
                                         className="form-control"
                                         aria-label="Amount (to the nearest euro)"
-                                        value={minPropertyPrice}
+                                        // value={minPropertyPrice}
                                     />
                                 </div>
                                 <span>Min</span>
@@ -71,13 +72,20 @@ const PropertySearch = () => {
                                         type="text"
                                         className="form-control"
                                         aria-label="Amount (to the nearest euro)"
-                                        value={maxPropertyPrice}
+                                        // value={maxPropertyPrice}
                                     />
                                 </div>
                                 <span>Max</span>
                             </div>
                         </div>
-
+                        <div className="double-range-wrapper">
+                            <Range
+                                range
+                                allowCross={false}
+                                defaultValue={[0, 20]}
+                                draggableTrack={true}
+                            />
+                        </div>
                         {/* <div className="property-price-range-wrapper">
                             <div
                                 style={{
@@ -150,7 +158,7 @@ const PropertySearch = () => {
                                   </div>
                               ))
                             : Array.from({ length: 10 }, (_, index) => (
-                                  <PropertyCardHorizontalPlaceHolder
+                                  <PropertyCardHorizontalPlaceholder
                                       key={index}
                                   />
                               ))}
