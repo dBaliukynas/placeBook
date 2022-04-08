@@ -21,12 +21,14 @@ const Search = (props) => {
                 method: "POST",
                 ...defaultFetchOptions,
                 body: JSON.stringify(searchField),
-            }).then((response) =>
-                response.json().then((data) => {
-                    setProperties(data);
-                    setIsLoading(false);
-                })
-            ).catch(error => {});
+            })
+                .then((response) =>
+                    response.json().then((data) => {
+                        setProperties(data);
+                        setIsLoading(false);
+                    })
+                )
+                .catch((error) => {});
         }, 350);
 
         return () => clearTimeout(debounce);
@@ -47,10 +49,15 @@ const Search = (props) => {
                     placeholder="Search"
                     aria-label="Search"
                     onChange={handleSearchFieldChange}
+                    value={searchField}
                 />
             </form>
             {searchField ? (
-                <SearchList properties={properties} isLoading={isLoading} />
+                <SearchList
+                    properties={properties}
+                    isLoading={isLoading}
+                    setSearchField={setSearchField}
+                />
             ) : (
                 <></>
             )}

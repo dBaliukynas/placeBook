@@ -354,3 +354,9 @@ ul.list-group.list-group-horizontal button.list-group-item.top-navigation-last {
 .search-list-item {
     border: unset;
 }
+.property-price-range-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+

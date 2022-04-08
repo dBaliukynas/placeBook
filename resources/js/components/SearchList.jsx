@@ -8,10 +8,11 @@ const SearchList = (props) => {
                 props.properties.length != 0 ? (
                     props.properties.map((property, index) => (
                         <Link
-                            key={index}
                             to={`property/${property.id}`}
+                            key={index}
                             className="list-group-item list-group-item-action search-list-item"
                             aria-current="true"
+                            onClick={() => props.setSearchField("")}
                         >
                             <div className="d-flex w-100 justify-content-between">
                                 <h5 className="mb-1">{property.name}</h5>
