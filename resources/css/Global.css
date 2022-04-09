@@ -347,8 +347,8 @@ ul.list-group.list-group-horizontal button.list-group-item.top-navigation-last {
 }
 .search-list {
     z-index: 1;
-    top: 42px;
     width: 100%;
+    margin-top: 4px;
     border: 1px solid #ced4da;
 }
 .search-list-item {
@@ -358,4 +358,10 @@ ul.list-group.list-group-horizontal button.list-group-item.top-navigation-last {
     position: relative;
     display: flex;
     align-items: center;
+}
+.property-search-aside-small-input {
+    margin-bottom: 10px;
+}
+.property-search-aside-search-list {
+    margin-top: -2px;
 }

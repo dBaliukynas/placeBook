@@ -1,13 +1,21 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Range from "rc-slider";
 import "rc-slider/assets/index.css";
 import "../../css/DoubleRange.css";
+import Search from "./Search";
+import MapGeocoderControl from "../components/MapGeocoderControl";
+import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
 
 const PropertySearchAsideNavigation = (props) => {
     const handlePropertyPriceChange = (value) => {
         setMinPropertyPrice(value[0]);
         setMaxPropertyPrice(value[1]);
-        console.log(value);
+    };
+    const handleMinPropertyPriceChange = (event) => {
+        setMinPropertyPrice(event.target.value);
+    };
+    const handleMaxPropertyPriceChange = (event) => {
+        setMaxPropertyPrice(event.target.value);
     };
     const [minPropertyPrice, setMinPropertyPrice] = useState(100);
     const [maxPropertyPrice, setMaxPropertyPrice] = useState(300);
@@ -38,6 +46,7 @@ const PropertySearchAsideNavigation = (props) => {
                                 type="text"
                                 className="form-control"
                                 aria-label="Amount (to the nearest euro)"
+                                onChange={handleMinPropertyPriceChange}
                                 value={minPropertyPrice}
                             />
                         </div>
@@ -50,6 +59,7 @@ const PropertySearchAsideNavigation = (props) => {
                                 type="text"
                                 className="form-control"
                                 aria-label="Amount (to the nearest euro)"
+                                onChange={handleMaxPropertyPriceChange}
                                 value={maxPropertyPrice}
                             />
                         </div>
@@ -68,20 +78,54 @@ const PropertySearchAsideNavigation = (props) => {
                         onChange={handlePropertyPriceChange}
                     />
                 </div>
-
-                <p className="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                </p>
                 <h5 className="card-title">Country</h5>
+                <div className="position-relative">
+                    <Search
+                        itemType="countries"
+                        route="/api/properties"
+                        className="form-control form-control-sm property-search-aside-small-input"
+                        listClassName="property-search-aside-search-list"
+                        type="search"
+                        placeholder="Country's name"
+                        ariaLabel="Search"
+                    />
+
+                    <MapGeocoderControl
+                        mapboxAccessToken={mapBoxApiKey}
+                        language="en-US"
+                    />
+                </div>
+
                 <h5 className="card-title">City</h5>
+                <Search
+                    itemType="cities"
+                    route="/api/properties"
+                    className="form-control form-control-sm property-search-aside-small-input"
+                    listClassName="property-search-aside-search-list property-search-aside-small-input"
+                    type="search"
+                    placeholder="City's name"
+                    ariaLabel="Search"
+                />
+
                 <h5 className="card-title">Rating</h5>
-            </div>
-            <div
-                className="card-footer bg-transparent"
-                style={{ borderColor: "rgba(0,0,0,.125)" }}
-            >
-                Footer
+                <div>
+                    {Array.from({ length: 10 }, (_, index) => (
+                        <div className="form-check" key={index}>
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                            />
+                            <label
+                                className="form-check-label"
+                                htmlFor="flexCheckDefault"
+                            >
+                                {index + 1}
+                            </label>
+                        </div>
+                    ))}
+                </div>
             </div>
         </aside>
     );

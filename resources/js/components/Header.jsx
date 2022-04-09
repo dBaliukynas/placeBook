@@ -1,9 +1,10 @@
-import React from "react";
+import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search";
 import SearchList from "./SearchList";
 
 const Header = () => {
+    const [searchField, setSearchField] = useState("");
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -62,7 +63,17 @@ const Header = () => {
                                 </Link>
                             </li>
                         </ul>
-                        <Search />
+                        <div className="position-relative navbar-search">
+                            <Search
+                                itemType="properties"
+                                route="/api/properties"
+                                className="form-control"
+                                listClassName="search-list-header"
+                                type="search"
+                                placeholder="Search"
+                                ariaLabel="Search"
+                            />
+                        </div>
                         <div className="navbar-button-wrapper">
                             {authUser == null ? (
                                 <>

@@ -52,11 +52,23 @@ class PropertyController extends Controller
     }
 
 
-    public function read_all()
+    public function read_all(Request $request)
     {
-        $properties = Property::all();
 
-        return response($properties, 200);
+        if ($request->has('search')) {
+
+            ignore_user_abort(true);
+
+            $search_text = $request->query('search');
+
+            $properties = Property::where("name", "LIKE", "{$search_text}%")->get();
+
+            return response()->json($properties);
+        } else {
+            $properties = Property::all();
+
+            return response()->json($properties);
+        }
     }
 
     public function read($id)
@@ -85,18 +97,5 @@ class PropertyController extends Controller
     public function delete($id)
     {
         //
-    }
-
-    public function search(Request $request)
-    {
-        ignore_user_abort(true);
-        $data = $request->input();
-
-        if ($data[0] == "") {
-            return response()->json("");
-        }
-
-        $properties = Property::where("name", "LIKE", "{$data[0]}%")->get();
-        return response()->json($properties);
     }
 }

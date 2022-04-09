@@ -3,23 +3,29 @@ import SearchListPlaceholder from "./SearchListPlaceholder";
 
 const SearchList = (props) => {
     return (
-        <div className="list-group position-absolute search-list">
-            {props.properties && !props.isLoading ? (
-                props.properties.length != 0 ? (
-                    props.properties.map((property, index) => (
+        <div
+            className={`list-group position-absolute search-list ${props.className}`}
+        >
+            {props.items && !props.isLoading ? (
+                props.items.length != 0 ? (
+                    props.items.map((item, index) => (
                         <Link
-                            to={`property/${property.id}`}
+                            to={`/property/${item.id}`}
                             key={index}
                             className="list-group-item list-group-item-action search-list-item"
                             aria-current="true"
                             onClick={() => props.setSearchField("")}
                         >
                             <div className="d-flex w-100 justify-content-between">
-                                <h5 className="mb-1">{property.name}</h5>
+                                <h5 className="mb-1">{item.name}</h5>
                             </div>
-                            <p className="mb-1">
-                                {property.country}, {property.city}
-                            </p>
+                            {props.itemType == "properties" ? (
+                                <p className="mb-1">
+                                    {item.country}, {item.city}
+                                </p>
+                            ) : (
+                                <></>
+                            )}
                         </Link>
                     ))
                 ) : (

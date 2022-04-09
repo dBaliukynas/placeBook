@@ -19,7 +19,7 @@ Route::middleware('auth:web')->get('/user', function (Request $request) {
 Route::post('/property', '\App\Http\Controllers\PropertyController@create');
 Route::get('/property/{id}', '\App\Http\Controllers\PropertyController@read');
 Route::get('/properties', '\App\Http\Controllers\PropertyController@read_all');
-Route::post('/properties/search', '\App\Http\Controllers\PropertyController@search');
+
 
 Route::post('/property/{id}/review', '\App\Http\Controllers\ReviewController@create');
 Route::get('/property/{id}/reviews', '\App\Http\Controllers\ReviewController@read_all');
