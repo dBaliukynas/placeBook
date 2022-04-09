@@ -72,6 +72,7 @@ const Header = () => {
                                 type="search"
                                 placeholder="Search"
                                 ariaLabel="Search"
+                                localApi={true}
                             />
                         </div>
                         <div className="navbar-button-wrapper">

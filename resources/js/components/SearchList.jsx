@@ -10,14 +10,25 @@ const SearchList = (props) => {
                 props.items.length != 0 ? (
                     props.items.map((item, index) => (
                         <Link
-                            to={`/property/${item.id}`}
+                            to={props.localApi ? `/property/${item.id}` : "#"}
                             key={index}
                             className="list-group-item list-group-item-action search-list-item"
                             aria-current="true"
-                            onClick={() => props.setSearchField("")}
+                            onClick={
+                                props.localApi
+                                    ? () => props.setSearchField("")
+                                    : () => {
+                                          props.setSearchField(item.text);
+                                         
+                                      }
+                            }
                         >
                             <div className="d-flex w-100 justify-content-between">
-                                <h5 className="mb-1">{item.name}</h5>
+                                {props.localApi ? (
+                                    <h5 className="mb-1">{item.name}</h5>
+                                ) : (
+                                    <h5 className="mb-1">{item.text}</h5>
+                                )}
                             </div>
                             {props.itemType == "properties" ? (
                                 <p className="mb-1">

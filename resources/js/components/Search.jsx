@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import defaultFetchOptions from "../components/DefaultFetchOptions";
 import SearchList from "./SearchList";
 
 const Search = (props) => {
     const [searchField, setSearchField] = useState("");
+  
 
     const abortController = useRef();
 
@@ -17,17 +17,30 @@ const Search = (props) => {
 
             setIsLoading(true);
             const debounce = setTimeout(() => {
-                fetch(props.route + `?search=${searchField}`, {
-                    signal,
-                    method: "GET",
-                })
-                    .then((response) =>
-                        response.json().then((data) => {
-                            setItems(data);
-                            setIsLoading(false);
-                        })
+             
+                if (props.localApi) {
+                    fetch(props.route + `?search=${searchField}`, {
+                        signal,
+                        method: "GET",
+                    })
+                        .then((response) =>
+                            response.json().then((data) => {
+                                setItems(data);
+                                setIsLoading(false);
+                            })
+                        )
+                        .catch((error) => {});
+                } else {
+                    fetch(
+                        `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchField}.json?access_token=${mapBoxApiKey}&cachebuster=1625641871908&autocomplete=true&types=${props.mapBoxType}`,
+                        { method: "GET" }
                     )
-                    .catch((error) => {});
+                        .then((response) => response.json())
+                        .then((data) => {
+                            setItems(data.features);
+                            setIsLoading(false);
+                        });
+                }
             }, 350);
 
             return () => clearTimeout(debounce);
@@ -59,6 +72,8 @@ const Search = (props) => {
                     isLoading={isLoading}
                     className={props.listClassName}
                     setSearchField={setSearchField}
+                    localApi={props.localApi}
+                  
                 />
             ) : (
                 <></>

@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Range from "rc-slider";
 import "rc-slider/assets/index.css";
 import "../../css/DoubleRange.css";
 import Search from "./Search";
-import MapGeocoderControl from "../components/MapGeocoderControl";
-import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
 
 const PropertySearchAsideNavigation = (props) => {
     const handlePropertyPriceChange = (value) => {
@@ -82,29 +80,28 @@ const PropertySearchAsideNavigation = (props) => {
                 <div className="position-relative">
                     <Search
                         itemType="countries"
-                        route="/api/properties"
+                        route="/api/countries"
                         className="form-control form-control-sm property-search-aside-small-input"
                         listClassName="property-search-aside-search-list"
                         type="search"
                         placeholder="Country's name"
                         ariaLabel="Search"
-                    />
-
-                    <MapGeocoderControl
-                        mapboxAccessToken={mapBoxApiKey}
-                        language="en-US"
+                        localApi={false}
+                        mapBoxType="country"
                     />
                 </div>
 
                 <h5 className="card-title">City</h5>
                 <Search
                     itemType="cities"
-                    route="/api/properties"
+                    route="/api/cities"
                     className="form-control form-control-sm property-search-aside-small-input"
                     listClassName="property-search-aside-search-list property-search-aside-small-input"
                     type="search"
                     placeholder="City's name"
                     ariaLabel="Search"
+                    localApi={false}
+                    mapBoxType="place"
                 />
 
                 <h5 className="card-title">Rating</h5>
