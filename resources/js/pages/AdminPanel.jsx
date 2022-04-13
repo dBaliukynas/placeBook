@@ -1,15 +1,157 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import DataTable from "react-data-table-component";
 import EditIcon from "../components/svgs/EditIcon";
 import TrashIcon from "../components/svgs/TrashIcon";
+import DateDifference from "../components/DateDifference";
 
 const AdminPanel = () => {
+    useEffect(() => console.log(selectedRows));
+    useEffect(() => {
+        fetch(`/api/users`, {
+            method: "GET",
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    setError(response);
+                } else {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                if (data) {
+                    setUsers(data);
+                }
+            });
+    }, []);
     const handleMainContentChange = (name, component) => {
         setMainContent({ name, component });
+    };
+    const handleSelectedRow = (event) => {
+        setSelectedRows(event.selectedRows);
+    };
+    const deleteUser = (id) => {
+        console.log(id);
     };
 
     const [mainContent, setMainContent] = useState({ name: "Dashboard" });
 
+    const present_date = new Date();
+
+    const [users, setUsers] = useState(undefined);
+    const [selectedRows, setSelectedRows] = useState(undefined);
+    const columns = [
+        {
+            name: "Id",
+            selector: (row) => row.id,
+            sortable: true,
+            width: "150px",
+        },
+        {
+            name: "Role",
+            selector: (row) => row.role,
+            sortable: true,
+        },
+        {
+            name: "Name",
+            selector: (row) => row.name,
+            sortable: true,
+        },
+        {
+            name: "Email",
+            selector: (row) => row.email,
+            sortable: true,
+        },
+        {
+            name: "Created",
+            selector: (row) => row.created,
+            sortable: true,
+        },
+        {
+            name: "Actions",
+            selector: (row) => row.actions,
+            center: true,
+        },
+    ];
+
+    const data =
+        users &&
+        users.map((user) => ({
+            id: user.id,
+
+            role: true ? (
+                user.role
+            ) : (
+                <input
+                    className="form-control"
+                    type="text"
+                    value={user.role}
+                    aria-label="edit input"
+                ></input>
+            ),
+            name: true ? (
+                user.name
+            ) : (
+                <input
+                    className="form-control"
+                    type="text"
+                    value={user.name}
+                    aria-label="edit input"
+                ></input>
+            ),
+            email: true ? (
+                user.email
+            ) : (
+                <input
+                    className="form-control"
+                    type="text"
+                    value={user.email}
+                    aria-label="edit input"
+                ></input>
+            ),
+            created: true ? (
+                <span
+                    title={new Date(user.created_at).toLocaleDateString(
+                        "en-CA",
+                        {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                            weekday: "long",
+                            hour: "2-digit",
+                            hour12: false,
+                            minute: "2-digit",
+                            second: "2-digit",
+                        }
+                    )}
+                >
+                    {" "}
+                    <DateDifference
+                        dateDifference={
+                            present_date - new Date(user.created_at)
+                        }
+                    />{" "}
+                    ago
+                </span>
+            ) : (
+                <input
+                    className="form-control"
+                    type="text"
+                    value={user.created_at}
+                    aria-label="edit input"
+                ></input>
+            ),
+            actions: (
+                <>
+                    <TrashIcon
+                        role="button"
+                        className="trash-icon-red"
+                        onClick={() => deleteUser(user.id)}
+                    />
+                    <EditIcon role="button" className="edit-icon-sand" />
+                </>
+            ),
+        }));
     return (
         <>
             <ul
@@ -155,24 +297,15 @@ const AdminPanel = () => {
                                                             marginLeft: "auto",
                                                         }}
                                                     >
-                                                        <button
-                                                            className="btn btn-danger"
-                                                            style={{
-                                                                padding:
-                                                                    "4px 4px 4px 4px",
-                                                            }}
-                                                        >
-                                                            <TrashIcon />
-                                                        </button>
-                                                        <button
-                                                            className="btn btn-light"
-                                                            style={{
-                                                                padding:
-                                                                    "4px 4px 4px 4px",
-                                                            }}
-                                                        >
-                                                            <EditIcon />
-                                                        </button>
+                                                        <TrashIcon
+                                                            role="button"
+                                                            className="trash-icon-red"
+                                                        />
+
+                                                        <EditIcon
+                                                            role="button"
+                                                            className="edit-icon-sand"
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -267,6 +400,57 @@ const AdminPanel = () => {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div className="card" style={{ marginTop: "20px" }}>
+                            <div className="card-body">
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                    }}
+                                >
+                                    <h5 className="card-title">Users</h5>
+                                    <div
+                                        className="card"
+                                        style={{ marginTop: "20px" }}
+                                    >
+                                        <div
+                                            className="card-body"
+                                            style={{ padding: "0.4rem 0.4rem" }}
+                                        >
+                                            {" "}
+                                            <button
+                                                className="btn btn-primary"
+                                                style={{ marginRight: "10px" }}
+                                            >
+                                                Create
+                                            </button>
+                                            <button
+                                                className={
+                                                    selectedRows &&
+                                                    selectedRows.length != 0
+                                                        ? "btn btn-danger"
+                                                        : "btn btn-danger disabled"
+                                                }
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                {users ? (
+                                    <DataTable
+                                        columns={columns}
+                                        data={data}
+                                        selectableRows
+                                        highlightOnHover={true}
+                                        onSelectedRowsChange={handleSelectedRow}
+                                    />
+                                ) : (
+                                    <></>
+                                )}
                             </div>
                         </div>
                     </div>

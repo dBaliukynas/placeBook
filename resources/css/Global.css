@@ -365,3 +365,21 @@ ul.list-group.list-group-horizontal button.list-group-item.top-navigation-last {
 .property-search-aside-search-list {
     margin-top: -2px;
 }
+
+.trash-icon-red {
+    transition: 0.1s ease-out;
+}
+
+.trash-icon-red:hover {
+    stroke: #f3282c;
+    transition: 0.1s ease-in;
+}
+
+.edit-icon-sand {
+    transition: 0.1s ease-out;
+}
+
+.edit-icon-sand:hover {
+    stroke: #df8c1ac4;
+    transition: 0.1s ease-in;
+}
