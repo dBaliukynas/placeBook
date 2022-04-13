@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
 import PropertyDescription from "../components/PropertyDescription";
 import StarIcon from "../components/svgs/StarIcon";
 import { useMediaQuery } from "react-responsive";
@@ -16,6 +16,7 @@ import Spinner from "../components/Spinner";
 import Rent from "../components/Rent";
 import Reviews from "../components/Reviews";
 import HTTPError from "../components/HTTPError";
+import VerticallyCenteredModal from "../components/VerticallyCenteredModal";
 
 const Property = (props) => {
     const { id } = useParams();
@@ -41,11 +42,18 @@ const Property = (props) => {
     const [property, setProperty] = useState(undefined);
     const [error, setError] = useState(undefined);
     const [mainContent, setMainContent] = useState({ name: "Property" });
+    const [propertyDeleteName, setPropertyDeleteName] = useState("");
     if (error?.status == 404) {
         return <HTTPError status={error.status} message="Page not found" />;
     }
     const handleMainContentChange = (name, component) => {
         setMainContent({ name, component });
+    };
+    const handlePropertyDeleteNameChange = (event) => {
+        setPropertyDeleteName(event.target.value);
+    };
+    const deleteProperty = () => {
+        setPropertyDeleteName("");
     };
     return (
         <>
@@ -165,19 +173,34 @@ const Property = (props) => {
                                 </div>
                             </div>
                         ) : (
-                            <> </>
+                            <button className="btn btn-outline-light rent-button">
+                                Property information
+                            </button>
                         )}
                         <div>
                             <button className="btn btn-outline-light rent-button">
                                 Rent this place
                             </button>
                             {authUser?.id == property?.author_id ? (
-                                <button
-                                    className="btn btn-outline-light rent-button"
-                                    style={{ marginLeft: "20px" }}
-                                >
-                                    Edit
-                                </button>
+                                <>
+                                    <Link to={`/property/${property.id}/edit`}>
+                                        <button
+                                            className="btn btn-outline-light rent-button"
+                                            type="button"
+                                            style={{ marginLeft: "20px" }}
+                                        >
+                                            Edit
+                                        </button>
+                                    </Link>
+                                    <button
+                                        className="btn btn-outline-light rent-button"
+                                        style={{ marginLeft: "20px" }}
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal"
+                                    >
+                                        Delete
+                                    </button>
+                                </>
                             ) : (
                                 <> </>
                             )}
@@ -418,6 +441,31 @@ const Property = (props) => {
                     ) : (
                         <mainContent.component property={property} />
                     )}
+                    <VerticallyCenteredModal
+                        id="deleteModal"
+                        buttonText="Delete"
+                        title="Delete property"
+                        buttonType="btn-danger"
+                        onClick={deleteProperty}
+                        disabled={propertyDeleteName != property?.name}
+                        body={
+                            <>
+                                <p>
+                                    If you want to delete this property type{" "}
+                                    <strong>{property?.name}</strong> in this
+                                    field.
+                                </p>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    placeholder="Type your property name"
+                                    aria-label="delete input"
+                                    onChange={handlePropertyDeleteNameChange}
+                                    value={propertyDeleteName}
+                                ></input>
+                            </>
+                        }
+                    />
                 </div>
             }
         </>

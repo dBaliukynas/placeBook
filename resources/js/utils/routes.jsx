@@ -42,6 +42,12 @@ export const routes = [
         parent: "property-search",
     },
     {
+        path: "property/:id/edit",
+        name: "Edit",
+        component: PropertyListing,
+        parent: "property/:id",
+    },
+    {
         path: "admin-panel",
         name: "Admin Panel",
         component: AdminPanel,

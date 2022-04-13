@@ -7,20 +7,39 @@ const Breadcrumb = (props) => {
             matchPath({ path: route.path }, props.location.pathname)
         );
         let crumbs = [];
-        
+
         if (!leaf) {
             return undefined;
         }
-
         let parent = leaf.parent;
+
         crumbs.push(leaf);
-        if (parent) {
+        if (
+            parent &&
+            matchPath({ path: parent, end: false }, props.location.pathname) !=
+                null
+        ) {
+            crumbs.push({
+                path: matchPath(
+                    { path: parent, end: false },
+                    props.location.pathname
+                ).pathname.slice(1),
+                name: routesMap[parent].name,
+            });
+        } else if (parent) {
             crumbs.push(routesMap[parent]);
         }
 
         while (parent) {
             parent = routesMap[parent]?.parent;
-            if (parent) {
+            if (
+                parent &&
+                matchPath(
+                    { path: parent, end: false },
+                    props.location.pathname
+                ) != null
+            ) {
+            } else if (parent) {
                 crumbs.push(routesMap[parent]);
             }
         }

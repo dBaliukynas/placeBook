@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import SearchListPlaceholder from "./SearchListPlaceholder";
 
 const SearchList = (props) => {
+
     return (
         <div
             className={`list-group position-absolute search-list ${props.className}`}
@@ -18,8 +20,8 @@ const SearchList = (props) => {
                                 props.localApi
                                     ? () => props.setSearchField("")
                                     : () => {
-                                          props.setSearchField(item.text);
-                                         
+                                          props.setResult(item.text);
+                                          props.setIsEnabled(false);
                                       }
                             }
                         >

@@ -3,11 +3,14 @@ import SearchList from "./SearchList";
 
 const Search = (props) => {
     const [searchField, setSearchField] = useState("");
-  
+    const [isEnabled, setIsEnabled] = useState(true);
+    const [result, setResult] = useState(undefined);
 
     const abortController = useRef();
 
     useEffect(() => {
+        setResult(undefined);
+        setIsEnabled(true);
         if (searchField) {
             if (abortController.current) {
                 abortController.current.abort();
@@ -17,7 +20,6 @@ const Search = (props) => {
 
             setIsLoading(true);
             const debounce = setTimeout(() => {
-             
                 if (props.localApi) {
                     fetch(props.route + `?search=${searchField}`, {
                         signal,
@@ -62,10 +64,10 @@ const Search = (props) => {
                     placeholder={props.placeholder}
                     aria-label={props.ariaLabel}
                     onChange={handleSearchFieldChange}
-                    value={searchField}
+                    value={result ? result : searchField}
                 />
             </form>
-            {searchField ? (
+            {searchField && isEnabled ? (
                 <SearchList
                     items={items}
                     itemType={props.itemType}
@@ -73,7 +75,9 @@ const Search = (props) => {
                     className={props.listClassName}
                     setSearchField={setSearchField}
                     localApi={props.localApi}
-                  
+                    isEnabled={isEnabled}
+                    setIsEnabled={setIsEnabled}
+                    setResult={setResult}
                 />
             ) : (
                 <></>
