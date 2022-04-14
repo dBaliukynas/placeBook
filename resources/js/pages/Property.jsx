@@ -196,7 +196,7 @@ const Property = (props) => {
                                         className="btn btn-outline-light rent-button"
                                         style={{ marginLeft: "20px" }}
                                         data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal"
+                                        data-bs-target="#deletePropertyModal"
                                     >
                                         Delete
                                     </button>
@@ -442,7 +442,7 @@ const Property = (props) => {
                         <mainContent.component property={property} />
                     )}
                     <VerticallyCenteredModal
-                        id="deleteModal"
+                        id="deletePropertyModal"
                         buttonText="Delete"
                         title="Delete property"
                         buttonType="btn-danger"

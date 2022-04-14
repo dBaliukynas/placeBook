@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Role;
+use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class RoleController extends Controller
 {
 
     public function index()
@@ -14,20 +15,20 @@ class UserController extends Controller
         //
     }
 
-    public function create(Request $request)
-    {
-    }
-
-
-    public function read_all()
+    public function create(Request $request, $property_id)
     {
         if (!Auth::check() || Auth::user()->role != "admin") {
             return response()->json(403);
         }
 
-        $users = User::all();
+        $roles = Role::all();
 
-        return response()->json($users, 200);
+        return response()->json($roles, 200);
+    }
+
+
+    public function read_all($property_id)
+    {
     }
 
     public function update(Request $request, $id)

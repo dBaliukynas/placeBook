@@ -4,8 +4,12 @@ import DataTable from "react-data-table-component";
 import EditIcon from "../components/svgs/EditIcon";
 import TrashIcon from "../components/svgs/TrashIcon";
 import DateDifference from "../components/DateDifference";
+import VerticallyCenteredModal from "../components/VerticallyCenteredModal";
+import CloseIcon from "../components/svgs/CloseIcon";
 
 const AdminPanel = () => {
+    const [usersToBeEdited, setUsersToBeEdited] = useState([]);
+    useEffect(() => console.log(usersToBeEdited));
     useEffect(() => console.log(selectedRows));
     useEffect(() => {
         fetch(`/api/users`, {
@@ -31,8 +35,27 @@ const AdminPanel = () => {
         setSelectedRows(event.selectedRows);
     };
     const deleteUser = (id) => {
-        console.log(id);
+        setUserToBeDeleted(users.find((user) => user.id == id));
     };
+    const editUser = (id) => {
+        if (usersToBeEdited.find((user) => user.id == id)) {
+            setUsersToBeEdited(
+                usersToBeEdited.filter(
+                    (userToBeEdited) => userToBeEdited.id != id
+                )
+            );
+        } else {
+            setUsersToBeEdited((usersToBeEdited) => [
+                ...usersToBeEdited,
+                users.find((user) => user.id == id),
+            ]);
+        }
+    };
+    const editUsers = () => {
+        setUsersToBeEdited(users);
+    };
+
+    const createUser = () => {};
 
     const [mainContent, setMainContent] = useState({ name: "Dashboard" });
 
@@ -40,6 +63,7 @@ const AdminPanel = () => {
 
     const [users, setUsers] = useState(undefined);
     const [selectedRows, setSelectedRows] = useState(undefined);
+    const [userToBeDeleted, setUserToBeDeleted] = useState(undefined);
     const columns = [
         {
             name: "Id",
@@ -79,17 +103,22 @@ const AdminPanel = () => {
         users.map((user) => ({
             id: user.id,
 
-            role: true ? (
+            role: !usersToBeEdited.find(
+                (userToBeEdited) => userToBeEdited.id == user.id
+            ) ? (
                 user.role
             ) : (
-                <input
-                    className="form-control"
-                    type="text"
-                    value={user.role}
-                    aria-label="edit input"
-                ></input>
+                <select
+                    className="form-select form-select-sm"
+                    aria-label=".form-select-sm example"
+                >
+                    <option defaultValue>{user.role}</option>
+                    {/* <option value="1">One</option> */}
+                </select>
             ),
-            name: true ? (
+            name: !usersToBeEdited.find(
+                (userToBeEdited) => userToBeEdited.id == user.id
+            ) ? (
                 user.name
             ) : (
                 <input
@@ -99,7 +128,9 @@ const AdminPanel = () => {
                     aria-label="edit input"
                 ></input>
             ),
-            email: true ? (
+            email: !usersToBeEdited.find(
+                (userToBeEdited) => userToBeEdited.id == user.id
+            ) ? (
                 user.email
             ) : (
                 <input
@@ -147,8 +178,24 @@ const AdminPanel = () => {
                         role="button"
                         className="trash-icon-red"
                         onClick={() => deleteUser(user.id)}
+                        dataBsToggle="modal"
+                        dataBsTarget="#deleteUserModal"
                     />
-                    <EditIcon role="button" className="edit-icon-sand" />
+                    {!usersToBeEdited.find(
+                        (userToBeEdited) => userToBeEdited.id == user.id
+                    ) ? (
+                        <EditIcon
+                            role="button"
+                            className="edit-icon-sand"
+                            onClick={() => editUser(user.id)}
+                        />
+                    ) : (
+                        <CloseIcon
+                            role="button"
+                            className="edit-icon-sand"
+                            onClick={() => editUser(user.id)}
+                        />
+                    )}
                 </>
             ),
         }));
@@ -424,8 +471,86 @@ const AdminPanel = () => {
                                             <button
                                                 className="btn btn-primary"
                                                 style={{ marginRight: "10px" }}
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#createUserModal"
                                             >
                                                 Create
+                                            </button>
+                                            <button
+                                                className={
+                                                    selectedRows &&
+                                                    selectedRows.length != 0
+                                                        ? "btn btn-warning"
+                                                        : "btn btn-warning disabled"
+                                                }
+                                                style={{ marginRight: "10px" }}
+                                                onClick={() => editUsers()}
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                className={
+                                                    selectedRows &&
+                                                    selectedRows.length != 0
+                                                        ? "btn btn-danger"
+                                                        : "btn btn-danger disabled"
+                                                }
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                {users ? (
+                                    <DataTable
+                                        columns={columns}
+                                        data={data}
+                                        selectableRows
+                                        highlightOnHover={true}
+                                        onSelectedRowsChange={handleSelectedRow}
+                                    />
+                                ) : (
+                                    <></>
+                                )}
+                            </div>
+                        </div>
+                             <div className="card" style={{ marginTop: "20px" }}>
+                            <div className="card-body">
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                    }}
+                                >
+                                    <h5 className="card-title">User roles</h5>
+                                    <div
+                                        className="card"
+                                        style={{ marginTop: "20px" }}
+                                    >
+                                        <div
+                                            className="card-body"
+                                            style={{ padding: "0.4rem 0.4rem" }}
+                                        >
+                                            {" "}
+                                            <button
+                                                className="btn btn-primary"
+                                                style={{ marginRight: "10px" }}
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#createUserModal"
+                                            >
+                                                Create
+                                            </button>
+                                            <button
+                                                className={
+                                                    selectedRows &&
+                                                    selectedRows.length != 0
+                                                        ? "btn btn-warning"
+                                                        : "btn btn-warning disabled"
+                                                }
+                                                style={{ marginRight: "10px" }}
+                                                onClick={() => editUsers()}
+                                            >
+                                                Edit
                                             </button>
                                             <button
                                                 className={
@@ -457,6 +582,75 @@ const AdminPanel = () => {
                 ) : (
                     <> </>
                 )}
+                <VerticallyCenteredModal
+                    id="deleteUserModal"
+                    buttonText="Delete"
+                    title="Delete user"
+                    buttonType="btn-danger"
+                    onClick={deleteUser}
+                    body={
+                        <>
+                            <p>
+                                Are you sure you want to delete user{" "}
+                                <strong>{userToBeDeleted?.name}</strong>?
+                            </p>
+                        </>
+                    }
+                />
+                <VerticallyCenteredModal
+                    id="createUserModal"
+                    buttonText="Create"
+                    title="Create user"
+                    buttonType="btn-primary"
+                    onClick={createUser}
+                    // disabled={propertyDeleteName != property?.name}
+                    body={
+                        <>
+                            <form>
+                                <label
+                                    className="form-label"
+                                    htmlFor="userNameInput"
+                                >
+                                    Name
+                                </label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    aria-label="user name"
+                                    id="userNameInput"
+                                    style={{ marginBottom: "10px" }}
+                                />
+                                <label
+                                    className="form-label"
+                                    htmlFor="userEmailInput"
+                                >
+                                    Email
+                                </label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    aria-label="user email"
+                                    id="userEmailInput"
+                                    style={{ marginBottom: "10px" }}
+                                />
+                                <label
+                                    className="form-label"
+                                    htmlFor="userRoleInput"
+                                >
+                                    Role
+                                </label>
+                                <select
+                                    className="form-select"
+                                    aria-label="User role select"
+                                >
+                                    <option defaultValue>Regular</option>
+                                    <option value="1">Admin</option>
+                                   
+                                </select>
+                            </form>
+                        </>
+                    }
+                />
             </div>
         </>
     );
