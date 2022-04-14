@@ -3,21 +3,24 @@ import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import EditIcon from "../components/svgs/EditIcon";
 import TrashIcon from "../components/svgs/TrashIcon";
-import DateDifference from "../components/DateDifference";
 import VerticallyCenteredModal from "../components/VerticallyCenteredModal";
-import CloseIcon from "../components/svgs/CloseIcon";
+import { usersColumns } from "../table/columns/usersColumns";
+import { usersData } from "../table/data/usersData";
+import { rolesColumns } from "../table/columns/rolesColumns";
+import { rolesData } from "../table/data/rolesData";
+import Pagination from "../components/Pagination";
 
 const AdminPanel = () => {
     const [usersToBeEdited, setUsersToBeEdited] = useState([]);
-    useEffect(() => console.log(usersToBeEdited));
-    useEffect(() => console.log(selectedRows));
+    // useEffect(() => console.log(usersToBeEdited));
+    // useEffect(() => console.log(selectedRows));
     useEffect(() => {
         fetch(`/api/users`, {
             method: "GET",
         })
             .then((response) => {
                 if (!response.ok) {
-                    setError(response);
+                    // setError(response);
                 } else {
                     return response.json();
                 }
@@ -25,6 +28,23 @@ const AdminPanel = () => {
             .then((data) => {
                 if (data) {
                     setUsers(data);
+                }
+            });
+    }, []);
+    useEffect(() => {
+        fetch(`/api/roles`, {
+            method: "GET",
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    // setError(response);
+                } else {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                if (data) {
+                    setRoles(data);
                 }
             });
     }, []);
@@ -59,11 +79,25 @@ const AdminPanel = () => {
 
     const [mainContent, setMainContent] = useState({ name: "Dashboard" });
 
-    const present_date = new Date();
+    const presentDate = new Date();
 
     const [users, setUsers] = useState(undefined);
+    const [roles, setRoles] = useState(undefined);
     const [selectedRows, setSelectedRows] = useState(undefined);
     const [userToBeDeleted, setUserToBeDeleted] = useState(undefined);
+
+    const changePage = (pageIndex) => {
+        setCurrentPage(pageIndex);
+    };
+
+    const itemsPerPage = 20;
+    const maxPagesShown = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+    const currentUsers = users?.slice(indexOfFirstItem, indexOfLastItem);
+
     const columns = [
         {
             name: "Id",
@@ -98,107 +132,6 @@ const AdminPanel = () => {
         },
     ];
 
-    const data =
-        users &&
-        users.map((user) => ({
-            id: user.id,
-
-            role: !usersToBeEdited.find(
-                (userToBeEdited) => userToBeEdited.id == user.id
-            ) ? (
-                user.role
-            ) : (
-                <select
-                    className="form-select form-select-sm"
-                    aria-label=".form-select-sm example"
-                >
-                    <option defaultValue>{user.role}</option>
-                    {/* <option value="1">One</option> */}
-                </select>
-            ),
-            name: !usersToBeEdited.find(
-                (userToBeEdited) => userToBeEdited.id == user.id
-            ) ? (
-                user.name
-            ) : (
-                <input
-                    className="form-control"
-                    type="text"
-                    value={user.name}
-                    aria-label="edit input"
-                ></input>
-            ),
-            email: !usersToBeEdited.find(
-                (userToBeEdited) => userToBeEdited.id == user.id
-            ) ? (
-                user.email
-            ) : (
-                <input
-                    className="form-control"
-                    type="text"
-                    value={user.email}
-                    aria-label="edit input"
-                ></input>
-            ),
-            created: true ? (
-                <span
-                    title={new Date(user.created_at).toLocaleDateString(
-                        "en-CA",
-                        {
-                            year: "numeric",
-                            month: "2-digit",
-                            day: "2-digit",
-                            weekday: "long",
-                            hour: "2-digit",
-                            hour12: false,
-                            minute: "2-digit",
-                            second: "2-digit",
-                        }
-                    )}
-                >
-                    {" "}
-                    <DateDifference
-                        dateDifference={
-                            present_date - new Date(user.created_at)
-                        }
-                    />{" "}
-                    ago
-                </span>
-            ) : (
-                <input
-                    className="form-control"
-                    type="text"
-                    value={user.created_at}
-                    aria-label="edit input"
-                ></input>
-            ),
-            actions: (
-                <>
-                    <TrashIcon
-                        role="button"
-                        className="trash-icon-red"
-                        onClick={() => deleteUser(user.id)}
-                        dataBsToggle="modal"
-                        dataBsTarget="#deleteUserModal"
-                    />
-                    {!usersToBeEdited.find(
-                        (userToBeEdited) => userToBeEdited.id == user.id
-                    ) ? (
-                        <EditIcon
-                            role="button"
-                            className="edit-icon-sand"
-                            onClick={() => editUser(user.id)}
-                        />
-                    ) : (
-                        <CloseIcon
-                            role="button"
-                            className="edit-icon-sand"
-                            onClick={() => editUser(user.id)}
-                        />
-                    )}
-                </>
-            ),
-        }));
     return (
         <>
             <ul
@@ -503,8 +436,14 @@ const AdminPanel = () => {
                                 </div>
                                 {users ? (
                                     <DataTable
-                                        columns={columns}
-                                        data={data}
+                                        columns={usersColumns()}
+                                        data={usersData(
+                                            currentUsers,
+                                            usersToBeEdited,
+                                            presentDate,
+                                            editUser,
+                                            deleteUser
+                                        )}
                                         selectableRows
                                         highlightOnHover={true}
                                         onSelectedRowsChange={handleSelectedRow}
@@ -512,9 +451,21 @@ const AdminPanel = () => {
                                 ) : (
                                     <></>
                                 )}
+
+                                {users ? (
+                                    <Pagination
+                                        itemsLength={users.length}
+                                        itemsPerPage={itemsPerPage}
+                                        changePage={changePage}
+                                        currentPage={currentPage}
+                                        maxPagesShown={maxPagesShown}
+                                    />
+                                ) : (
+                                    <></>
+                                )}
                             </div>
                         </div>
-                             <div className="card" style={{ marginTop: "20px" }}>
+                        <div className="card" style={{ marginTop: "20px" }}>
                             <div className="card-body">
                                 <div
                                     style={{
@@ -536,7 +487,7 @@ const AdminPanel = () => {
                                                 className="btn btn-primary"
                                                 style={{ marginRight: "10px" }}
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#createUserModal"
+                                                data-bs-target="#createRoleModal"
                                             >
                                                 Create
                                             </button>
@@ -565,10 +516,10 @@ const AdminPanel = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {users ? (
+                                {roles ? (
                                     <DataTable
-                                        columns={columns}
-                                        data={data}
+                                        columns={rolesColumns()}
+                                        data={rolesData(roles)}
                                         selectableRows
                                         highlightOnHover={true}
                                         onSelectedRowsChange={handleSelectedRow}
@@ -643,10 +594,44 @@ const AdminPanel = () => {
                                     className="form-select"
                                     aria-label="User role select"
                                 >
-                                    <option defaultValue>Regular</option>
-                                    <option value="1">Admin</option>
-                                   
+                                    <option defaultValue>regular</option>
+                                    {roles &&
+                                        roles
+                                            .filter(
+                                                (role) => role.name != "regular"
+                                            )
+                                            .map((role, index) => (
+                                                <option key={index} value="1">
+                                                    {role.name}
+                                                </option>
+                                            ))}
                                 </select>
+                            </form>
+                        </>
+                    }
+                />
+                <VerticallyCenteredModal
+                    id="createRoleModal"
+                    buttonText="Create"
+                    title="Create user role"
+                    buttonType="btn-primary"
+                    onClick={createUser}
+                    // disabled={propertyDeleteName != property?.name}
+                    body={
+                        <>
+                            <form>
+                                <label
+                                    className="form-label"
+                                    htmlFor="userRoleNameInput"
+                                >
+                                    Name
+                                </label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    aria-label="user role"
+                                    id="userRoleNameInput"
+                                />
                             </form>
                         </>
                     }

@@ -21,6 +21,7 @@ Route::get('/property/{id}', '\App\Http\Controllers\PropertyController@read');
 Route::get('/properties', '\App\Http\Controllers\PropertyController@read_all');
 
 Route::get('/users', '\App\Http\Controllers\UserController@read_all');
+Route::get('/roles', '\App\Http\Controllers\RoleController@read_all');
 
 
 Route::post('/property/{id}/review', '\App\Http\Controllers\ReviewController@create');

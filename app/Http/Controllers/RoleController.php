@@ -15,7 +15,12 @@ class RoleController extends Controller
         //
     }
 
-    public function create(Request $request, $property_id)
+    public function create()
+    {
+    }
+
+
+    public function read_all()
     {
         if (!Auth::check() || Auth::user()->role != "admin") {
             return response()->json(403);
@@ -24,11 +29,6 @@ class RoleController extends Controller
         $roles = Role::all();
 
         return response()->json($roles, 200);
-    }
-
-
-    public function read_all($property_id)
-    {
     }
 
     public function update(Request $request, $id)

@@ -3,7 +3,7 @@ import DateDifference from "./DateDifference";
 import StarIcon from "./svgs/StarIcon";
 
 const ListGroupItem = (props) => {
-    const present_date = new Date();
+    const presentDate = new Date();
 
     return (
         <div style={{ width: "100%" }}>
@@ -34,7 +34,7 @@ const ListGroupItem = (props) => {
                         Last updated:{" "}
                         <DateDifference
                             dateDifference={
-                                present_date - new Date(props.review.updated_at)
+                                presentDate - new Date(props.review.updated_at)
                             }
                         />{" "}
                         ago
