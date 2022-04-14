@@ -436,7 +436,7 @@ const AdminPanel = () => {
                                 </div>
                                 {users ? (
                                     <DataTable
-                                        columns={usersColumns()}
+                                        columns={usersColumns( usersToBeEdited, presentDate)}
                                         data={usersData(
                                             currentUsers,
                                             usersToBeEdited,
@@ -459,6 +459,7 @@ const AdminPanel = () => {
                                         changePage={changePage}
                                         currentPage={currentPage}
                                         maxPagesShown={maxPagesShown}
+                                        className="admin-panel-users-table"
                                     />
                                 ) : (
                                     <></>

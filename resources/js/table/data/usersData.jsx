@@ -15,9 +15,7 @@ export const usersData = (
         users.map((user) => ({
             id: user.id,
 
-            role: !usersToBeEdited.find(
-                (userToBeEdited) => userToBeEdited.id == user.id
-            ) ? (
+            role: true ? (
                 user.role
             ) : (
                 <select
@@ -28,9 +26,7 @@ export const usersData = (
                     {/* <option value="1">One</option> */}
                 </select>
             ),
-            name: !usersToBeEdited.find(
-                (userToBeEdited) => userToBeEdited.id == user.id
-            ) ? (
+            name: true ? (
                 user.name
             ) : (
                 <input
@@ -40,9 +36,7 @@ export const usersData = (
                     aria-label="edit input"
                 ></input>
             ),
-            email: !usersToBeEdited.find(
-                (userToBeEdited) => userToBeEdited.id == user.id
-            ) ? (
+            email: true ? (
                 user.email
             ) : (
                 <input
@@ -53,27 +47,28 @@ export const usersData = (
                 ></input>
             ),
             created: true ? (
-                <span
-                    title={new Date(user.created_at).toLocaleDateString(
-                        "en-CA",
-                        {
-                            year: "numeric",
-                            month: "2-digit",
-                            day: "2-digit",
-                            weekday: "long",
-                            hour: "2-digit",
-                            hour12: false,
-                            minute: "2-digit",
-                            second: "2-digit",
-                        }
-                    )}
-                >
-                    {" "}
-                    <DateDifference
-                        dateDifference={presentDate - new Date(user.created_at)}
-                    />{" "}
-                    ago
-                </span>
+                // <span
+                //     title={new Date(user.created_at).toLocaleDateString(
+                //         "en-CA",
+                //         {
+                //             year: "numeric",
+                //             month: "2-digit",
+                //             day: "2-digit",
+                //             weekday: "long",
+                //             hour: "2-digit",
+                //             hour12: false,
+                //             minute: "2-digit",
+                //             second: "2-digit",
+                //         }
+                //     )}
+                // >
+                //     {" "}
+                //     <DateDifference
+                //         dateDifference={presentDate - new Date(user.created_at)}
+                //     />{" "}
+                //     ago
+                // </span>
+                user.created_at
             ) : (
                 <input
                     className="form-control"

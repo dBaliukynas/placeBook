@@ -84,7 +84,10 @@ const Pagination = (props) => {
 
     return (
         <nav aria-label="Page navigation">
-            <ul className="pagination" style={{ justifyContent: "center" }}>
+            <ul
+                className={`pagination ${props.className}`}
+                style={{ justifyContent: "center" }}
+            >
                 <li
                     className={
                         props.currentPage == 1

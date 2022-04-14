@@ -382,4 +382,8 @@ ul.list-group.list-group-horizontal button.list-group-item.top-navigation-last {
 .edit-icon-sand:hover {
     stroke: #df8c1ac4;
     transition: 0.1s ease-in;
+    user-select: none;
+}
+.admin-panel-users-table {
+    margin-top: 30px;
 }
