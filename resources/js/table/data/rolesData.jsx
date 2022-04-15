@@ -1,45 +1,46 @@
-export const rolesData = (roles) => {
+import CloseIcon from "../../components/svgs/CloseIcon";
+import EditIcon from "../../components/svgs/EditIcon";
+import TrashIcon from "../../components/svgs/TrashIcon";
+
+export const rolesData = (
+    roles,
+    rolesToBeEdited,
+    editRole,
+    deleteRole
+) => {
     return (
         roles &&
         roles.map((role) => ({
             id: role.id,
 
-            name: true ? (
-                role.name
-            ) : (
-                <input
-                    className="form-control"
-                    type="text"
-                    value={role.name}
-                    aria-label="edit input"
-                ></input>
+            name: role.name,
+
+            actions: (
+                <>
+                    <TrashIcon
+                        role="button"
+                        className="trash-icon-red"
+                        onClick={() => deleteRole(role.id)}
+                        dataBsToggle="modal"
+                        dataBsTarget="#deleteRoleModal"
+                    />
+                    {!rolesToBeEdited.find(
+                        (roleToBeEdited) => roleToBeEdited.id == role.id
+                    ) ? (
+                        <EditIcon
+                            role="button"
+                            className="edit-icon-sand"
+                            onClick={() => editRole(role.id)}
+                        />
+                    ) : (
+                        <CloseIcon
+                            role="button"
+                            className="edit-icon-sand"
+                            onClick={() => editRole(role.id)}
+                        />
+                    )}
+                </>
             ),
-            // actions: (
-            //     <>
-            //         <TrashIcon
-            //             role="button"
-            //             className="trash-icon-red"
-            //             // onClick={() => deleteUser(user.id)}
-            //             dataBsToggle="modal"
-            //             dataBsTarget="#deleteUserModal"
-            //         />
-            //         {!usersToBeEdited.find(
-            //             (userToBeEdited) => userToBeEdited.id == user.id
-            //         ) ? (
-            //             <EditIcon
-            //                 role="button"
-            //                 className="edit-icon-sand"
-            //                 onClick={() => editUser(user.id)}
-            //             />
-            //         ) : (
-            //             <CloseIcon
-            //                 role="button"
-            //                 className="edit-icon-sand"
-            //                 onClick={() => editUser(user.id)}
-            //             />
-            //         )}
-            //     </>
-            // ),
         }))
     );
 };

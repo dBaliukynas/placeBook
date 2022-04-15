@@ -42,7 +42,7 @@ export const usersColumns = (usersToBeEdited, presentDate) => {
                         aria-label="edit input"
                     ></input>
                 ) : (
-                    row.name
+                    <span title={row.name}>{row.name}</span>
                 ),
         },
         {
@@ -60,7 +60,7 @@ export const usersColumns = (usersToBeEdited, presentDate) => {
                         aria-label="edit input"
                     ></input>
                 ) : (
-                    row.email
+                    <span title={row.email}>{row.email}</span>
                 ),
         },
         {
