@@ -1,9 +1,8 @@
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
-import PropertyRating from "./PropertyRating";
-import PropertyReviewCount from "./PropertyReviewCount";
-import StarIcon from "./svgs/StarIcon";
+import PropertyRating from "../PropertyRating";
+import PropertyReviewCount from "../PropertyReviewCount";
 
 const PropertyCard = (props) => {
     const isMobileScreen = useMediaQuery({ query: "(max-width: 650px)" });

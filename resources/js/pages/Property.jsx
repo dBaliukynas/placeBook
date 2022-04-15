@@ -11,7 +11,7 @@ import CountryIcon from "../components/svgs/CountryIcon";
 import CityIcon from "../components/svgs/CityIcon";
 import RegionIcon from "../components/svgs/RegionIcon";
 import NumbersIcon from "../components/svgs/NumbersIcon";
-import Breadcrumb from "../components/Breadcrumb";
+import Breadcrumb from "../components/layout/Breadcrumb";
 import Spinner from "../components/Spinner";
 import Rent from "../components/Rent";
 import Reviews from "../components/Reviews";

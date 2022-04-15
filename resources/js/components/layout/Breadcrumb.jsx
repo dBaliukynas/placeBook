@@ -1,5 +1,5 @@
 import { Link, matchPath } from "react-router-dom";
-import { routes, routesMap } from "../utils/routes";
+import { routes, routesMap } from "../../utils/routes";
 
 const Breadcrumb = (props) => {
     const getCrumbs = () => {

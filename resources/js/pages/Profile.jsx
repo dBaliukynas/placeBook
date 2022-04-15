@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Pagination from "../components/Pagination";
-import PropertyCard from "../components/PropertyCard";
+import PropertyCard from "../components/cards/PropertyCard";
 import Spinner from "../components/Spinner";
 
 const Profile = () => {

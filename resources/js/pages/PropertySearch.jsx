@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import PropertySearchNavigation from "../components/PropertySearchNavigation";
-import PropertyCardHorizontal from "../components/PropertyCardHorizontal";
-import PropertyCardHorizontalPlaceholder from "../components/PropertyCardHorizontalPlaceholder";
+import PropertyCardHorizontal from "../components/cards/PropertyCardHorizontal";
+import PropertyCardHorizontalPlaceholder from "../components/cards/PropertyCardHorizontalPlaceholder";
 import PropertySearchAsideNavigation from "../components/PropertySearchAsideNavigation";
 
 const PropertySearch = () => {

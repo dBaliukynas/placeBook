@@ -2,13 +2,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import React from "react";
 import ReactDOM from "react-dom";
-import RequireAuth from "./components/RequireAuth";
+import RequireAuth from "./components/guards/RequireAuth";
 import Redirecting from "./pages/Redirecting";
 import Layout from "./pages/Layout";
 import { routes } from "./utils/routes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HTTPError from "./components/HTTPError";
-import RequireRole from "./components/RequireRole";
+import RequireRole from "./components/guards/RequireRole";
 
 const Main = () => {
     return (

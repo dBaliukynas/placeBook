@@ -1,4 +1,4 @@
-import HTTPError from "./HTTPError";
+import HTTPError from "../HTTPError";
 
 const RequireRole = ({ children }) => {
     if (authUser.role != "admin") {

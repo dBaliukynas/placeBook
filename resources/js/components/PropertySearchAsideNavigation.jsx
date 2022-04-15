@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Range from "rc-slider";
 import "rc-slider/assets/index.css";
 import "../../css/DoubleRange.css";
-import Search from "./Search";
+import Search from "./search/Search";
 
 const PropertySearchAsideNavigation = (props) => {
     const handlePropertyPriceChange = (value) => {

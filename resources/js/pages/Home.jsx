@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CardCarousel from "../components/CardCarousel";
+import CardCarousel from "../components/cards/CardCarousel";
 
 const Home = () => {
     const propertyTypesMatrix = [

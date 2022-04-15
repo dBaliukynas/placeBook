@@ -1,7 +1,6 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
-import Search from "./Search";
-import SearchList from "./SearchList";
+import Search from "../search/Search";
 
 const Header = () => {
     const [searchField, setSearchField] = useState("");

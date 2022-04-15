@@ -1,4 +1,4 @@
-import Spinner from "./Spinner";
+import Spinner from "../Spinner";
 
 const SearchListPlaceholder = (props) => {
     return Array.from({ length: 5 }, (_, index) => (

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import "../../css/Global.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
 import { Outlet, useLocation } from "react-router-dom";
-import Breadcrumb from "../components/Breadcrumb";
+import Breadcrumb from "../components/layout/Breadcrumb";
 import { ToastContainer } from "react-toastify";
 import { breadcrumbHandler } from "../utils/breadcrumbHandler";
 

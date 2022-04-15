@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import PropertyRating from "./PropertyRating";
-import PropertyReviewCount from "./PropertyReviewCount";
-import StarIcon from "./svgs/StarIcon";
+import PropertyRating from "../PropertyRating";
+import PropertyReviewCount from "../PropertyReviewCount";
 
 const PropertyCardHorizontal = (props) => {
     return (
