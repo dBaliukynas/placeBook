@@ -182,7 +182,8 @@ const Property = (props) => {
                             <button className="btn btn-outline-light rent-button">
                                 Rent this place
                             </button>
-                            {authUser?.id == property?.author_id ? (
+                            {authUser.role == "admin" ||
+                            authUser?.id == property?.author_id ? (
                                 <>
                                     <Link to={`/property/${property.id}/edit`}>
                                         <button
@@ -375,47 +376,40 @@ const Property = (props) => {
                                     </div>
                                 </div>
                                 <div className="card">
-                                    <div
-                                        className="card-body"
-                                        style={{
-                                            display: "flex",
-                                            flexWrap: "wrap",
-                                            justifyContent: "center",
-                                        }}
-                                    >
-                                        <div className="property-info-bottom">
+                                    <div className="card-body property-info-bottom">
+                                        <div className="property-info-bottom-item">
                                             <LetterIcon />
                                             <strong>Name</strong>
                                             {property.name}
                                         </div>
-                                        <div className="property-info-bottom">
+                                        <div className="property-info-bottom-item">
                                             <EuroBanknoteIcon />
                                             <strong>Price starting from</strong>
                                             {property.price}€
                                         </div>
-                                        <div className="property-info-bottom">
+                                        <div className="property-info-bottom-item">
                                             <HouseIcon />
                                             <strong>Type</strong>
                                             {property.type}
                                         </div>
-                                        <div className="property-info-bottom">
+                                        <div className="property-info-bottom-item">
                                             <PinIcon />
                                             <strong>Address</strong>
                                             {property.address}
                                         </div>
-                                        <div className="property-info-bottom">
+                                        <div className="property-info-bottom-item">
                                             <CountryIcon />
                                             <strong>Country</strong>
                                             {property.country}
                                         </div>
-                                        <div className="property-info-bottom">
+                                        <div className="property-info-bottom-item">
                                             <CityIcon />
                                             <strong>City</strong>
                                             {property.city}
                                         </div>
 
                                         {property.region ? (
-                                            <div className="property-info-bottom">
+                                            <div className="property-info-bottom-item">
                                                 <RegionIcon />
                                                 <strong>Region</strong>{" "}
                                                 {property.region}
@@ -425,7 +419,7 @@ const Property = (props) => {
                                         )}
 
                                         {property.postcode ? (
-                                            <div className="property-info-bottom">
+                                            <div className="property-info-bottom-item">
                                                 <NumbersIcon />
                                                 <strong>Postcode</strong>{" "}
                                                 {property.postcode}

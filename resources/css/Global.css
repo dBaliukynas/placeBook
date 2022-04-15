@@ -111,7 +111,7 @@ div.list-group a.list-group-item + .list-group-item {
     border-top-width: 1px;
 }
 
-.property-description p {
+.property-description {
     word-break: break-word;
 }
 .property-description figure {
@@ -259,9 +259,14 @@ div.carousel-item div div.no-margin-right {
 
 .property-info-bottom {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.property-info-bottom-item {
+ 
+    display: flex;
     align-items: center;
-    margin-right: 50px;
+    flex-direction: column;
 }
 
 .carousel-control-prev.home-carousel,

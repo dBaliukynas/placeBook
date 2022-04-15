@@ -172,7 +172,7 @@ const Reviews = (props) => {
                         Post
                     </button>
                 </>
-            ) : authUser == null ? (
+            ) : !authUser ? (
                 <div className="property-review-not-logged-in">
                     <span>To leave a review you need to be logged in.</span>
 

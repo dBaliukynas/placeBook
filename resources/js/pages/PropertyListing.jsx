@@ -14,6 +14,7 @@ import "../../css/Calendar.css";
 import "react-toastify/dist/ReactToastify.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Spinner from "../components/Spinner";
+import HTTPError from "../components/HTTPError";
 
 const PropertyListing = (isPropertyEdit) => {
     const { id } = useParams();
@@ -43,8 +44,8 @@ const PropertyListing = (isPropertyEdit) => {
             setPropertyAddress(property.address);
             setPropertyCountry(property.country);
             setPropertyCity(property.city);
-            setPropertyRegion(property.region);
-            setPropertyPostcode(property.postcode);
+            property.region && setPropertyRegion(property.region);
+            property.postcode && setPropertyPostcode(property.postcode);
             setPropertyPrice(property.price);
             setPropertyDescription(property.description);
         }
@@ -374,7 +375,9 @@ const PropertyListing = (isPropertyEdit) => {
                         width: "100%",
                     }}
                 >
-                    {!isPropertyEdit || property ? (
+                    {!isPropertyEdit ||
+                    (property && authUser.role == "admin") ||
+                    (property && property.author_id == authUser?.id) ? (
                         <div style={{ textAlign: "start" }}>
                             <div style={{ marginBottom: "15px" }}>
                                 <h5>Property name</h5>
@@ -762,6 +765,8 @@ const PropertyListing = (isPropertyEdit) => {
                                 )}
                             </button>
                         </div>
+                    ) : property ? (
+                        <HTTPError status={403} message="Page forbidden" />
                     ) : (
                         <Spinner color="text-primary" />
                     )}

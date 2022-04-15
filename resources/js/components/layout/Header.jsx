@@ -75,7 +75,7 @@ const Header = () => {
                             />
                         </div>
                         <div className="navbar-button-wrapper">
-                            {authUser == null ? (
+                            {!authUser ? (
                                 <>
                                     <Link
                                         to="/login"

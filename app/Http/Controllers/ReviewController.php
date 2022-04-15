@@ -18,6 +18,10 @@ class ReviewController extends Controller
 
     public function create(Request $request, $property_id)
     {
+        if (!Auth::check()) {
+            return response()->json(403);
+        }
+        
         $data = $request->input();
 
         $validator = Validator::make($data, [

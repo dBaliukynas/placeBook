@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import CardCarousel from "../components/cards/CardCarousel";
 
@@ -45,11 +45,20 @@ const Home = () => {
                 cityName: "Klaipėda",
                 imagePath: "/images/property_city_klaipeda.jpg",
             },
-            { cityName: "Šiauliai", imagePath: "/images/property_city_siauliai.jpg" },
-            { cityName: "Panevėžys", imagePath: "/images/property_city_panevezys.jpg" },
+            {
+                cityName: "Šiauliai",
+                imagePath: "/images/property_city_siauliai.jpg",
+            },
+            {
+                cityName: "Panevėžys",
+                imagePath: "/images/property_city_panevezys.jpg",
+            },
         ],
         [
-            { cityName: "Palanga", imagePath: "/images/property_city_palanga.jpg" },
+            {
+                cityName: "Palanga",
+                imagePath: "/images/property_city_palanga.jpg",
+            },
             {
                 cityName: "Utena",
                 imagePath: "/images/property_city_utena.jpg",
@@ -58,8 +67,14 @@ const Home = () => {
                 cityName: "Kėdainiai",
                 imagePath: "/images/property_city_kedainiai.jpg",
             },
-            { cityName: "Anykščiai", imagePath: "/images/property_city_anyksciai.jpg" },
-            { cityName: "Marijampolė", imagePath: "/images/property_city_marijampole.jpg" },
+            {
+                cityName: "Anykščiai",
+                imagePath: "/images/property_city_anyksciai.jpg",
+            },
+            {
+                cityName: "Marijampolė",
+                imagePath: "/images/property_city_marijampole.jpg",
+            },
         ],
     ];
     return (

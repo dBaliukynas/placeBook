@@ -9,6 +9,7 @@ import { routes } from "./utils/routes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HTTPError from "./components/HTTPError";
 import RequireRole from "./components/guards/RequireRole";
+import Breadcrumb from "./components/layout/Breadcrumb";
 
 const Main = () => {
     return (
