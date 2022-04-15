@@ -224,7 +224,7 @@ const Property = (props) => {
                         </div>
                     </div>
                 ) : (
-                    <Spinner color={"text-light"} />
+                    <Spinner color="text-light" />
                 )}
             </div>
             <Breadcrumb location={location} />

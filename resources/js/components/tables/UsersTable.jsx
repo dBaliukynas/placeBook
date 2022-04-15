@@ -100,7 +100,8 @@ const UsersTable = (props) => {
                     <DataTable
                         columns={usersColumns(
                             usersToBeEdited,
-                            props.presentDate
+                            props.presentDate,
+                            props.roles
                         )}
                         data={usersData(
                             currentUsers,
@@ -114,7 +115,7 @@ const UsersTable = (props) => {
                         onSelectedRowsChange={handleSelectedRow}
                     />
                 ) : (
-                    <Spinner color={"text-primary"} />
+                    <Spinner color="text-primary" />
                 )}
 
                 {props.users ? (

@@ -199,11 +199,11 @@ const Reviews = (props) => {
                     ))
                 )
             ) : (
-                <Spinner color={"text-primary"} />
+                <Spinner color="text-primary" />
             )}
         </div>
     ) : (
-        <Spinner color={"text-primary"} />
+        <Spinner color="text-primary" />
     );
 };
 

@@ -13,24 +13,27 @@ import "react-calendar/dist/Calendar.css";
 import "../../css/Calendar.css";
 import "react-toastify/dist/ReactToastify.css";
 import "mapbox-gl/dist/mapbox-gl.css";
+import Spinner from "../components/Spinner";
 
-const PropertyListing = () => {
+const PropertyListing = (isPropertyEdit) => {
     const { id } = useParams();
     useEffect(() => {
-        fetch(`/api/property/${id}`, {
-            method: "GET",
-        })
-            .then((response) => {
-                if (!response.ok) {
-                } else {
-                    return response.json();
-                }
+        if (isPropertyEdit) {
+            fetch(`/api/property/${id}`, {
+                method: "GET",
             })
-            .then((data) => {
-                if (data) {
-                    setProperty(data);
-                }
-            });
+                .then((response) => {
+                    if (!response.ok) {
+                    } else {
+                        return response.json();
+                    }
+                })
+                .then((data) => {
+                    if (data) {
+                        setProperty(data);
+                    }
+                });
+        }
     }, []);
     const [property, setProperty] = useState(undefined);
     useEffect(() => {
@@ -293,6 +296,7 @@ const PropertyListing = () => {
             );
         }
     };
+    const editProperty = () => {};
     const minPropertyPrice = 1;
     const maxPropertyPrice = 10001;
     const [propertyName, setPropertyName] = useState("");
@@ -368,238 +372,251 @@ const PropertyListing = () => {
                 <div
                     style={{
                         width: "100%",
-                        textAlign: "start",
                     }}
                 >
-                    <div style={{ marginBottom: "15px" }}>
-                        <h5>Property name</h5>
-                        <input
-                            className={
-                                errorPropertyName
-                                    ? "form-control form-control-lg input-error"
-                                    : "form-control form-control-lg"
-                            }
-                            type="text"
-                            placeholder="Property name"
-                            aria-label=".form-control-lg"
-                            value={propertyName}
-                            onChange={handlePropertyNameChange}
-                        />
-                        <span className="input-error-message">
-                            {errorPropertyName}
-                        </span>
-                    </div>
-                    <div style={{ marginBottom: "15px" }}>
-                        <div style={{ marginBottom: "15px" }}>
-                            <h5>Property type</h5>
-                        </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                flexWrap: "wrap",
-                            }}
-                        >
-                            <button
-                                type="button"
-                                className={
-                                    propertyType == "Hotel"
-                                        ? "btn btn-primary property-type button-selected"
-                                        : errorPropertyType
-                                        ? "btn btn-primary property-type input-error"
-                                        : "btn btn-primary property-type"
-                                }
-                                aria-current="true"
-                                onClick={() =>
-                                    handlePropertyTypeChange("Hotel")
-                                }
-                            >
-                                Hotel
-                            </button>
-                            <button
-                                type="button"
-                                className={
-                                    propertyType == "Apartment"
-                                        ? "btn btn-primary property-type button-selected"
-                                        : errorPropertyType
-                                        ? "btn btn-primary property-type input-error"
-                                        : "btn btn-primary property-type"
-                                }
-                                onClick={() =>
-                                    handlePropertyTypeChange("Apartment")
-                                }
-                            >
-                                Apartment
-                            </button>
-                            <button
-                                type="button"
-                                className={
-                                    propertyType == "Homestead"
-                                        ? "btn btn-primary property-type button-selected"
-                                        : errorPropertyType
-                                        ? "btn btn-primary property-type input-error"
-                                        : "btn btn-primary property-type"
-                                }
-                                onClick={() =>
-                                    handlePropertyTypeChange("Homestead")
-                                }
-                            >
-                                Homestead
-                            </button>
-                            <button
-                                type="button"
-                                className={
-                                    propertyType == "Motel"
-                                        ? "btn btn-primary property-type button-selected"
-                                        : errorPropertyType
-                                        ? "btn btn-primary property-type input-error"
-                                        : "btn btn-primary property-type"
-                                }
-                                onClick={() =>
-                                    handlePropertyTypeChange("Motel")
-                                }
-                            >
-                                Motel
-                            </button>
-                            <button
-                                type="button"
-                                className={
-                                    propertyType == "Villa"
-                                        ? "btn btn-primary property-type button-selected"
-                                        : errorPropertyType
-                                        ? "btn btn-primary property-type input-error"
-                                        : "btn btn-primary property-type"
-                                }
-                                onClick={() =>
-                                    handlePropertyTypeChange("Villa")
-                                }
-                            >
-                                Villa
-                            </button>
-                        </div>
-                        <span className="input-error-message">
-                            {errorPropertyType}
-                        </span>
-                    </div>
+                    {!isPropertyEdit || property ? (
+                        <div style={{ textAlign: "start" }}>
+                            <div style={{ marginBottom: "15px" }}>
+                                <h5>Property name</h5>
+                                <input
+                                    className={
+                                        errorPropertyName
+                                            ? "form-control form-control-lg input-error"
+                                            : "form-control form-control-lg"
+                                    }
+                                    type="text"
+                                    placeholder="Property name"
+                                    aria-label=".form-control-lg"
+                                    value={propertyName}
+                                    onChange={handlePropertyNameChange}
+                                />
+                                <span className="input-error-message">
+                                    {errorPropertyName}
+                                </span>
+                            </div>
+                            <div style={{ marginBottom: "15px" }}>
+                                <div style={{ marginBottom: "15px" }}>
+                                    <h5>Property type</h5>
+                                </div>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        flexWrap: "wrap",
+                                    }}
+                                >
+                                    <button
+                                        type="button"
+                                        className={
+                                            propertyType == "Hotel"
+                                                ? "btn btn-primary property-type button-selected"
+                                                : errorPropertyType
+                                                ? "btn btn-primary property-type input-error"
+                                                : "btn btn-primary property-type"
+                                        }
+                                        aria-current="true"
+                                        onClick={() =>
+                                            handlePropertyTypeChange("Hotel")
+                                        }
+                                    >
+                                        Hotel
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className={
+                                            propertyType == "Apartment"
+                                                ? "btn btn-primary property-type button-selected"
+                                                : errorPropertyType
+                                                ? "btn btn-primary property-type input-error"
+                                                : "btn btn-primary property-type"
+                                        }
+                                        onClick={() =>
+                                            handlePropertyTypeChange(
+                                                "Apartment"
+                                            )
+                                        }
+                                    >
+                                        Apartment
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className={
+                                            propertyType == "Homestead"
+                                                ? "btn btn-primary property-type button-selected"
+                                                : errorPropertyType
+                                                ? "btn btn-primary property-type input-error"
+                                                : "btn btn-primary property-type"
+                                        }
+                                        onClick={() =>
+                                            handlePropertyTypeChange(
+                                                "Homestead"
+                                            )
+                                        }
+                                    >
+                                        Homestead
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className={
+                                            propertyType == "Motel"
+                                                ? "btn btn-primary property-type button-selected"
+                                                : errorPropertyType
+                                                ? "btn btn-primary property-type input-error"
+                                                : "btn btn-primary property-type"
+                                        }
+                                        onClick={() =>
+                                            handlePropertyTypeChange("Motel")
+                                        }
+                                    >
+                                        Motel
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className={
+                                            propertyType == "Villa"
+                                                ? "btn btn-primary property-type button-selected"
+                                                : errorPropertyType
+                                                ? "btn btn-primary property-type input-error"
+                                                : "btn btn-primary property-type"
+                                        }
+                                        onClick={() =>
+                                            handlePropertyTypeChange("Villa")
+                                        }
+                                    >
+                                        Villa
+                                    </button>
+                                </div>
+                                <span className="input-error-message">
+                                    {errorPropertyType}
+                                </span>
+                            </div>
 
-                    <div style={{ marginBottom: "15px" }}>
-                        <h5>Property location</h5>
-                        <form
-                            className="row g-3"
-                            style={{ marginBottom: "20px" }}
-                        >
-                            <div className="col-4">
-                                <label
-                                    htmlFor="inputAddress"
-                                    className="form-label"
+                            <div style={{ marginBottom: "15px" }}>
+                                <h5>Property location</h5>
+                                <form
+                                    className="row g-3"
+                                    style={{ marginBottom: "20px" }}
                                 >
-                                    Address
-                                </label>
-                                <input
-                                    type="text"
-                                    className={
-                                        errorPropertyAddress
-                                            ? "form-control input-error"
-                                            : "form-control"
-                                    }
-                                    id="inputAddress"
-                                    value={propertyAddress}
-                                    onChange={handlePropertyAddressChange}
-                                />
-                                <span className="input-error-message">
-                                    {errorPropertyAddress}
-                                </span>
-                            </div>
-                            <div className="col-md-4">
-                                <label
-                                    htmlFor="inputCity"
-                                    className="form-label"
-                                >
-                                    Country
-                                </label>
-                                <input
-                                    type="text"
-                                    className={
-                                        errorPropertyCountry
-                                            ? "form-control input-error"
-                                            : "form-control"
-                                    }
-                                    id="inputCountry"
-                                    value={propertyCountry}
-                                    onChange={handlePropertyCountryChange}
-                                />
-                                <span className="input-error-message">
-                                    {errorPropertyCountry}
-                                </span>
-                            </div>
-                            <div className="col-md-4">
-                                <label
-                                    htmlFor="inputCity"
-                                    className="form-label"
-                                >
-                                    City
-                                </label>
-                                <input
-                                    type="text"
-                                    className={
-                                        errorPropertyCity
-                                            ? "form-control input-error"
-                                            : "form-control"
-                                    }
-                                    id="inputCity"
-                                    value={propertyCity}
-                                    onChange={handlePropertyCityChange}
-                                />
-                                <span className="input-error-message">
-                                    {errorPropertyCity}
-                                </span>
-                            </div>
-                            <div className="col-md-4">
-                                <label
-                                    htmlFor="inputRegion"
-                                    className="form-label"
-                                >
-                                    Region
-                                </label>
-                                <input
-                                    type="text"
-                                    className={
-                                        errorPropertyRegion
-                                            ? "form-control input-error"
-                                            : "form-control"
-                                    }
-                                    id="inputRegion"
-                                    value={propertyRegion}
-                                    onChange={handlePropertyRegionChange}
-                                />
-                                <span className="input-error-message">
-                                    {errorPropertyRegion}
-                                </span>
-                            </div>
-                            <div className="col-md-4">
-                                <label
-                                    htmlFor="inputRegion"
-                                    className="form-label"
-                                >
-                                    Postcode
-                                </label>
-                                <input
-                                    type="text"
-                                    className={
-                                        errorPropertyPostcode
-                                            ? "form-control input-error"
-                                            : "form-control"
-                                    }
-                                    id="inputRegion"
-                                    value={propertyPostcode}
-                                    onChange={handlePropertyPostcodeChange}
-                                />
-                                <span className="input-error-message">
-                                    {errorPropertyPostcode}
-                                </span>
-                            </div>
-                        </form>
-                        {/* <ReactMapGL
+                                    <div className="col-4">
+                                        <label
+                                            htmlFor="inputAddress"
+                                            className="form-label"
+                                        >
+                                            Address
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className={
+                                                errorPropertyAddress
+                                                    ? "form-control input-error"
+                                                    : "form-control"
+                                            }
+                                            id="inputAddress"
+                                            value={propertyAddress}
+                                            onChange={
+                                                handlePropertyAddressChange
+                                            }
+                                        />
+                                        <span className="input-error-message">
+                                            {errorPropertyAddress}
+                                        </span>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <label
+                                            htmlFor="inputCity"
+                                            className="form-label"
+                                        >
+                                            Country
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className={
+                                                errorPropertyCountry
+                                                    ? "form-control input-error"
+                                                    : "form-control"
+                                            }
+                                            id="inputCountry"
+                                            value={propertyCountry}
+                                            onChange={
+                                                handlePropertyCountryChange
+                                            }
+                                        />
+                                        <span className="input-error-message">
+                                            {errorPropertyCountry}
+                                        </span>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <label
+                                            htmlFor="inputCity"
+                                            className="form-label"
+                                        >
+                                            City
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className={
+                                                errorPropertyCity
+                                                    ? "form-control input-error"
+                                                    : "form-control"
+                                            }
+                                            id="inputCity"
+                                            value={propertyCity}
+                                            onChange={handlePropertyCityChange}
+                                        />
+                                        <span className="input-error-message">
+                                            {errorPropertyCity}
+                                        </span>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <label
+                                            htmlFor="inputRegion"
+                                            className="form-label"
+                                        >
+                                            Region
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className={
+                                                errorPropertyRegion
+                                                    ? "form-control input-error"
+                                                    : "form-control"
+                                            }
+                                            id="inputRegion"
+                                            value={propertyRegion}
+                                            onChange={
+                                                handlePropertyRegionChange
+                                            }
+                                        />
+                                        <span className="input-error-message">
+                                            {errorPropertyRegion}
+                                        </span>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <label
+                                            htmlFor="inputRegion"
+                                            className="form-label"
+                                        >
+                                            Postcode
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className={
+                                                errorPropertyPostcode
+                                                    ? "form-control input-error"
+                                                    : "form-control"
+                                            }
+                                            id="inputRegion"
+                                            value={propertyPostcode}
+                                            onChange={
+                                                handlePropertyPostcodeChange
+                                            }
+                                        />
+                                        <span className="input-error-message">
+                                            {errorPropertyPostcode}
+                                        </span>
+                                    </div>
+                                </form>
+                                {/* <ReactMapGL
                             mapboxAccessToken={mapBoxApiKey}
                             {...viewState}
                             onMove={(event) => setViewState(event.viewState)}
@@ -647,106 +664,108 @@ const PropertyListing = () => {
                                 <MapPinNavigationIcon />
                             </button>
                         </ReactMapGL> */}
-                    </div>
-                    <div style={{ marginBottom: "15px" }}>
-                        <h5>Property price</h5>
-                    </div>
+                            </div>
+                            <div style={{ marginBottom: "15px" }}>
+                                <h5>Property price</h5>
+                            </div>
 
-                    <div className="input-group">
-                        <span className="input-group-text">€</span>
-                        <input
-                            type="number"
-                            className={
-                                errorPropertyPrice
-                                    ? "form-control input-error"
-                                    : "form-control"
-                            }
-                            value={propertyPrice}
-                            onChange={handlePropertyPriceChange}
-                        />
-                    </div>
-                    <span className="input-error-message">
-                        {errorPropertyPrice}
-                    </span>
-                    <input
-                        type="range"
-                        className="form-range"
-                        min={minPropertyPrice}
-                        max={maxPropertyPrice}
-                        step={10}
-                        value={propertyPrice}
-                        onChange={handlePropertyPriceChange}
-                        id="customRange2"
-                        style={{ marginTop: "15px" }}
-                    ></input>
-                    <div style={{ marginBottom: "15px" }}>
-                        <h5>Select property main image</h5>
-                        <input
-                            className="form-control"
-                            type="file"
-                            id="formFile"
-                        />
-                    </div>
-                    <span></span>
-                    <div style={{ marginBottom: "15px" }}>
-                        <h5>Property description</h5>
-                    </div>
-                    <div
-                        className={
-                            errorPropertyDescription
-                                ? "ckeditor-wrapper error"
-                                : "ckeditor-wrapper"
-                        }
-                        style={{ position: "relative" }}
-                    >
-                        <CKEditor
-                            editor={ClassicEditor}
-                            onChange={handlePropertyDescriptionChange}
-                            data={propertyDescription}
-                            config={{
-                                ckfinder: {
-                                    uploadUrl: "/api/editor",
+                            <div className="input-group">
+                                <span className="input-group-text">€</span>
+                                <input
+                                    type="number"
+                                    className={
+                                        errorPropertyPrice
+                                            ? "form-control input-error"
+                                            : "form-control"
+                                    }
+                                    value={propertyPrice}
+                                    onChange={handlePropertyPriceChange}
+                                />
+                            </div>
+                            <span className="input-error-message">
+                                {errorPropertyPrice}
+                            </span>
+                            <input
+                                type="range"
+                                className="form-range"
+                                min={minPropertyPrice}
+                                max={maxPropertyPrice}
+                                step={10}
+                                value={propertyPrice}
+                                onChange={handlePropertyPriceChange}
+                                id="customRange2"
+                                style={{ marginTop: "15px" }}
+                            ></input>
+                            <div style={{ marginBottom: "15px" }}>
+                                <h5>Select property main image</h5>
+                                <input
+                                    className="form-control"
+                                    type="file"
+                                    id="formFile"
+                                />
+                            </div>
+                            <span></span>
+                            <div style={{ marginBottom: "15px" }}>
+                                <h5>Property description</h5>
+                            </div>
+                            <div
+                                className={
+                                    errorPropertyDescription
+                                        ? "ckeditor-wrapper error"
+                                        : "ckeditor-wrapper"
+                                }
+                                style={{ position: "relative" }}
+                            >
+                                <CKEditor
+                                    editor={ClassicEditor}
+                                    onChange={handlePropertyDescriptionChange}
+                                    data={propertyDescription}
+                                    config={{
+                                        ckfinder: {
+                                            uploadUrl: "/api/editor",
 
-                                    image: {
-                                        upload: {
-                                            types: ["png", "jpeg"],
+                                            image: {
+                                                upload: {
+                                                    types: ["png", "jpeg"],
+                                                },
+                                            },
                                         },
-                                    },
-                                },
-                                mediaEmbed: {
-                                    previewsInData: true,
-                                },
-                            }}
-                        />
-                    </div>
+                                        mediaEmbed: {
+                                            previewsInData: true,
+                                        },
+                                    }}
+                                />
+                            </div>
 
-                    <span className="input-error-message">
-                        {errorPropertyDescription}
-                    </span>
+                            <span className="input-error-message">
+                                {errorPropertyDescription}
+                            </span>
+
+                            <button
+                                id="submit"
+                                className={
+                                    propertyFields.every(
+                                        (propertyField) => propertyField != ""
+                                    ) && errors.every((error) => error == "")
+                                        ? "btn btn-primary"
+                                        : "btn btn-primary disabled"
+                                }
+                                style={{ width: "100%", marginTop: "20px" }}
+                                onClick={
+                                    !property ? createProperty : editProperty
+                                }
+                            >
+                                {!property ? (
+                                    <span>Create property</span>
+                                ) : (
+                                    <span>Save</span>
+                                )}
+                            </button>
+                        </div>
+                    ) : (
+                        <Spinner color="text-primary" />
+                    )}
                 </div>
-                {!property ? (
-                    <button
-                        id="submit"
-                        className={
-                            propertyFields.every(
-                                (propertyField) => propertyField != ""
-                            ) && errors.every((error) => error == "")
-                                ? "btn btn-primary"
-                                : "btn btn-primary disabled"
-                        }
-                        style={{ width: "100%", marginTop: "20px" }}
-                        onClick={createProperty}
-                    >
-                        Create property
-                    </button>
-                ) : (
-                    <button
-                        className="btn btn-primary"
-                        style={{ width: "100%", marginTop: "20px" }}
-                    >
-                        Save
-                    </button>
-                )}
             </div>
         </>
     );

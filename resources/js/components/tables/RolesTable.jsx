@@ -101,7 +101,7 @@ const RolesTable = (props) => {
                         onSelectedRowsChange={handleSelectedRow}
                     />
                 ) : (
-                    <Spinner color={"text-primary"} />
+                    <Spinner color="text-primary" />
                 )}
             </div>
 

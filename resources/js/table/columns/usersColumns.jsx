@@ -1,6 +1,6 @@
 import DateDifference from "../../components/DateDifference";
 
-export const usersColumns = (usersToBeEdited, presentDate) => {
+export const usersColumns = (usersToBeEdited, presentDate, roles) => {
     return [
         {
             name: "Id",
@@ -21,7 +21,13 @@ export const usersColumns = (usersToBeEdited, presentDate) => {
                         aria-label=".form-select-sm example"
                     >
                         <option defaultValue>{row.role}</option>
-                        {/* <option value="1">One</option> */}
+                        {roles
+                            .filter((role) => role.name != row.role)
+                            .map((role, index) => (
+                                <option key={index} value={index}>
+                                    {role.name}
+                                </option>
+                            ))}
                     </select>
                 ) : (
                     row.role
@@ -39,6 +45,7 @@ export const usersColumns = (usersToBeEdited, presentDate) => {
                         className="form-control"
                         type="text"
                         value={row.name}
+                        title={row.name}
                         aria-label="edit input"
                     ></input>
                 ) : (
@@ -57,6 +64,7 @@ export const usersColumns = (usersToBeEdited, presentDate) => {
                         className="form-control"
                         type="text"
                         value={row.email}
+                        title={row.email}
                         aria-label="edit input"
                     ></input>
                 ) : (

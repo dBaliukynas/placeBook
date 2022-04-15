@@ -82,7 +82,7 @@ const Profile = () => {
                                         />
                                     ))
                                 ) : (
-                                    <Spinner color={"text-primary"} />
+                                    <Spinner color="text-primary" />
                                 )}
                             </div>
                             {properties ? (

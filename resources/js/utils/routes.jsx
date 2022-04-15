@@ -21,7 +21,7 @@ export const routes = [
     {
         path: "property-listing",
         name: "Property listing",
-        component: PropertyListing,
+        component: () => PropertyListing(false),
         isAuthRequired: true,
     },
     {
@@ -44,7 +44,7 @@ export const routes = [
     {
         path: "property/:id/edit",
         name: "Edit",
-        component: PropertyListing,
+        component: () => PropertyListing(true),
         parent: "property/:id",
     },
     {
