@@ -117,7 +117,8 @@ div.list-group a.list-group-item + .list-group-item {
 .property-description figure {
     overflow-x: auto;
 }
-.property-description table {
+.property-description table,
+.property-description ul, ol {
     margin: auto;
 }
 .property-description blockquote {

@@ -1,4 +1,5 @@
 import { React, useState, useEffect, useCallback } from "react";
+import { useParams } from "react-router";
 import Calendar from "react-calendar";
 import defaultFetchOptions from "../components/DefaultFetchOptions";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -14,6 +15,38 @@ import "react-toastify/dist/ReactToastify.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const PropertyListing = () => {
+    const { id } = useParams();
+    useEffect(() => {
+        fetch(`/api/property/${id}`, {
+            method: "GET",
+        })
+            .then((response) => {
+                if (!response.ok) {
+                } else {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                if (data) {
+                    setProperty(data);
+                }
+            });
+    }, []);
+    const [property, setProperty] = useState(undefined);
+    useEffect(() => {
+        if (property) {
+            setPropertyName(property.name);
+            setPropertyType(property.type);
+            setPropertyAddress(property.address);
+            setPropertyCountry(property.country);
+            setPropertyCity(property.city);
+            setPropertyRegion(property.region);
+            setPropertyPostcode(property.postcode);
+            setPropertyPrice(property.price);
+            setPropertyDescription(property.description);
+        }
+    }, [property]);
+
     const onSearchLocation = (event) => {
         setPropertyCountry(
             event.result.context.find((element) =>
@@ -463,7 +496,6 @@ const PropertyListing = () => {
                                     Address
                                 </label>
                                 <input
-                                    required
                                     type="text"
                                     className={
                                         errorPropertyAddress
@@ -692,20 +724,29 @@ const PropertyListing = () => {
                         {errorPropertyDescription}
                     </span>
                 </div>
-                <button
-                    id="submit"
-                    className={
-                        propertyFields.every(
-                            (propertyField) => propertyField != ""
-                        ) && errors.every((error) => error == "")
-                            ? "btn btn-primary"
-                            : "btn btn-primary disabled"
-                    }
-                    style={{ width: "100%", marginTop: "20px" }}
-                    onClick={createProperty}
-                >
-                    Create property
-                </button>
+                {!property ? (
+                    <button
+                        id="submit"
+                        className={
+                            propertyFields.every(
+                                (propertyField) => propertyField != ""
+                            ) && errors.every((error) => error == "")
+                                ? "btn btn-primary"
+                                : "btn btn-primary disabled"
+                        }
+                        style={{ width: "100%", marginTop: "20px" }}
+                        onClick={createProperty}
+                    >
+                        Create property
+                    </button>
+                ) : (
+                    <button
+                        className="btn btn-primary"
+                        style={{ width: "100%", marginTop: "20px" }}
+                    >
+                        Save
+                    </button>
+                )}
             </div>
         </>
     );

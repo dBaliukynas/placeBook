@@ -103,6 +103,7 @@ const Property = (props) => {
                                     <h3 style={{ color: "ghostwhite" }}>
                                         City
                                     </h3>
+
                                     <h2 style={{ color: "ghostwhite" }}>
                                         {property?.city}
                                     </h2>

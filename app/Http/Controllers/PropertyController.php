@@ -72,10 +72,8 @@ class PropertyController extends Controller
         }
     }
 
-    public function read($id)
+    public function read(Property $property)
     {
-        $property = Property::find($id);
-
         if ($property == null) {
             return response()->json(null, 404);
         }
@@ -88,12 +86,12 @@ class PropertyController extends Controller
         //
     }
 
-    public function test(Request $request)
-    {
-        $path = $request->image->storeAs('public/images', 'filename.jpg');
+    // public function test(Request $request)
+    // {
+    //     $path = $request->image->storeAs('public/images', 'filename.jpg');
 
-        return response($path);
-    }
+    //     return response($path);
+    // }
 
     public function delete($id)
     {

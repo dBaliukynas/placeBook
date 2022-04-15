@@ -5,7 +5,7 @@ export const breadcrumbHandler = (location) => {
         }
     }
     if (
-        !location.pathname.match("/property/[0-9]$") &&
+        !location.pathname.match("/property/[0-9]+$") &&
         location.pathname != "/" &&
         location.pathname != "/admin-panel"
     ) {

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import RolesTable from "../components/RolesTable";
+import RolesTable from "../components/tables/RolesTable";
 import EditIcon from "../components/svgs/EditIcon";
 import TrashIcon from "../components/svgs/TrashIcon";
-import UsersTable from "../components/UsersTable";
+import UsersTable from "../components/tables/UsersTable";
 
 const AdminPanel = () => {
     const handleMainContentChange = (name, component) => {

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import Pagination from "./Pagination";
-import { usersColumns } from "../table/columns/usersColumns";
-import { usersData } from "../table/data/usersData";
-import VerticallyCenteredModal from "./VerticallyCenteredModal";
+import Pagination from "../Pagination";
+import { usersColumns } from "../../table/columns/usersColumns";
+import { usersData } from "../../table/data/usersData";
+import VerticallyCenteredModal from "../VerticallyCenteredModal";
+import Spinner from "../Spinner";
 
 const UsersTable = (props) => {
     const handleSelectedRow = (event) => {
@@ -50,7 +51,7 @@ const UsersTable = (props) => {
 
     return (
         <div className="card" style={{ marginTop: "20px" }}>
-            <div className="card-body">
+            <div className="card-body"   style={{ display: "flex", flexDirection: "column" }}>
                 <div
                     style={{
                         display: "flex",
@@ -113,7 +114,7 @@ const UsersTable = (props) => {
                         onSelectedRowsChange={handleSelectedRow}
                     />
                 ) : (
-                    <></>
+                    <Spinner color={"text-primary"} />
                 )}
 
                 {props.users ? (

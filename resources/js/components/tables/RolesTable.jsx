@@ -1,8 +1,9 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import VerticallyCenteredModal from "./VerticallyCenteredModal";
-import { rolesColumns } from "../table/columns/rolesColumns";
-import { rolesData } from "../table/data/rolesData";
+import VerticallyCenteredModal from "../VerticallyCenteredModal";
+import { rolesColumns } from "../../table/columns/rolesColumns";
+import { rolesData } from "../../table/data/rolesData";
+import Spinner from "../Spinner";
 
 const RolesTable = (props) => {
     const handleSelectedRow = (event) => {
@@ -38,7 +39,10 @@ const RolesTable = (props) => {
 
     return (
         <div className="card" style={{ marginTop: "20px" }}>
-            <div className="card-body">
+            <div
+                className="card-body"
+                style={{ display: "flex", flexDirection: "column" }}
+            >
                 <div
                     style={{
                         display: "flex",
@@ -97,7 +101,7 @@ const RolesTable = (props) => {
                         onSelectedRowsChange={handleSelectedRow}
                     />
                 ) : (
-                    <></>
+                    <Spinner color={"text-primary"} />
                 )}
             </div>
 
