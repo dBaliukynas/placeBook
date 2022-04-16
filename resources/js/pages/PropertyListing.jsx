@@ -1,5 +1,11 @@
-import { React, useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router";
+import {
+    React,
+    useState,
+    useEffect,
+    useCallback,
+    useLayoutEffect,
+} from "react";
+import { useParams, useOutletContext } from "react-router-dom";
 import Calendar from "react-calendar";
 import defaultFetchOptions from "../components/DefaultFetchOptions";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -17,6 +23,20 @@ import Spinner from "../components/Spinner";
 import HTTPError from "../components/HTTPError";
 
 const PropertyListing = (isPropertyEdit) => {
+    const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
+
+    useLayoutEffect(() => {
+        if (
+            isPropertyEdit &&
+            authUser.role != "admin" &&
+            property?.author_id != authUser.id
+        ) {
+            setShowBreadcrumb(false);
+        } else {
+            setShowBreadcrumb(true);
+        }
+    });
+
     const { id } = useParams();
     useEffect(() => {
         if (isPropertyEdit) {

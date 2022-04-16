@@ -1,10 +1,14 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useLayoutEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import PropertySearchNavigation from "../components/PropertySearchNavigation";
 import PropertyCardHorizontal from "../components/cards/PropertyCardHorizontal";
 import PropertyCardHorizontalPlaceholder from "../components/cards/PropertyCardHorizontalPlaceholder";
 import PropertySearchAsideNavigation from "../components/PropertySearchAsideNavigation";
 
 const PropertySearch = () => {
+    const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
+    useLayoutEffect(() => setShowBreadcrumb(true));
+
     useEffect(() => {
         fetch(`/api/properties`, {
             method: "GET",

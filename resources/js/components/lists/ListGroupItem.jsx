@@ -1,6 +1,6 @@
-import PropertyDescription from "./PropertyDescription";
-import DateDifference from "./DateDifference";
-import StarIcon from "./svgs/StarIcon";
+import PropertyDescription from "../PropertyDescription";
+import DateDifference from "../DateDifference";
+import StarIcon from "../svgs/StarIcon";
 
 const ListGroupItem = (props) => {
     const presentDate = new Date();
@@ -45,7 +45,7 @@ const ListGroupItem = (props) => {
                     <span>{props.review.rating}/10</span>
                 </div>
                 <div className="property-review-description-wrapper">
-                    <PropertyDescription descriptionType={props.review} />
+                    <PropertyDescription descriptionType={props.review} className="review" />
                 </div>
             </div>
         </div>

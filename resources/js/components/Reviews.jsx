@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import "../../css/Reviews.css";
 import StarIcon from "../components/svgs/StarIcon";
 import Spinner from "./Spinner";
-import ListGroupItem from "./ListGroupItem";
+import ListGroupItem from "./lists/ListGroupItem";
 
 const Reviews = (props) => {
     useEffect(() => {

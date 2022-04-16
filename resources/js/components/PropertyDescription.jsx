@@ -3,6 +3,7 @@ import { React, useEffect } from "react";
 const PropertyDescription = (props) => {
     return (
         <div
+            className={props.className}
             style={{
                 width: "100%",
                 display: "flex",

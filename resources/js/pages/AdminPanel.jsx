@@ -1,15 +1,53 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useLayoutEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import RolesTable from "../components/tables/RolesTable";
-import EditIcon from "../components/svgs/EditIcon";
-import TrashIcon from "../components/svgs/TrashIcon";
 import UsersTable from "../components/tables/UsersTable";
+import PropertyCardHorizontal from "../components/cards/PropertyCardHorizontal";
+import PropertyCardHorizontalPlaceholder from "../components/cards/PropertyCardHorizontalPlaceholder";
+import Pagination from "../components/Pagination";
+import Spinner from "../components/Spinner";
+import ListGroupItem from "../components/lists/ListGroupItem";
 
 const AdminPanel = () => {
+    const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
+    useLayoutEffect(() => setShowBreadcrumb(true));
+
     const handleMainContentChange = (name, component) => {
         setMainContent({ name, component });
     };
 
+    useEffect(() => {
+        fetch(`/api/properties?sort=new`, {
+            method: "GET",
+        })
+            .then((response) => {
+                if (!response.ok) {
+                } else {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                if (data) {
+                    setProperties(data);
+                }
+            });
+    }, []);
+    useEffect(() => {
+        fetch(`/api/reviews?sort=new`, {
+            method: "GET",
+        })
+            .then((response) => {
+                if (!response.ok) {
+                } else {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                if (data) {
+                    setReviews(data);
+                }
+            });
+    }, []);
     useEffect(() => {
         fetch(`/api/users`, {
             method: "GET",
@@ -45,9 +83,29 @@ const AdminPanel = () => {
             });
     }, []);
 
+    const changePage = (pageIndex) => {
+        setCurrentPage(pageIndex);
+    };
+
     const [mainContent, setMainContent] = useState({ name: "Dashboard" });
 
     const presentDate = new Date();
+
+    const [properties, setProperties] = useState(undefined);
+    const [reviews, setReviews] = useState(undefined);
+
+    const itemsPerPage = 5;
+    const maxPagesShown = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+    const currentProperties = properties?.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+    );
+
+    const currentReviews = reviews?.slice(indexOfFirstItem, indexOfLastItem);
 
     const [users, setUsers] = useState(undefined);
     const [roles, setRoles] = useState(undefined);
@@ -106,111 +164,36 @@ const AdminPanel = () => {
                                     <h5 className="card-title">
                                         Newest properties
                                     </h5>
-                                    <div className="card-text">
-                                        <div
-                                            className="list-group"
-                                            style={{
-                                                width: "100%",
-                                                borderTopWidth: "1px",
-                                            }}
-                                        >
-                                            <div
-                                                className="list-group-item"
-                                                aria-current="true"
-                                                style={{ marginBottom: "20px" }}
-                                            >
-                                                <div className="d-flex w-100 justify-content-between">
-                                                    <h5 className="mb-1">
-                                                        List group item heading
-                                                    </h5>
-                                                    <small>3 days ago</small>
-                                                </div>
-                                                <p className="mb-1">
-                                                    Some placeholder content in
-                                                    a paragraph.
-                                                </p>
-                                                <small>
-                                                    And some small print.
-                                                </small>
-                                            </div>
-                                            <div
-                                                to="#"
-                                                href="#"
-                                                className="list-group-item"
-                                                aria-current="true"
-                                                style={{
-                                                    marginBottom: "20px",
-                                                    borderTopWidth: "1px",
-                                                }}
-                                            >
-                                                <div className="d-flex w-100 justify-content-between">
-                                                    <h5 className="mb-1">
-                                                        List group item heading
-                                                    </h5>
-                                                    <small>3 days ago</small>
-                                                </div>
-                                                <p className="mb-1">
-                                                    Some placeholder content in
-                                                    a paragraph.
-                                                </p>
-                                                <small>
-                                                    And some small print.
-                                                </small>
-                                            </div>
-                                            <div
-                                                to="#"
-                                                className="list-group-item"
-                                                aria-current="true"
-                                                style={{
-                                                    marginBottom: "20px",
-                                                    borderTopWidth: "1px",
-                                                }}
-                                            >
-                                                <div className="d-flex w-100 justify-content-between">
-                                                    <h5 className="mb-1">
-                                                        List group item heading
-                                                    </h5>
-
-                                                    <small>3 days ago</small>
-                                                </div>
-                                                <p className="mb-1">
-                                                    Some placeholder content in
-                                                    a paragraph.
-                                                </p>
-                                                <small>
-                                                    And some small print.
-                                                </small>
-                                                <div
-                                                    style={{
-                                                        display: "flex",
-                                                    }}
-                                                >
-                                                    <Link
-                                                        to="#"
-                                                        className="btn btn-primary"
-                                                    >
-                                                        Visit
-                                                    </Link>
-                                                    <div
-                                                        style={{
-                                                            display: "flex",
-                                                            marginLeft: "auto",
-                                                        }}
-                                                    >
-                                                        <TrashIcon
-                                                            role="button"
-                                                            className="trash-icon-red"
-                                                        />
-
-                                                        <EditIcon
-                                                            role="button"
-                                                            className="edit-icon-sand"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {currentProperties ? (
+                                        <Pagination
+                                            itemsLength={properties.length}
+                                            itemsPerPage={itemsPerPage}
+                                            changePage={changePage}
+                                            currentPage={currentPage}
+                                            maxPagesShown={maxPagesShown}
+                                            className="admin-panel-users-table"
+                                        />
+                                    ) : (
+                                        <></>
+                                    )}
+                                    {properties
+                                        ? currentProperties?.map(
+                                              (property, index) => (
+                                                  <div key={index}>
+                                                      <PropertyCardHorizontal
+                                                          property={property}
+                                                      />
+                                                  </div>
+                                              )
+                                          )
+                                        : Array.from(
+                                              { length: maxPagesShown },
+                                              (_, index) => (
+                                                  <PropertyCardHorizontalPlaceholder
+                                                      key={index}
+                                                  />
+                                              )
+                                          )}
                                 </div>
                             </div>
                         </div>
@@ -220,85 +203,37 @@ const AdminPanel = () => {
                                     <h5 className="card-title">
                                         Newest ratings
                                     </h5>
-                                    <div className="card-text">
-                                        <div
-                                            className="list-group"
-                                            style={{ width: "100%" }}
-                                        >
-                                            <div
-                                                to="#"
-                                                href="#"
-                                                className="list-group-item"
-                                                aria-current="true"
-                                                style={{
-                                                    marginBottom: "20px",
-                                                    borderTopWidth: "1px",
-                                                }}
-                                            >
-                                                <div className="d-flex w-100 justify-content-between">
-                                                    <h5 className="mb-1">
-                                                        List group item heading
-                                                    </h5>
-                                                    <small>3 days ago</small>
-                                                </div>
-                                                <p className="mb-1">
-                                                    Some placeholder content in
-                                                    a paragraph.
-                                                </p>
-                                                <small>
-                                                    And some small print.
-                                                </small>
-                                            </div>
-                                            <div
-                                                to="#"
-                                                href="#"
-                                                className="list-group-item"
-                                                aria-current="true"
-                                                style={{
-                                                    marginBottom: "20px",
-                                                    borderTopWidth: "1px",
-                                                }}
-                                            >
-                                                <div className="d-flex w-100 justify-content-between">
-                                                    <h5 className="mb-1">
-                                                        List group item heading
-                                                    </h5>
-                                                    <small>3 days ago</small>
-                                                </div>
-                                                <p className="mb-1">
-                                                    Some placeholder content in
-                                                    a paragraph.
-                                                </p>
-                                                <small>
-                                                    And some small print.
-                                                </small>
-                                            </div>
-                                            <div
-                                                to="#"
-                                                href="#"
-                                                className="list-group-item"
-                                                aria-current="true"
-                                                style={{
-                                                    marginBottom: "20px",
-                                                    borderTopWidth: "1px",
-                                                }}
-                                            >
-                                                <div className="d-flex w-100 justify-content-between">
-                                                    <h5 className="mb-1">
-                                                        List group item heading
-                                                    </h5>
-                                                    <small>3 days ago</small>
-                                                </div>
-                                                <p className="mb-1">
-                                                    Some placeholder content in
-                                                    a paragraph.
-                                                </p>
-                                                <small>
-                                                    And some small print.
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {currentReviews ? (
+                                        <Pagination
+                                            itemsLength={reviews.length}
+                                            itemsPerPage={itemsPerPage}
+                                            changePage={changePage}
+                                            currentPage={currentPage}
+                                            maxPagesShown={maxPagesShown}
+                                            className="admin-panel-users-table"
+                                        />
+                                    ) : (
+                                        <></>
+                                    )}
+                                    {currentReviews ? (
+                                        currentReviews.length == 0 ? (
+                                            <span>
+                                                There are currently no reviews.
+                                            </span>
+                                        ) : (
+                                            currentReviews.map(
+                                                (review, index) => (
+                                                    <div key={index}>
+                                                        <ListGroupItem
+                                                            review={review}
+                                                        />
+                                                    </div>
+                                                )
+                                            )
+                                        )
+                                    ) : (
+                                        <Spinner color="text-primary" />
+                                    )}
                                 </div>
                             </div>
                         </div>

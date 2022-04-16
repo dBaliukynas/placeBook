@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
+import { useOutletContext } from "react-router";
 import Pagination from "../components/Pagination";
 import PropertyCard from "../components/cards/PropertyCard";
 import Spinner from "../components/Spinner";
 
 const Profile = () => {
+    const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
+    useLayoutEffect(() => setShowBreadcrumb(true));
     useEffect(() => {
         fetch(`/api/properties`, {
             method: "GET",

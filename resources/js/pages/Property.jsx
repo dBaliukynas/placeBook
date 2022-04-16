@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useLocation, Link } from "react-router-dom";
+import React, { useState, useEffect, useLayoutEffect } from "react";
+import { useParams, useLocation, Link, useOutletContext } from "react-router-dom";
 import PropertyDescription from "../components/PropertyDescription";
 import StarIcon from "../components/svgs/StarIcon";
 import { useMediaQuery } from "react-responsive";
@@ -19,6 +19,8 @@ import HTTPError from "../components/HTTPError";
 import VerticallyCenteredModal from "../components/VerticallyCenteredModal";
 
 const Property = (props) => {
+    const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
+    useLayoutEffect(() => setShowBreadcrumb(false));
     const { id } = useParams();
     const location = useLocation();
     useEffect(() => {

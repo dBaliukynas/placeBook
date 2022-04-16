@@ -57,18 +57,23 @@ class PropertyController extends Controller
     {
 
         if ($request->has('search')) {
-
             ignore_user_abort(true);
 
             $search_text = $request->query('search');
 
             $properties = Property::where("name", "LIKE", "{$search_text}%")->get();
 
-            return response()->json($properties);
+            return response()->json($properties, 200);
+        } else if ($request->has('sort')) {
+            if ($request->query('sort') == "new") {
+                $properties = Property::latest("created_at")->get();
+            }
+
+            return response()->json($properties, 200);
         } else {
             $properties = Property::all();
 
-            return response()->json($properties);
+            return response()->json($properties, 200);
         }
     }
 

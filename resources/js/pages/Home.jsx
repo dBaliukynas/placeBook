@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useLayoutEffect } from "react";
+import { Link, useOutletContext } from "react-router-dom";
 import CardCarousel from "../components/cards/CardCarousel";
 
 const Home = () => {
+    const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
+    useLayoutEffect(() => setShowBreadcrumb(false));
     const propertyTypesMatrix = [
         [
             { cityName: "Hotel", imagePath: "/images/property_type_hotel.png" },

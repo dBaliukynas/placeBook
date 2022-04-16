@@ -4,7 +4,7 @@ import PropertyReviewCount from "../PropertyReviewCount";
 
 const PropertyCardHorizontal = (props) => {
     return (
-        <div className="card mb-3" style={{ width: "100%"}}>
+        <div className="card mb-3" style={{ width: "100%", textAlign: "center"}}>
             <div className="row g-0" style={{height: "inherit"}}>
                 <div className="col-md-4" style={{minHeight: "180px"}}>
                     <img

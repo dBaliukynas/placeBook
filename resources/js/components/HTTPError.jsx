@@ -1,6 +1,10 @@
+import { useLayoutEffect } from "react";
+import { useOutletContext } from "react-router";
 import LogoIcon from "./svgs/LogoIcon";
 
 const HTTPError = (props) => {
+    const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
+    useLayoutEffect(() => setShowBreadcrumb(false));
     return (
         <div
             className="main-container"

@@ -1,6 +1,6 @@
 const PropertyCardHorizontalPlaceholder = (props) => {
     return (
-        <div className="card mb-3" style={{ width: "100%", minHeight: "193px"}}>
+        <div className="card mb-3" style={{ width: "100%", minHeight: "193px", textAlign: "center"}}>
             <div className="row g-0" style={{ height: "inherit" }}>
                 <div className="col-md-4" style={{minHeight: "180px"}}>
                     <img

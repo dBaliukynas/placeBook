@@ -21,7 +21,7 @@ class ReviewController extends Controller
         if (!Auth::check()) {
             return response()->json(403);
         }
-        
+
         $data = $request->input();
 
         $validator = Validator::make($data, [
@@ -47,8 +47,19 @@ class ReviewController extends Controller
         return response()->json($review);
     }
 
+    public function read_all(Request $request)
+    {
+        if ($request->query('sort') == "new") {
+            $reviews = Review::latest("created_at")->with('user')->get();
+            return response()->json($reviews, 200);
+        } else {
+            $reviews = Review::all();
 
-    public function read_all($property_id)
+            return response()->json($reviews, 200);
+        }
+    }
+
+    public function read_property_reviews($property_id)
     {
         $reviews = Review::where('property_id', $property_id)->with('user')->latest("updated_at")->get();
         return response($reviews, 200);

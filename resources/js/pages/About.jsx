@@ -1,8 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
+import { useOutletContext } from "react-router";
 import LogoIcon from "../components/svgs/LogoIcon";
 import "../../css/About.css";
 
 const About = () => {
+    const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
+    useLayoutEffect(() => setShowBreadcrumb(true));
+ 
     return (
         <div className="container about" style={{ marginTop: "20px" }}>
             <div>
