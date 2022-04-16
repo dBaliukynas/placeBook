@@ -7,7 +7,9 @@ import PropertySearchAsideNavigation from "../components/PropertySearchAsideNavi
 
 const PropertySearch = () => {
     const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
-    useLayoutEffect(() => setShowBreadcrumb(true));
+    useLayoutEffect(() => {
+        setShowBreadcrumb(true);
+    });
 
     useEffect(() => {
         fetch(`/api/properties`, {
@@ -30,7 +32,7 @@ const PropertySearch = () => {
     return (
         <>
             <div style={{ margin: "auto 50px 50px" }}>
-                <PropertySearchAsideNavigation  />
+                <PropertySearchAsideNavigation />
                 <div
                     className="main-container"
                     style={{

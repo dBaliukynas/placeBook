@@ -7,6 +7,8 @@ import PropertyCardHorizontalPlaceholder from "../components/cards/PropertyCardH
 import Pagination from "../components/Pagination";
 import Spinner from "../components/Spinner";
 import ListGroupItem from "../components/lists/ListGroupItem";
+import PropertyListGroup from "../components/lists/PropertyListGroup";
+import ReviewListGroup from "../components/lists/ReviewListGroup";
 
 const AdminPanel = () => {
     const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
@@ -83,10 +85,6 @@ const AdminPanel = () => {
             });
     }, []);
 
-    const changePage = (pageIndex) => {
-        setCurrentPage(pageIndex);
-    };
-
     const [mainContent, setMainContent] = useState({ name: "Dashboard" });
 
     const presentDate = new Date();
@@ -96,16 +94,6 @@ const AdminPanel = () => {
 
     const itemsPerPage = 5;
     const maxPagesShown = 5;
-    const [currentPage, setCurrentPage] = useState(1);
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
-    const currentProperties = properties?.slice(
-        indexOfFirstItem,
-        indexOfLastItem
-    );
-
-    const currentReviews = reviews?.slice(indexOfFirstItem, indexOfLastItem);
 
     const [users, setUsers] = useState(undefined);
     const [roles, setRoles] = useState(undefined);
@@ -158,85 +146,16 @@ const AdminPanel = () => {
             <div className="container" style={{ marginTop: "20px" }}>
                 {mainContent.name == "Dashboard" ? (
                     <div className="row">
-                        <div className="col-sm-6">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">
-                                        Newest properties
-                                    </h5>
-                                    {currentProperties ? (
-                                        <Pagination
-                                            itemsLength={properties.length}
-                                            itemsPerPage={itemsPerPage}
-                                            changePage={changePage}
-                                            currentPage={currentPage}
-                                            maxPagesShown={maxPagesShown}
-                                            className="admin-panel-users-table"
-                                        />
-                                    ) : (
-                                        <></>
-                                    )}
-                                    {properties
-                                        ? currentProperties?.map(
-                                              (property, index) => (
-                                                  <div key={index}>
-                                                      <PropertyCardHorizontal
-                                                          property={property}
-                                                      />
-                                                  </div>
-                                              )
-                                          )
-                                        : Array.from(
-                                              { length: maxPagesShown },
-                                              (_, index) => (
-                                                  <PropertyCardHorizontalPlaceholder
-                                                      key={index}
-                                                  />
-                                              )
-                                          )}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-sm-6">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">
-                                        Newest ratings
-                                    </h5>
-                                    {currentReviews ? (
-                                        <Pagination
-                                            itemsLength={reviews.length}
-                                            itemsPerPage={itemsPerPage}
-                                            changePage={changePage}
-                                            currentPage={currentPage}
-                                            maxPagesShown={maxPagesShown}
-                                            className="admin-panel-users-table"
-                                        />
-                                    ) : (
-                                        <></>
-                                    )}
-                                    {currentReviews ? (
-                                        currentReviews.length == 0 ? (
-                                            <span>
-                                                There are currently no reviews.
-                                            </span>
-                                        ) : (
-                                            currentReviews.map(
-                                                (review, index) => (
-                                                    <div key={index}>
-                                                        <ListGroupItem
-                                                            review={review}
-                                                        />
-                                                    </div>
-                                                )
-                                            )
-                                        )
-                                    ) : (
-                                        <Spinner color="text-primary" />
-                                    )}
-                                </div>
-                            </div>
-                        </div>
+                        <PropertyListGroup
+                            properties={properties}
+                            itemsPerPage={itemsPerPage}
+                            maxPagesShown={maxPagesShown}
+                        />
+                        <ReviewListGroup
+                            reviews={reviews}
+                            itemsPerPage={itemsPerPage}
+                            maxPagesShown={maxPagesShown}
+                        />
 
                         <UsersTable
                             users={users}
