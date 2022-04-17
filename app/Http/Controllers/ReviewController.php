@@ -51,12 +51,11 @@ class ReviewController extends Controller
     {
         if ($request->query('sort') == "new") {
             $reviews = Review::latest("created_at")->with('user')->get();
-            return response()->json($reviews, 200);
         } else {
             $reviews = Review::all();
-
-            return response()->json($reviews, 200);
         }
+
+        return response()->json($reviews, 200);
     }
 
     public function read_property_reviews($property_id)

@@ -184,7 +184,7 @@ const Property = (props) => {
                             <button className="btn btn-outline-light rent-button">
                                 Rent this place
                             </button>
-                            {authUser.role == "admin" ||
+                            {authUser?.role == "admin" ||
                             authUser?.id == property?.author_id ? (
                                 <>
                                     <Link to={`/property/${property.id}/edit`}>

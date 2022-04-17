@@ -9,18 +9,22 @@ const CardCarousel = (props) => {
                 data-bs-interval="false"
             >
                 <div className="carousel-inner">
-                    {props.propertyTypesMatrix.map((propertyTypes, index) => (
+                    {Array.from({ length: props.pageCount }, (_, index) => (
                         <div
                             key={index}
-                            style={{ alignItems: "center" }}
                             className={
                                 index == 0
-                                    ? "carousel-item home-carousel active center-horizontally"
-                                    : "carousel-item home-carousel  center-horizontally"
+                                    ? "carousel-item home-carousel active"
+                                    : "carousel-item home-carousel"
                             }
+                            style={{ display: "flex" }}
                         >
                             <button
-                                className="carousel-control-prev home-carousel"
+                                className={
+                                    index == 0
+                                        ? "btn btn-primary home-carousel-button-prev disabled"
+                                        : "btn btn-primary home-carousel-button-prev"
+                                }
                                 type="button"
                                 data-bs-target={`#carouselControls${props.id}`}
                                 data-bs-slide="prev"
@@ -33,9 +37,37 @@ const CardCarousel = (props) => {
                                     Previous
                                 </span>
                             </button>
-                            <PropertyCard propertyTypes={propertyTypes} />
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                {props.items
+                                    .slice(index * 5, index * 5 + 5)
+                                    .map((item, mapIndex) => (
+                                        <PropertyCard
+                                            key={mapIndex}
+                                            propertyTypes={[
+                                                {
+                                                    imagePath:
+                                                        "/images/hotel.jpg",
+                                                    cityName: item.city,
+                                                    name: item.name,
+                                                },
+                                            ]}
+                                            isProperty={true}
+                                            property={item}
+                                        />
+                                    ))}
+                            </div>
                             <button
-                                className="carousel-control-next home-carousel"
+                                className={
+                                    index == props.pageCount - 1
+                                        ? "btn btn-primary home-carousel-button-next disabled"
+                                        : "btn btn-primary home-carousel-button-next"
+                                }
                                 type="button"
                                 data-bs-target={`#carouselControls${props.id}`}
                                 data-bs-slide="next"

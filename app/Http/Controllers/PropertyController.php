@@ -62,19 +62,16 @@ class PropertyController extends Controller
             $search_text = $request->query('search');
 
             $properties = Property::where("name", "LIKE", "{$search_text}%")->get();
-
-            return response()->json($properties, 200);
         } else if ($request->has('sort')) {
             if ($request->query('sort') == "new") {
                 $properties = Property::latest("created_at")->get();
+            } else if ($request->query('sort') == "favorite") {
+                $properties = Property::orderBy("rating", "desc")->get();
             }
-
-            return response()->json($properties, 200);
         } else {
             $properties = Property::all();
-
-            return response()->json($properties, 200);
         }
+        return response()->json($properties, 200);
     }
 
     public function read(Property $property)

@@ -1,10 +1,28 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import CardCarousel from "../components/cards/CardCarousel";
 
 const Home = () => {
     const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
     useLayoutEffect(() => setShowBreadcrumb(false));
+
+    const [properties, setProperties] = useState(undefined);
+    useEffect(() => {
+        fetch(`/api/properties?sort=favorite`, {
+            method: "GET",
+        })
+            .then((response) => {
+                if (!response.ok) {
+                } else {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                if (data) {
+                    setProperties(data);
+                }
+            });
+    }, []);
     const propertyTypesMatrix = [
         [
             { cityName: "Hotel", imagePath: "/images/property_type_hotel.png" },
@@ -155,20 +173,17 @@ const Home = () => {
 
             <div className="main-container">
                 <h3>Select a place by group</h3>
-                <CardCarousel
+                {/* <CardCarousel
                     propertyTypesMatrix={propertyTypesMatrix}
                     id={0}
                 />
                 <h3>Select a place by your country's city</h3>
                 <CardCarousel
                     propertyTypesMatrix={propertyCitiesMatrix}
-                    id={1}
-                />
+                   id={1}
+                /> */}
                 <h3>Our users favorite places</h3>
-                <CardCarousel
-                    propertyTypesMatrix={propertyTypesMatrix}
-                    id={2}
-                />
+                {properties && <CardCarousel items={properties} id={2} pageCount={3} />}
             </div>
         </>
     );

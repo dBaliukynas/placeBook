@@ -118,10 +118,12 @@ div.list-group a.list-group-item + .list-group-item {
     overflow-x: auto;
 }
 .property-description table,
-.property-description ul, ol {
+.property-description ul,
+ol {
     margin: auto;
 }
-.property-description .review ul, ol {
+.property-description .review ul,
+ol {
     margin: initial;
 }
 .property-description blockquote {
@@ -266,7 +268,6 @@ div.carousel-item div div.no-margin-right {
     justify-content: space-evenly;
 }
 .property-info-bottom-item {
- 
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -293,22 +294,30 @@ div.carousel-item div div.no-margin-right {
     border-color: #0a58ca;
     transition: 0.15s ease-in-out;
 }
-.carousel-control-prev.home-carousel {
-    left: 0;
+div.carousel-item .home-carousel-button-prev {
     margin-right: 10px;
+}
+
+.home-carousel-button-prev,
+.home-carousel-button-next {
+    height: 50px;
+    margin: auto 0px auto 0px;
 }
 @media only screen and (max-width: 500px) {
     div.carousel-inner div.center-horizontally {
         display: unset;
     }
-    .carousel-control-prev.home-carousel,
-    .carousel-control-next.home-carousel {
+
+    div.carousel-item.home-carousel {
+        flex-wrap: wrap;
+    }
+    .div.home-carousel-button-prev {
+        margin: auto;
+        margin-right: unset;
+    }
+    div.home-carousel-button-next {
         margin: auto;
     }
-}
-
-.carousel-control-next.home-carousel {
-    right: 0;
 }
 
 div.carousel-item.home-carousel:not(.active, .carousel-item-start, .carousel-item-end) {
@@ -316,6 +325,7 @@ div.carousel-item.home-carousel:not(.active, .carousel-item-start, .carousel-ite
 }
 div.carousel-item.home-carousel {
     transition: unset;
+    justify-content: center;
 }
 
 .input-error-message {
