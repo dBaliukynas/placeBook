@@ -1,4 +1,5 @@
 import PropertyCard from "./PropertyCard";
+import PropertyCardPlaceholder from "./PropertyCardPlaceholder";
 const CardCarousel = (props) => {
     return (
         <>
@@ -30,7 +31,7 @@ const CardCarousel = (props) => {
                                 data-bs-slide="prev"
                             >
                                 <span
-                                    className="carousel-control-prev-icon"
+                                    className="carousel-control-prev-icon home-carousel-icon"
                                     aria-hidden="true"
                                 ></span>
                                 <span className="visually-hidden">
@@ -45,22 +46,28 @@ const CardCarousel = (props) => {
                                 }}
                             >
                                 {props.items
-                                    .slice(index * 5, index * 5 + 5)
-                                    .map((item, mapIndex) => (
-                                        <PropertyCard
-                                            key={mapIndex}
-                                            propertyTypes={[
-                                                {
-                                                    imagePath:
-                                                        "/images/hotel.jpg",
-                                                    cityName: item.city,
-                                                    name: item.name,
-                                                },
-                                            ]}
-                                            isProperty={true}
-                                            property={item}
-                                        />
-                                    ))}
+                                    ? props.items
+                                          .slice(
+                                              index * props.itemCount,
+                                              index * props.itemCount +
+                                                  props.itemCount
+                                          )
+                                          .map((item, mapIndex) => (
+                                              <PropertyCard
+                                                  key={mapIndex}
+                                                  image_path={item.image_path}
+                                                  item={item}
+                                                  isProperty={props.isProperty}
+                                              />
+                                          ))
+                                    : Array.from(
+                                          { length: props.itemCount },
+                                          (_, index) => (
+                                              <PropertyCardPlaceholder
+                                                  key={index}
+                                              />
+                                          )
+                                      )}
                             </div>
                             <button
                                 className={
@@ -73,7 +80,7 @@ const CardCarousel = (props) => {
                                 data-bs-slide="next"
                             >
                                 <span
-                                    className="carousel-control-next-icon"
+                                    className="carousel-control-next-icon home-carousel-icon"
                                     aria-hidden="true"
                                 ></span>
                                 <span className="visually-hidden">Next</span>

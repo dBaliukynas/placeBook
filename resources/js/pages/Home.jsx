@@ -23,80 +23,76 @@ const Home = () => {
                 }
             });
     }, []);
-    const propertyTypesMatrix = [
-        [
-            { cityName: "Hotel", imagePath: "/images/property_type_hotel.png" },
-            {
-                cityName: "Apartment",
-                imagePath: "/images/property_type_apartment.jpg",
-            },
-            {
-                cityName: "Homestead",
-                imagePath: "/images/property_type_homestead.jpeg",
-            },
-            { cityName: "Motel", imagePath: "/images/property_type_motel.jpg" },
-            { cityName: "Villa", imagePath: "/images/property_type_villa.jpg" },
-        ],
-        [
-            { cityName: "SSS", imagePath: "/images/property_type_hotel.png" },
-            {
-                cityName: "SSS",
-                imagePath: "/images/property_type_apartment.jpg",
-            },
-            {
-                cityName: "SSS",
-                imagePath: "/images/property_type_homestead.jpeg",
-            },
-            { cityName: "SSS", imagePath: "/images/property_type_motel.jpg" },
-            { cityName: "SSS", imagePath: "/images/property_type_villa.jpg" },
-        ],
+    const propertyTypes = [
+        { city: "Hotel", image_path: "/images/property_type_hotel.png" },
+        {
+            city: "Apartment",
+            image_path: "/images/property_type_apartment.jpg",
+        },
+        {
+            city: "Homestead",
+            image_path: "/images/property_type_homestead.jpeg",
+        },
+        { city: "Motel", image_path: "/images/property_type_motel.jpg" },
+        { city: "Villa", image_path: "/images/property_type_villa.jpg" },
+
+        { city: "SSS", image_path: "/images/property_type_hotel.png" },
+        {
+            city: "SSS",
+            image_path: "/images/property_type_apartment.jpg",
+        },
+        {
+            city: "SSS",
+            image_path: "/images/property_type_homestead.jpeg",
+        },
+        { city: "SSS", image_path: "/images/property_type_motel.jpg" },
+        { city: "SSS", image_path: "/images/property_type_villa.jpg" },
     ];
-    const propertyCitiesMatrix = [
-        [
-            {
-                cityName: "Vilnius",
-                imagePath: "/images/property_city_vilnius.jpg",
-            },
-            {
-                cityName: "Kaunas",
-                imagePath: "/images/property_city_kaunas.jpg",
-            },
-            {
-                cityName: "Klaipėda",
-                imagePath: "/images/property_city_klaipeda.jpg",
-            },
-            {
-                cityName: "Šiauliai",
-                imagePath: "/images/property_city_siauliai.jpg",
-            },
-            {
-                cityName: "Panevėžys",
-                imagePath: "/images/property_city_panevezys.jpg",
-            },
-        ],
-        [
-            {
-                cityName: "Palanga",
-                imagePath: "/images/property_city_palanga.jpg",
-            },
-            {
-                cityName: "Utena",
-                imagePath: "/images/property_city_utena.jpg",
-            },
-            {
-                cityName: "Kėdainiai",
-                imagePath: "/images/property_city_kedainiai.jpg",
-            },
-            {
-                cityName: "Anykščiai",
-                imagePath: "/images/property_city_anyksciai.jpg",
-            },
-            {
-                cityName: "Marijampolė",
-                imagePath: "/images/property_city_marijampole.jpg",
-            },
-        ],
+
+    const propertyCities = [
+        {
+            city: "Vilnius",
+            image_path: "/images/property_city_vilnius.jpg",
+        },
+        {
+            city: "Kaunas",
+            image_path: "/images/property_city_kaunas.jpg",
+        },
+        {
+            city: "Klaipėda",
+            image_path: "/images/property_city_klaipeda.jpg",
+        },
+        {
+            city: "Šiauliai",
+            image_path: "/images/property_city_siauliai.jpg",
+        },
+        {
+            city: "Panevėžys",
+            image_path: "/images/property_city_panevezys.jpg",
+        },
+
+        {
+            city: "Palanga",
+            image_path: "/images/property_city_palanga.jpg",
+        },
+        {
+            city: "Utena",
+            image_path: "/images/property_city_utena.jpg",
+        },
+        {
+            city: "Kėdainiai",
+            image_path: "/images/property_city_kedainiai.jpg",
+        },
+        {
+            city: "Anykščiai",
+            image_path: "/images/property_city_anyksciai.jpg",
+        },
+        {
+            city: "Marijampolė",
+            image_path: "/images/property_city_marijampole.jpg",
+        },
     ];
+
     return (
         <>
             <div className="top-main-container">
@@ -173,17 +169,28 @@ const Home = () => {
 
             <div className="main-container">
                 <h3>Select a place by group</h3>
-                {/* <CardCarousel
-                    propertyTypesMatrix={propertyTypesMatrix}
+                <CardCarousel
+                    items={propertyTypes}
                     id={0}
+                    pageCount={2}
+                    itemCount={5}
                 />
                 <h3>Select a place by your country's city</h3>
                 <CardCarousel
-                    propertyTypesMatrix={propertyCitiesMatrix}
-                   id={1}
-                /> */}
+                    items={propertyCities}
+                    id={1}
+                    pageCount={2}
+                    itemCount={5}
+                />
                 <h3>Our users favorite places</h3>
-                {properties && <CardCarousel items={properties} id={2} pageCount={3} />}
+
+                <CardCarousel
+                    items={properties}
+                    id={2}
+                    pageCount={3}
+                    itemCount={5}
+                    isProperty={true}
+                />
             </div>
         </>
     );

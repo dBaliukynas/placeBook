@@ -301,6 +301,8 @@ div.carousel-item .home-carousel-button-prev {
 .home-carousel-button-prev,
 .home-carousel-button-next {
     height: 50px;
+    display: flex;
+    align-items: center;
     margin: auto 0px auto 0px;
 }
 @media only screen and (max-width: 500px) {
@@ -318,6 +320,11 @@ div.carousel-item .home-carousel-button-prev {
     div.home-carousel-button-next {
         margin: auto;
     }
+}
+
+.home-carousel-icon {
+    width: 20px;
+    height: 20px;
 }
 
 div.carousel-item.home-carousel:not(.active, .carousel-item-start, .carousel-item-end) {
