@@ -6,6 +6,7 @@ import {
     Link,
     useOutletContext,
 } from "react-router-dom";
+import { toast } from "react-toastify";
 import defaultFetchOptions from "../components/DefaultFetchOptions";
 import PropertyDescription from "../components/PropertyDescription";
 import StarIcon from "../components/svgs/StarIcon";
@@ -53,6 +54,7 @@ const Property = (props) => {
     const [error, setError] = useState(undefined);
     const [mainContent, setMainContent] = useState({ name: "Property" });
     const [propertyDeleteName, setPropertyDeleteName] = useState("");
+    const [isBeingDeleted, setIsBeingDeleted] = useState(false);
     if (error?.status == 404) {
         return <HTTPError status={error.status} message="Page not found" />;
     }
@@ -63,7 +65,8 @@ const Property = (props) => {
         setPropertyDeleteName(event.target.value);
     };
     const deleteProperty = () => {
-        setPropertyDeleteName("");
+        setIsBeingDeleted(true);
+        const toastId = toast("Deleting a property...", { isLoading: true });
         fetch(`/api/property/${id}`, {
             method: "DELETE",
             ...defaultFetchOptions,
@@ -74,7 +77,15 @@ const Property = (props) => {
                     return response.json();
                 }
             })
-            .then(() => navigate("/property-search"));
+            .then(() => {
+                toast.update(toastId, {
+                    render: "Property has been successfully deleted.",
+                    type: "success",
+                    autoClose: 5000,
+                    isLoading: false,
+                });
+                navigate("/property-search");
+            });
     };
     return (
         <>
@@ -216,7 +227,11 @@ const Property = (props) => {
                                         </button>
                                     </Link>
                                     <button
-                                        className="btn btn-outline-light rent-button"
+                                        className={
+                                            isBeingDeleted
+                                                ? "btn btn-outline-light rent-button disabled"
+                                                : "btn btn-outline-light rent-button"
+                                        }
                                         style={{ marginLeft: "20px" }}
                                         data-bs-toggle="modal"
                                         data-bs-target="#deletePropertyModal"

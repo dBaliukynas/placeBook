@@ -317,7 +317,7 @@ const PropertyListing = (isPropertyEdit) => {
             );
         }
     };
-    const editProperty = () => {
+    const updateProperty = () => {
         if (propertyFields.every((propertyField) => propertyField != "")) {
             const toastId = toast("Updating a property...", {
                 isLoading: true,
@@ -821,7 +821,7 @@ const PropertyListing = (isPropertyEdit) => {
                                 }
                                 style={{ width: "100%", marginTop: "20px" }}
                                 onClick={
-                                    !property ? createProperty : editProperty
+                                    !property ? createProperty : updateProperty
                                 }
                             >
                                 {!property ? (

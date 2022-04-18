@@ -16,10 +16,8 @@ class PropertyController extends Controller
         //
     }
 
-    public function create(Request $request)
+    public function validate_property($data)
     {
-        $data = $request->input();
-
         $validator = Validator::make($data, [
             'propertyName' => 'required|min:2|max:40',
             'propertyType' => 'required',
@@ -33,6 +31,18 @@ class PropertyController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()], 422);
+        } else {
+            return null;
+        }
+    }
+
+    public function create(Request $request)
+    {
+        $data = $request->input();
+        $validation_result = $this->validate_property($data);
+
+        if ($validation_result) {
+            return $validation_result;
         }
 
         $property = Property::create([
@@ -86,20 +96,10 @@ class PropertyController extends Controller
     public function update(Request $request, Property $property)
     {
         $data = $request->input();
+        $validation_result = $this->validate_property($data);
 
-        $validator = Validator::make($data, [
-            'propertyName' => 'required|min:2|max:40',
-            'propertyType' => 'required',
-            'propertyAddress' => 'required',
-            'propertyCountry' => 'required',
-            'propertyCity' => 'required',
-            'propertyRegion' => 'max:100',
-            'propertyPostcode' => 'max:100',
-            'propertyPrice' => 'required|max:10001',
-            'propertyDescription' => 'required|max:10000',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()->all()], 422);
+        if ($validation_result) {
+            return $validation_result;
         }
 
         $property->name =  $data['propertyName'];
