@@ -72,16 +72,8 @@ const Profile = () => {
                                     currentProperties.map((property, index) => (
                                         <PropertyCard
                                             key={index}
-                                            propertyTypes={[
-                                                {
-                                                    imagePath:
-                                                        "/images/hotel.jpg",
-                                                    cityName: property.city,
-                                                    name: property.name,
-                                                },
-                                            ]}
                                             isProperty={true}
-                                            property={property}
+                                            item={property}
                                         />
                                     ))
                                 ) : (

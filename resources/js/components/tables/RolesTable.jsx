@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import VerticallyCenteredModal from "../VerticallyCenteredModal";
+import VerticallyCenteredModal from "../modals/VerticallyCenteredModal";
 import { rolesColumns } from "../../table/columns/rolesColumns";
 import { rolesData } from "../../table/data/rolesData";
 import Spinner from "../Spinner";

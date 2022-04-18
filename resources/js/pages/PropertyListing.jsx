@@ -317,7 +317,51 @@ const PropertyListing = (isPropertyEdit) => {
             );
         }
     };
-    const editProperty = () => {};
+    const editProperty = () => {
+        if (propertyFields.every((propertyField) => propertyField != "")) {
+            const toastId = toast("Updating a property...", {
+                isLoading: true,
+            });
+
+            fetch(`/api/property/${id}`, {
+                method: "PUT",
+                ...defaultFetchOptions,
+                body: JSON.stringify({
+                    propertyName,
+                    propertyDescription,
+                    propertyAddress,
+                    propertyCountry,
+                    propertyCity,
+                    propertyRegion,
+                    propertyPostcode,
+                    propertyType,
+                    propertyPrice,
+                }),
+            }).then((response) =>
+                response.json().then((data) => {
+                    if (data.errors) {
+                        toast.update(toastId, {
+                            render: <span>• {data.errors.join("\n• ")}</span>,
+                            type: "error",
+                            autoClose:
+                                data.errors.length == 1
+                                    ? 5000
+                                    : 4000 * data.errors.length,
+                            isLoading: false,
+                            className: "toastify-error",
+                        });
+                    } else {
+                        toast.update(toastId, {
+                            render: "Property has been successfully updated.",
+                            type: "success",
+                            autoClose: 5000,
+                            isLoading: false,
+                        });
+                    }
+                })
+            );
+        }
+    };
     const minPropertyPrice = 1;
     const maxPropertyPrice = 10001;
     const [propertyName, setPropertyName] = useState("");
@@ -639,54 +683,56 @@ const PropertyListing = (isPropertyEdit) => {
                                         </span>
                                     </div>
                                 </form>
-                                {/* <ReactMapGL
-                            mapboxAccessToken={mapBoxApiKey}
-                            {...viewState}
-                            onMove={(event) => setViewState(event.viewState)}
-                            style={{ width: "100%", height: "500px" }}
-                            mapStyle="mapbox://styles/mapbox/streets-v11"
-                        >
-                            <MapGeocoderControl
-                                mapboxAccessToken={mapBoxApiKey}
-                                position="top-left"
-                                onResult={onSearchLocation}
-                                language="en-US"
-                            />
-                            {!marker.hidden ? (
-                                <Marker
-                                    longitude={marker.longitude}
-                                    latitude={marker.latitude}
-                                    anchor="bottom"
-                                    draggable
-                                    onDrag={onMarkerDrag}
-                                    style={{ zIndex: "1" }}
+                                <ReactMapGL
+                                    mapboxAccessToken={mapBoxApiKey}
+                                    {...viewState}
+                                    onMove={(event) =>
+                                        setViewState(event.viewState)
+                                    }
+                                    style={{ width: "100%", height: "500px" }}
+                                    mapStyle="mapbox://styles/mapbox/streets-v11"
                                 >
-                                    <MapPinIcon size={20} />
-                                </Marker>
-                            ) : (
-                                <> </>
-                            )}
+                                    <MapGeocoderControl
+                                        mapboxAccessToken={mapBoxApiKey}
+                                        position="top-left"
+                                        onResult={onSearchLocation}
+                                        language="en-US"
+                                    />
+                                    {!marker.hidden ? (
+                                        <Marker
+                                            longitude={marker.longitude}
+                                            latitude={marker.latitude}
+                                            anchor="bottom"
+                                            draggable
+                                            onDrag={onMarkerDrag}
+                                            style={{ zIndex: "1" }}
+                                        >
+                                            <MapPinIcon size={20} />
+                                        </Marker>
+                                    ) : (
+                                        <> </>
+                                    )}
 
-                            <NavigationControl />
-                            <button
-                                className="map-draggable-pin"
-                                type="button"
-                                title={
-                                    marker.hidden
-                                        ? "Place draggable pin"
-                                        : "Hide draggable pin"
-                                }
-                                onClick={() =>
-                                    setMarker({
-                                        longitude: viewState.longitude,
-                                        latitude: viewState.latitude,
-                                        hidden: !marker.hidden,
-                                    })
-                                }
-                            >
-                                <MapPinNavigationIcon />
-                            </button>
-                        </ReactMapGL> */}
+                                    <NavigationControl />
+                                    <button
+                                        className="map-draggable-pin"
+                                        type="button"
+                                        title={
+                                            marker.hidden
+                                                ? "Place draggable pin"
+                                                : "Hide draggable pin"
+                                        }
+                                        onClick={() =>
+                                            setMarker({
+                                                longitude: viewState.longitude,
+                                                latitude: viewState.latitude,
+                                                hidden: !marker.hidden,
+                                            })
+                                        }
+                                    >
+                                        <MapPinNavigationIcon />
+                                    </button>
+                                </ReactMapGL>
                             </div>
                             <div style={{ marginBottom: "15px" }}>
                                 <h5>Property price</h5>

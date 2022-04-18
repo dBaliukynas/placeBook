@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import Pagination from "../Pagination";
 import { usersColumns } from "../../table/columns/usersColumns";
 import { usersData } from "../../table/data/usersData";
-import VerticallyCenteredModal from "../VerticallyCenteredModal";
+import VerticallyCenteredModal from "../modals/VerticallyCenteredModal";
 import Spinner from "../Spinner";
 
 const UsersTable = (props) => {

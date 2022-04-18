@@ -18,6 +18,8 @@ Route::middleware('auth:web')->get('/user', function (Request $request) {
 });
 Route::post('/property', '\App\Http\Controllers\PropertyController@create');
 Route::get('/property/{property}', '\App\Http\Controllers\PropertyController@read');
+Route::put('/property/{property}', '\App\Http\Controllers\PropertyController@update');
+Route::delete('/property/{property}', '\App\Http\Controllers\PropertyController@delete');
 Route::get('/properties', '\App\Http\Controllers\PropertyController@read_all');
 
 Route::get('/users', '\App\Http\Controllers\UserController@read_all');

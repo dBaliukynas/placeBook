@@ -313,12 +313,8 @@ div.carousel-item .home-carousel-button-prev {
     div.carousel-item.home-carousel {
         flex-wrap: wrap;
     }
-    .div.home-carousel-button-prev {
-        margin: auto;
+    div.carousel-item .home-carousel-button-prev {
         margin-right: unset;
-    }
-    div.home-carousel-button-next {
-        margin: auto;
     }
 }
 

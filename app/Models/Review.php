@@ -20,4 +20,8 @@ class Review extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
+    }
 }

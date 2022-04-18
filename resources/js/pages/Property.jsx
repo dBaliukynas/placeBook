@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
-import { useParams, useLocation, Link, useOutletContext } from "react-router-dom";
+import {
+    useParams,
+    useNavigate,
+    useLocation,
+    Link,
+    useOutletContext,
+} from "react-router-dom";
+import defaultFetchOptions from "../components/DefaultFetchOptions";
 import PropertyDescription from "../components/PropertyDescription";
 import StarIcon from "../components/svgs/StarIcon";
 import { useMediaQuery } from "react-responsive";
@@ -16,9 +23,10 @@ import Spinner from "../components/Spinner";
 import Rent from "../components/Rent";
 import Reviews from "../components/Reviews";
 import HTTPError from "../components/HTTPError";
-import VerticallyCenteredModal from "../components/VerticallyCenteredModal";
+import VerticallyCenteredModal from "../components/modals/VerticallyCenteredModal";
 
 const Property = (props) => {
+    const navigate = useNavigate();
     const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
     useLayoutEffect(() => setShowBreadcrumb(false));
     const { id } = useParams();
@@ -56,6 +64,17 @@ const Property = (props) => {
     };
     const deleteProperty = () => {
         setPropertyDeleteName("");
+        fetch(`/api/property/${id}`, {
+            method: "DELETE",
+            ...defaultFetchOptions,
+        })
+            .then((response) => {
+                if (!response.ok) {
+                } else {
+                    return response.json();
+                }
+            })
+            .then(() => navigate("/property-search"));
     };
     return (
         <>

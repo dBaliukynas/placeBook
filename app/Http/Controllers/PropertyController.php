@@ -83,9 +83,41 @@ class PropertyController extends Controller
         return response($property, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Property $property)
     {
-        //
+        $data = $request->input();
+
+        $validator = Validator::make($data, [
+            'propertyName' => 'required|min:2|max:40',
+            'propertyType' => 'required',
+            'propertyAddress' => 'required',
+            'propertyCountry' => 'required',
+            'propertyCity' => 'required',
+            'propertyRegion' => 'max:100',
+            'propertyPostcode' => 'max:100',
+            'propertyPrice' => 'required|max:10001',
+            'propertyDescription' => 'required|max:10000',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()], 422);
+        }
+
+        $property->name =  $data['propertyName'];
+        $property->description = str_replace(['"', "'"], ['\"', "\'"], $data['propertyDescription']);
+        $property->author_id =  Auth::user()->id;
+        $property->country =  $data['propertyCountry'];
+        $property->city =  $data['propertyCity'];
+        $property->address = $data['propertyAddress'];
+        $property->region = $data['propertyRegion'];
+        $property->postcode = $data['propertyPostcode'];
+        $property->type = $data['propertyType'];
+        $property->price =  $data['propertyPrice'];
+        $property->image_path = 'Test';
+
+        $property->save();
+
+
+        return response()->json($property);
     }
 
     // public function test(Request $request)
@@ -95,8 +127,13 @@ class PropertyController extends Controller
     //     return response($path);
     // }
 
-    public function delete($id)
+    public function delete(Property $property)
     {
-        //
+        if (Auth::user()->role == "admin" || Auth::user()->id == $property->author_id) {
+            $property->reviews()->delete();
+            $property->delete();
+            return response()->json($property, 200);
+        }
+        return response()->json(403);
     }
 }
