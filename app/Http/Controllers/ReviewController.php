@@ -33,7 +33,7 @@ class ReviewController extends Controller
         $property->review_count += 1;
         $property->save();
 
-        return response()->json($review);
+        return response()->json($review, 200);
     }
 
     public function read_all(Request $request)

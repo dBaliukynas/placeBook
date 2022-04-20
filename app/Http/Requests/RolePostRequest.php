@@ -4,9 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Property;
 
-class ReviewPostRequest extends FormRequest
+class RolePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +14,7 @@ class ReviewPostRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Auth::check() && Auth::user()->id != Property::find('author_id', Auth::user()->id)) {
+        if (Auth::user()->role == "admin") {
             return true;
         }
         return false;
@@ -29,8 +28,7 @@ class ReviewPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'selectedRating' => 'required|min:1|max:10',
-            'reviewDescription' => 'required|max:10000',
+            //
         ];
     }
 }
