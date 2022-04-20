@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Property;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Cache;
+use App\Http\Requests\PropertyPostRequest;
 
 class PropertyController extends Controller
 {
@@ -16,34 +15,9 @@ class PropertyController extends Controller
         //
     }
 
-    public function validate_property($data)
+    public function create(PropertyPostRequest $request)
     {
-        $validator = Validator::make($data, [
-            'propertyName' => 'required|min:2|max:40',
-            'propertyType' => 'required',
-            'propertyAddress' => 'required',
-            'propertyCountry' => 'required',
-            'propertyCity' => 'required',
-            'propertyRegion' => 'max:100',
-            'propertyPostcode' => 'max:100',
-            'propertyPrice' => 'required|max:10001',
-            'propertyDescription' => 'required|max:10000',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()->all()], 422);
-        } else {
-            return null;
-        }
-    }
-
-    public function create(Request $request)
-    {
-        $data = $request->input();
-        $validation_result = $this->validate_property($data);
-
-        if ($validation_result) {
-            return $validation_result;
-        }
+        $data = $request->validated();
 
         $property = Property::create([
             'name' => $data['propertyName'],
@@ -59,7 +33,7 @@ class PropertyController extends Controller
             'image_path' => 'Test',
         ]);
 
-        return response()->json($property);
+        return response()->json($property, 200);
     }
 
 

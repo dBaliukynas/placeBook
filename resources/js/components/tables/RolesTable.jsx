@@ -111,7 +111,6 @@ const RolesTable = (props) => {
                 title="Create user role"
                 buttonType="btn-primary"
                 onClick={createRole}
-                // disabled={propertyDeleteName != property?.name}
                 body={
                     <>
                         <form>
