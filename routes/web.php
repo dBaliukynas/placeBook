@@ -18,7 +18,4 @@ Auth::routes();
 Route::get('/logout', '\App\Http\Controllers\Auth\LogoutController@logout');
 
 
-Route::get('/{route}', function () {
-
-    return view('example');
-})->where('route', '.*');
+Route::view('/{route}', 'main')->where('route', '.*');
