@@ -409,3 +409,8 @@ ul.list-group.list-group-horizontal button.list-group-item.top-navigation-last {
 .admin-panel-users-table {
     margin-top: 30px;
 }
+
+.user-create-form {
+    display: flex;
+    flex-direction: column;
+}

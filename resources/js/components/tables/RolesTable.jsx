@@ -135,7 +135,6 @@ const RolesTable = (props) => {
                 buttonText="Delete"
                 title="Delete role"
                 buttonType="btn-danger"
-                onClick={deleteRole}
                 body={
                     <>
                         <p>
