@@ -45,7 +45,7 @@ class PropertyController extends Controller
 
             $search_text = $request->query('search');
 
-            $properties = Property::where("name", "LIKE", "{$search_text}%")->get();
+            $properties = Property::where("name", "LIKE", "{$search_text}%")->orderBy("review_count", "desc")->limit(5)->get();
         } else if ($request->has('sort')) {
             if ($request->query('sort') == "new") {
                 $properties = Property::latest("created_at")->get();

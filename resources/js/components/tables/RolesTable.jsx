@@ -34,9 +34,9 @@ const RolesTable = (props) => {
     };
 
     const validateName = (name) => {
-        if (!name.match("^.{0,100}$") || !name) {
+        if (!name.match("^.{0,30}$") || !name) {
             setErrorName(
-                "Name cannot be empty and contain more than 100 characters."
+                "Name cannot be empty and contain more than 30 characters."
             );
         } else {
             setErrorName("");
@@ -48,8 +48,6 @@ const RolesTable = (props) => {
         validateName(name);
         setName(event.target.value);
     };
-
-    useEffect(() => console.log(errorName));
 
     const createRole = () => {
         if (name != "") {

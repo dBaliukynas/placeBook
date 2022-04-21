@@ -17,5 +17,4 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 Route::get('/logout', '\App\Http\Controllers\Auth\LogoutController@logout');
 
-
 Route::view('/{route}', 'main')->where('route', '.*');

@@ -1,6 +1,17 @@
 import DateDifference from "../../components/DateDifference";
+import { useMemo } from "react";
+import TrashIcon from "../../components/svgs/TrashIcon";
+import EditIcon from "../../components/svgs/EditIcon";
+import CloseIcon from "../../components/svgs/CloseIcon";
 
-export const usersColumns = (usersToBeEdited, presentDate, roles) => {
+export const usersColumns = (
+    usersToBeEdited,
+    presentDate,
+    roles,
+    handleUserNameChange,
+    deleteUser,
+    editUser
+) => {
     return [
         {
             name: "Id",
@@ -41,13 +52,29 @@ export const usersColumns = (usersToBeEdited, presentDate, roles) => {
                 usersToBeEdited.find(
                     (userToBeEdited) => userToBeEdited.id == row.id
                 ) ? (
-                    <input
-                        className="form-control"
-                        type="text"
-                        value={row.name}
-                        title={row.name}
-                        aria-label="edit input"
-                    ></input>
+                    useMemo(
+                        () =>
+                            usersToBeEdited
+                                .filter(
+                                    (userToBeEdited) =>
+                                        userToBeEdited.id == row.id
+                                )
+                                .map((userToBeEdited) => (
+                                    <input
+                                        className="form-control"
+                                        type="text"
+                                        value={userToBeEdited.name}
+                                        title={userToBeEdited.name}
+                                        aria-label="edit input"
+                                        onChange={(event) =>
+                                            handleUserNameChange(event, userToBeEdited)
+                                        }
+                                        key={userToBeEdited.id}
+                                        id={userToBeEdited.id}
+                                    ></input>
+                                )),
+                        [usersToBeEdited]
+                    )
                 ) : (
                     <span title={row.name}>{row.name}</span>
                 ),
@@ -100,6 +127,33 @@ export const usersColumns = (usersToBeEdited, presentDate, roles) => {
             name: "Actions",
             selector: (row) => row.actions,
             center: true,
+            format: (row, index) => (
+                <>
+         
+                    <TrashIcon
+                        role="button"
+                        className="trash-icon-red"
+                        onClick={() => deleteUser(row.id)}
+                        dataBsToggle="modal"
+                        dataBsTarget="#deleteUserModal"
+                    />
+                    {!usersToBeEdited.find(
+                        (userToBeEdited) => userToBeEdited.id == row.id
+                    ) ? (
+                        <EditIcon
+                            role="button"
+                            className="edit-icon-sand"
+                            onClick={() => editUser(row.id)}
+                        />
+                    ) : (
+                        <CloseIcon
+                            role="button"
+                            className="edit-icon-sand"
+                            onClick={() => editUser(row.id)}
+                        />
+                    )}
+                </>
+            ),
         },
     ];
 };
