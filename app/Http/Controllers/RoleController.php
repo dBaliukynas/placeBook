@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Http\Requests\RolePostRequest;
 
 class RoleController extends Controller
 {
@@ -14,8 +15,14 @@ class RoleController extends Controller
         //
     }
 
-    public function create()
+    public function create(RolePostRequest $request)
     {
+        $data = $request->validated();
+
+        $role = Role::create([
+            'name' => $data['name'],
+        ]);
+        return response()->json($role, 200);
     }
 
 

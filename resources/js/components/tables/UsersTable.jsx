@@ -142,8 +142,6 @@ const UsersTable = (props) => {
     const userFields = [name, email, role];
     const errors = [errorEmail, errorName, errorRole];
 
-    useEffect(() => console.log(role));
-
     return (
         <div className="card" style={{ marginTop: "20px" }}>
             <div
@@ -273,7 +271,6 @@ const UsersTable = (props) => {
                                 type="text"
                                 aria-label="user name"
                                 id="userNameInput"
-                                style={{ marginBottom: "10px" }}
                                 value={name}
                                 onChange={handleNameChange}
                             />
@@ -283,6 +280,7 @@ const UsersTable = (props) => {
                             <label
                                 className="form-label"
                                 htmlFor="userEmailInput"
+                                style={{ marginTop: "10px" }}
                             >
                                 Email
                             </label>
@@ -295,7 +293,7 @@ const UsersTable = (props) => {
                                 type="email"
                                 aria-label="user email"
                                 id="userEmailInput"
-                                style={{ marginBottom: "10px" }}
+                              
                                 value={email}
                                 onChange={handleEmailChange}
                             />
@@ -305,6 +303,7 @@ const UsersTable = (props) => {
                             <label
                                 className="form-label"
                                 htmlFor="userRoleInput"
+                                style={{ marginTop: "10px" }}
                             >
                                 Role
                             </label>

@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import VerticallyCenteredModal from "../modals/VerticallyCenteredModal";
 import { rolesColumns } from "../../table/columns/rolesColumns";
 import { rolesData } from "../../table/data/rolesData";
 import Spinner from "../Spinner";
+import defaultFetchOptions from "../DefaultFetchOptions";
+import { toast } from "react-toastify";
 
 const RolesTable = (props) => {
     const handleSelectedRow = (event) => {
@@ -26,16 +28,82 @@ const RolesTable = (props) => {
             ]);
         }
     };
+
     const editRoles = () => {
         setRolesToBeEdited(props.roles);
     };
 
-    const createRole = () => {};
+    const validateName = (name) => {
+        if (!name.match("^.{0,100}$") || !name) {
+            setErrorName(
+                "Name cannot be empty and contain more than 100 characters."
+            );
+        } else {
+            setErrorName("");
+        }
+    };
+
+    const handleNameChange = (event) => {
+        const name = event.target.value;
+        validateName(name);
+        setName(event.target.value);
+    };
+
+    useEffect(() => console.log(errorName));
+
+    const createRole = () => {
+        if (name != "") {
+            const toastId = toast("Creating a role...", { isLoading: true });
+
+            fetch("/api/role", {
+                method: "POST",
+                ...defaultFetchOptions,
+                body: JSON.stringify({
+                    name: name.toLowerCase(),
+                }),
+            }).then((response) =>
+                response.json().then((data) => {
+                    if (data.errors) {
+                        const errorsArray = Object.values(data.errors);
+                        toast.update(toastId, {
+                            render: (
+                                <>
+                                    {errorsArray.map((dataError, index) => (
+                                        <span key={index}>
+                                            {index != 0 && "\n"}• {dataError[0]}{" "}
+                                        </span>
+                                    ))}
+                                </>
+                            ),
+                            type: "error",
+                            autoClose:
+                                errorsArray.length == 1
+                                    ? 5000
+                                    : 4000 * errorsArray.length,
+                            isLoading: false,
+                            className: "toastify-error",
+                        });
+                    } else {
+                        setName("");
+                        toast.update(toastId, {
+                            render: "Role has been successfully created.",
+                            type: "success",
+                            autoClose: 5000,
+                            isLoading: false,
+                        });
+                    }
+                })
+            );
+        }
+    };
 
     const [selectedRows, setSelectedRows] = useState(undefined);
 
     const [rolesToBeEdited, setRolesToBeEdited] = useState([]);
     const [roleToBeDeleted, setRoleToBeDeleted] = useState(undefined);
+
+    const [name, setName] = useState("");
+    const [errorName, setErrorName] = useState("");
 
     return (
         <div className="card" style={{ marginTop: "20px" }}>
@@ -71,7 +139,7 @@ const RolesTable = (props) => {
                                         : "btn btn-warning disabled"
                                 }
                                 style={{ marginRight: "10px" }}
-                                onClick={() => editUsers()}
+                                onClick={() => editRoles()}
                             >
                                 Edit
                             </button>
@@ -111,6 +179,7 @@ const RolesTable = (props) => {
                 title="Create user role"
                 buttonType="btn-primary"
                 onClick={createRole}
+                disabled={!(name != "" && errorName == "")}
                 body={
                     <>
                         <form>
@@ -121,11 +190,20 @@ const RolesTable = (props) => {
                                 Name
                             </label>
                             <input
-                                className="form-control"
+                                className={
+                                    errorName
+                                        ? "form-control input-error"
+                                        : "form-control"
+                                }
                                 type="text"
                                 aria-label="user role"
                                 id="userRoleNameInput"
+                                onChange={handleNameChange}
+                                value={name}
                             />
+                            <span className="input-error-message">
+                                {errorName}
+                            </span>
                         </form>
                     </>
                 }

@@ -15,7 +15,7 @@ class ReviewPostRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Auth::check() && Auth::user()->id != Property::find('author_id', Auth::user()->id)) {
+        if (Auth::check()) {
             return true;
         }
         return false;
