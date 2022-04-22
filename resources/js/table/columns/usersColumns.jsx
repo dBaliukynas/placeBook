@@ -1,5 +1,5 @@
 import DateDifference from "../../components/DateDifference";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import TrashIcon from "../../components/svgs/TrashIcon";
 import EditIcon from "../../components/svgs/EditIcon";
 import CloseIcon from "../../components/svgs/CloseIcon";
@@ -8,7 +8,9 @@ export const usersColumns = (
     usersToBeEdited,
     presentDate,
     roles,
+    handleUserRoleChange,
     handleUserNameChange,
+    handleUserEmailChange,
     deleteUser,
     editUser
 ) => {
@@ -28,23 +30,42 @@ export const usersColumns = (
                     (userToBeEdited) =>
                         userToBeEdited.row.id == row.id &&
                         userToBeEdited.isBeingEdited
-                ) ? (
-                    <select
-                        className="form-select form-select-sm"
-                        aria-label=".form-select-sm example"
-                    >
-                        <option defaultValue>{row.role}</option>
-                        {roles
-                            .filter((role) => role.name != row.role)
-                            .map((role, index) => (
-                                <option key={index} value={index}>
-                                    {role.name}
-                                </option>
-                            ))}
-                    </select>
-                ) : (
-                    row.role
-                ),
+                )
+                    ? usersToBeEdited
+                          .filter(
+                              (userToBeEdited) =>
+                                  userToBeEdited.row.id == row.id
+                          )
+                          .map((userToBeEdited) => (
+                              <React.Fragment key={row.id}>
+                                  <select
+                                      className="form-select form-select-sm"
+                                      aria-label=".form-select-sm example"
+                                      onChange={(event) =>
+                                          handleUserRoleChange(
+                                              event,
+                                              userToBeEdited
+                                          )
+                                      }
+                                      value={userToBeEdited.row.role}
+                                  >
+                                      <option defaultValue>{row.role}</option>
+                                      {roles
+                                          .filter(
+                                              (role) => role.name != row.role
+                                          )
+                                          .map((role) => (
+                                              <option
+                                                  key={role.id}
+                                                  value={userToBeEdited.role}
+                                              >
+                                                  {role.name}
+                                              </option>
+                                          ))}
+                                  </select>
+                              </React.Fragment>
+                          ))
+                    : row.role,
         },
         {
             name: "Name",
@@ -88,13 +109,23 @@ export const usersColumns = (
                         userToBeEdited.row.id == row.id &&
                         userToBeEdited.isBeingEdited
                 ) ? (
-                    <input
-                        className="form-control"
-                        type="text"
-                        value={row.email}
-                        title={row.email}
-                        aria-label="edit input"
-                    ></input>
+                    usersToBeEdited
+                        .filter(
+                            (userToBeEdited) => userToBeEdited.row.id == row.id
+                        )
+                        .map((userToBeEdited) => (
+                            <input
+                                className="form-control"
+                                type="text"
+                                onChange={(event) =>
+                                    handleUserEmailChange(event, userToBeEdited)
+                                }
+                                value={userToBeEdited.row.email}
+                                title={userToBeEdited.row.email}
+                                aria-label="edit input"
+                                key={row.id}
+                            ></input>
+                        ))
                 ) : (
                     <span title={row.email}>{row.email}</span>
                 ),

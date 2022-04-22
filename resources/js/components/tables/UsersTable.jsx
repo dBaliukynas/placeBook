@@ -60,10 +60,28 @@ const UsersTable = (props) => {
 
     const currentUsers = props.users?.slice(indexOfFirstItem, indexOfLastItem);
 
+    const handleUserRoleChange = (event, userToBeEdited) => {
+        let newUsersToBeEdited = [...usersToBeEdited];
+
+        userToBeEdited.row.role = event.target.value;
+        newUsersToBeEdited[usersToBeEdited.indexOf(userToBeEdited)] =
+            userToBeEdited;
+        setUsersToBeEdited(newUsersToBeEdited);
+    };
+
     const handleUserNameChange = (event, userToBeEdited) => {
         let newUsersToBeEdited = [...usersToBeEdited];
 
         userToBeEdited.row.name = event.target.value;
+        newUsersToBeEdited[usersToBeEdited.indexOf(userToBeEdited)] =
+            userToBeEdited;
+        setUsersToBeEdited(newUsersToBeEdited);
+    };
+
+    const handleUserEmailChange = (event, userToBeEdited) => {
+        let newUsersToBeEdited = [...usersToBeEdited];
+
+        userToBeEdited.row.email = event.target.value;
         newUsersToBeEdited[usersToBeEdited.indexOf(userToBeEdited)] =
             userToBeEdited;
         setUsersToBeEdited(newUsersToBeEdited);
@@ -127,7 +145,9 @@ const UsersTable = (props) => {
                             usersToBeEdited,
                             props.presentDate,
                             props.roles,
+                            handleUserRoleChange,
                             handleUserNameChange,
+                            handleUserEmailChange,
                             deleteUser,
                             editUser
                         )}
