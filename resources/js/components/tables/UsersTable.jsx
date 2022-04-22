@@ -95,13 +95,22 @@ const UsersTable = (props) => {
                 className="card-body"
                 style={{ display: "flex", flexDirection: "column" }}
             >
+                <h5 className="card-title">Users</h5>
                 <div
                     style={{
                         display: "flex",
                         justifyContent: "space-between",
                     }}
                 >
-                    <h5 className="card-title">Users</h5>
+                    <div style={{ marginTop: "20px" }}>
+                        <button
+                            className={`btn btn-primary ${
+                                usersToBeEdited.length == 0 && "disabled"
+                            } `}
+                        >
+                            Save
+                        </button>
+                    </div>
                     <div className="card" style={{ marginTop: "20px" }}>
                         <div
                             className="card-body"
@@ -139,6 +148,7 @@ const UsersTable = (props) => {
                         </div>
                     </div>
                 </div>
+
                 {props.users ? (
                     <DataTable
                         columns={usersColumns(

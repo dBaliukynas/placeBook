@@ -109,13 +109,21 @@ const RolesTable = (props) => {
                 className="card-body"
                 style={{ display: "flex", flexDirection: "column" }}
             >
+                <h5 className="card-title">User roles</h5>
                 <div
                     style={{
                         display: "flex",
                         justifyContent: "space-between",
                     }}
                 >
-                    <h5 className="card-title">User roles</h5>
+                    <div style={{ marginTop: "20px" }}>
+                        <button
+                            className={`btn btn-primary ${true && "disabled"} `}
+                        >
+                            Save
+                        </button>
+                    </div>
+
                     <div className="card" style={{ marginTop: "20px" }}>
                         <div
                             className="card-body"
