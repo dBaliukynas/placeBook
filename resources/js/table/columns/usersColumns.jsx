@@ -25,7 +25,9 @@ export const usersColumns = (
             sortable: true,
             format: (row) =>
                 usersToBeEdited.find(
-                    (userToBeEdited) => userToBeEdited.id == row.id
+                    (userToBeEdited) =>
+                        userToBeEdited.row.id == row.id &&
+                        userToBeEdited.isBeingEdited
                 ) ? (
                     <select
                         className="form-select form-select-sm"
@@ -50,31 +52,28 @@ export const usersColumns = (
             sortable: true,
             format: (row) =>
                 usersToBeEdited.find(
-                    (userToBeEdited) => userToBeEdited.id == row.id
+                    (userToBeEdited) =>
+                        userToBeEdited.row.id == row.id &&
+                        userToBeEdited.isBeingEdited
                 ) ? (
-                    useMemo(
-                        () =>
-                            usersToBeEdited
-                                .filter(
-                                    (userToBeEdited) =>
-                                        userToBeEdited.id == row.id
-                                )
-                                .map((userToBeEdited) => (
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        value={userToBeEdited.name}
-                                        title={userToBeEdited.name}
-                                        aria-label="edit input"
-                                        onChange={(event) =>
-                                            handleUserNameChange(event, userToBeEdited)
-                                        }
-                                        key={userToBeEdited.id}
-                                        id={userToBeEdited.id}
-                                    ></input>
-                                )),
-                        [usersToBeEdited]
-                    )
+                    usersToBeEdited
+                        .filter(
+                            (userToBeEdited) => userToBeEdited.row.id == row.id
+                        )
+                        .map((userToBeEdited) => (
+                            <input
+                                className="form-control"
+                                type="text"
+                                value={userToBeEdited.row.name}
+                                title={userToBeEdited.row.name}
+                                aria-label="edit input"
+                                onChange={(event) =>
+                                    handleUserNameChange(event, userToBeEdited)
+                                }
+                                key={row.id}
+                                id={row.id}
+                            ></input>
+                        ))
                 ) : (
                     <span title={row.name}>{row.name}</span>
                 ),
@@ -85,7 +84,9 @@ export const usersColumns = (
             sortable: true,
             format: (row) =>
                 usersToBeEdited.find(
-                    (userToBeEdited) => userToBeEdited.id == row.id
+                    (userToBeEdited) =>
+                        userToBeEdited.row.id == row.id &&
+                        userToBeEdited.isBeingEdited
                 ) ? (
                     <input
                         className="form-control"
@@ -127,9 +128,8 @@ export const usersColumns = (
             name: "Actions",
             selector: (row) => row.actions,
             center: true,
-            format: (row, index) => (
+            format: (row) => (
                 <>
-         
                     <TrashIcon
                         role="button"
                         className="trash-icon-red"
@@ -138,18 +138,20 @@ export const usersColumns = (
                         dataBsTarget="#deleteUserModal"
                     />
                     {!usersToBeEdited.find(
-                        (userToBeEdited) => userToBeEdited.id == row.id
+                        (userToBeEdited) =>
+                            userToBeEdited.row.id == row.id &&
+                            userToBeEdited.isBeingEdited
                     ) ? (
                         <EditIcon
                             role="button"
                             className="edit-icon-sand"
-                            onClick={() => editUser(row.id)}
+                            onClick={() => editUser(row)}
                         />
                     ) : (
                         <CloseIcon
                             role="button"
                             className="edit-icon-sand"
-                            onClick={() => editUser(row.id)}
+                            onClick={() => editUser(row)}
                         />
                     )}
                 </>

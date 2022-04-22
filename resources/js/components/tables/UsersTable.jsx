@@ -9,28 +9,39 @@ import UserCreation from "./UserCreation";
 
 const UsersTable = (props) => {
     const handleSelectedRow = (event) => {
-        console.log(event.allSelected);
+        // console.log(event.allSelected);
         setSelectedRows(event.selectedRows);
     };
     const deleteUser = (id) => {
         setUserToBeDeleted(props.users.find((user) => user.id == id));
     };
-    const editUser = (id) => {
-        if (usersToBeEdited.find((userToBeEdited) => userToBeEdited.id == id)) {
-            setUsersToBeEdited(
-                usersToBeEdited.filter(
-                    (userToBeEdited) => userToBeEdited.id != id
-                )
+    const editUser = (row) => {
+        if (
+            usersToBeEdited.find(
+                (userToBeEdited) => userToBeEdited.row.id == row.id
+            )
+        ) {
+            let newState = [...usersToBeEdited];
+
+            let index = usersToBeEdited.findIndex(
+                (userToBeEdited) => userToBeEdited.row.id == row.id
             );
+            newState[index].isBeingEdited = !newState[index].isBeingEdited;
+
+            setUsersToBeEdited(newState);
         } else {
             setUsersToBeEdited((usersToBeEdited) => [
                 ...usersToBeEdited,
-                props.users.find((user) => user.id == id),
+                { row, isBeingEdited: true },
             ]);
         }
     };
     const editUsers = () => {
-        setUsersToBeEdited(selectedRows);
+        const usersToBeEdited = selectedRows.map((selectedRow) => ({
+            row: selectedRow,
+            isBeingEdited: true,
+        }));
+        setUsersToBeEdited(usersToBeEdited);
     };
 
     const [selectedRows, setSelectedRows] = useState(undefined);
@@ -51,16 +62,14 @@ const UsersTable = (props) => {
 
     const handleUserNameChange = (event, userToBeEdited) => {
         let newUsersToBeEdited = [...usersToBeEdited];
-        // let newUserToBeEdited = [...userToBeEdited];
-        // let newUserToBeEdited = { ...newUsersToBeEdited[index] };
 
-        userToBeEdited.name = event.target.value;
+        userToBeEdited.row.name = event.target.value;
         newUsersToBeEdited[usersToBeEdited.indexOf(userToBeEdited)] =
             userToBeEdited;
         setUsersToBeEdited(newUsersToBeEdited);
     };
 
-    console.log(usersToBeEdited);
+    useEffect(() => console.log(usersToBeEdited));
 
     return (
         <div className="card" style={{ marginTop: "20px" }}>
