@@ -3,9 +3,11 @@ import DataTable from "react-data-table-component";
 import Pagination from "../Pagination";
 import { usersColumns } from "../../table/columns/usersColumns";
 import { usersData } from "../../table/data/usersData";
+import defaultFetchOptions from "../DefaultFetchOptions";
 import VerticallyCenteredModal from "../modals/VerticallyCenteredModal";
 import Spinner from "../Spinner";
 import UserCreation from "./UserCreation";
+import { toast } from "react-toastify";
 
 const UsersTable = (props) => {
     const handleSelectedRow = (event) => {
@@ -38,10 +40,60 @@ const UsersTable = (props) => {
     };
     const editUsers = () => {
         const usersToBeEdited = selectedRows.map((selectedRow) => ({
-            row: selectedRow,
+            row: {
+                id: selectedRow.id,
+                role: selectedRow.role,
+                name: selectedRow.name,
+                email: selectedRow.email,
+            },
             isBeingEdited: true,
         }));
         setUsersToBeEdited(usersToBeEdited);
+    };
+
+    const saveEditedUsers = () => {
+        const toastId = toast("Updating users...", { isLoading: true });
+        const usersToBeEditedFiltered = usersToBeEdited.map(
+            (userToBeEdited) => userToBeEdited.row
+        );
+
+        fetch(`/api/users/edit`, {
+            method: "PUT",
+            ...defaultFetchOptions,
+            body: JSON.stringify({ users: usersToBeEditedFiltered }),
+        }).then((response) =>
+            response.json().then((data) => {
+                if (data.errors) {
+                    const errorsArray = Object.values(data.errors);
+
+                    toast.update(toastId, {
+                        render: (
+                            <>
+                                {errorsArray.map((dataError, index) => (
+                                    <span key={index}>
+                                        {index != 0 && "\n"}• {dataError[0]}{" "}
+                                    </span>
+                                ))}
+                            </>
+                        ),
+                        type: "error",
+                        autoClose:
+                            errorsArray.length == 1
+                                ? 5000
+                                : 4000 * errorsArray.length,
+                        isLoading: false,
+                        className: "toastify-error",
+                    });
+                } else {
+                    toast.update(toastId, {
+                        render: "Users have been successfully updated.",
+                        type: "success",
+                        autoClose: 5000,
+                        isLoading: false,
+                    });
+                }
+            })
+        );
     };
 
     const [selectedRows, setSelectedRows] = useState(undefined);
@@ -50,6 +102,7 @@ const UsersTable = (props) => {
 
     const changePage = (pageIndex) => {
         setCurrentPage(pageIndex);
+        setToggleClearRows(!toggleClearRows);
     };
 
     const itemsPerPage = 10;
@@ -59,6 +112,8 @@ const UsersTable = (props) => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
     const currentUsers = props.users?.slice(indexOfFirstItem, indexOfLastItem);
+
+    const [toggleClearRows, setToggleClearRows] = useState(false);
 
     const handleUserRoleChange = (event, userToBeEdited) => {
         let newUsersToBeEdited = [...usersToBeEdited];
@@ -107,6 +162,7 @@ const UsersTable = (props) => {
                             className={`btn btn-primary ${
                                 usersToBeEdited.length == 0 && "disabled"
                             } `}
+                            onClick={saveEditedUsers}
                         >
                             Save
                         </button>
@@ -163,8 +219,9 @@ const UsersTable = (props) => {
                         )}
                         data={usersData(currentUsers)}
                         selectableRows
-                        highlightOnHover={true}
                         onSelectedRowsChange={handleSelectedRow}
+                        highlightOnHover={true}
+                        clearSelectedRows={toggleClearRows}
                     />
                 ) : (
                     <Spinner color="text-primary" />

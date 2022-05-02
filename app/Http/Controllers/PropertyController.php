@@ -70,11 +70,6 @@ class PropertyController extends Controller
     public function update(Request $request, Property $property)
     {
         $data = $request->input();
-        $validation_result = $this->validate_property($data);
-
-        if ($validation_result) {
-            return $validation_result;
-        }
 
         $property->name =  $data['propertyName'];
         $property->description = str_replace(['"', "'"], ['\"', "\'"], $data['propertyDescription']);

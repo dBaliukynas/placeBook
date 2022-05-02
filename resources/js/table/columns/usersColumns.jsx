@@ -51,7 +51,7 @@ export const usersColumns = (
                                   >
                                       <option defaultValue>{row.role}</option>
                                       {roles
-                                          .filter(
+                                          ?.filter(
                                               (role) => role.name != row.role
                                           )
                                           .map((role) => (
@@ -176,13 +176,27 @@ export const usersColumns = (
                         <EditIcon
                             role="button"
                             className="edit-icon-sand"
-                            onClick={() => editUser(row)}
+                            onClick={() =>
+                                editUser({
+                                    id: row.id,
+                                    role: row.role,
+                                    name: row.name,
+                                    email: row.email,
+                                })
+                            }
                         />
                     ) : (
                         <CloseIcon
                             role="button"
                             className="edit-icon-sand"
-                            onClick={() => editUser(row)}
+                            onClick={() =>
+                                editUser({
+                                    id: row.id,
+                                    role: row.role,
+                                    name: row.name,
+                                    email: row.email,
+                                })
+                            }
                         />
                     )}
                 </>

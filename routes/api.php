@@ -24,6 +24,7 @@ Route::get('/properties', '\App\Http\Controllers\PropertyController@read_all');
 
 Route::get('/users', '\App\Http\Controllers\UserController@read_all');
 Route::post('/user', '\App\Http\Controllers\UserController@create');
+Route::put('/users/edit', '\App\Http\Controllers\UserController@update');
 
 Route::get('/roles', '\App\Http\Controllers\RoleController@read_all');
 Route::post('/role', '\App\Http\Controllers\RoleController@create');
