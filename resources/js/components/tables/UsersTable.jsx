@@ -15,7 +15,49 @@ const UsersTable = (props) => {
         setSelectedRows(event.selectedRows);
     };
     const deleteUser = (id) => {
-        setUserToBeDeleted(props.users.find((user) => user.id == id));
+        const toastId = toast("Deleting a user...", { isLoading: true });
+        fetch(`/api/user/${userToBeDeleted.id}`, {
+            method: "DELETE",
+            ...defaultFetchOptions,
+        })
+            .then((response) => {
+                if (!response.ok) {
+                } else {
+                    return response.json();
+                }
+            })
+            .then(() => {
+                toast.update(toastId, {
+                    render: "User has been successfully deleted.",
+                    type: "success",
+                    autoClose: 5000,
+                    isLoading: false,
+                });
+            });
+    };
+    const deleteUsers = () => {
+        const userIds = selectedRows.map((selectedRow) => selectedRow.id);
+
+        const toastId = toast("Deleting users...", { isLoading: true });
+        fetch(`/api/users`, {
+            method: "DELETE",
+            ...defaultFetchOptions,
+            body: JSON.stringify({ userIds }),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                } else {
+                    return response.json();
+                }
+            })
+            .then(() => {
+                toast.update(toastId, {
+                    render: "Users have been successfully deleted.",
+                    type: "success",
+                    autoClose: 5000,
+                    isLoading: false,
+                });
+            });
     };
     const editUser = (row) => {
         if (
@@ -155,6 +197,7 @@ const UsersTable = (props) => {
                     style={{
                         display: "flex",
                         justifyContent: "space-between",
+                        alignItems: "center",
                     }}
                 >
                     <div style={{ marginTop: "20px" }}>
@@ -198,6 +241,8 @@ const UsersTable = (props) => {
                                         ? "btn btn-danger"
                                         : "btn btn-danger disabled"
                                 }
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteUsersModal"
                             >
                                 Delete
                             </button>
@@ -214,7 +259,7 @@ const UsersTable = (props) => {
                             handleUserRoleChange,
                             handleUserNameChange,
                             handleUserEmailChange,
-                            deleteUser,
+                            setUserToBeDeleted,
                             editUser
                         )}
                         data={usersData(currentUsers)}
@@ -245,12 +290,25 @@ const UsersTable = (props) => {
                 buttonText="Delete"
                 title="Delete user"
                 buttonType="btn-danger"
+                onClick={deleteUser}
                 body={
                     <>
                         <p>
                             Are you sure you want to delete user{" "}
                             <strong>{userToBeDeleted?.name}</strong>?
                         </p>
+                    </>
+                }
+            />
+            <VerticallyCenteredModal
+                id="deleteUsersModal"
+                buttonText="Delete"
+                title="Delete users"
+                buttonType="btn-danger"
+                onClick={deleteUsers}
+                body={
+                    <>
+                        <p>Are you sure you want to delete selecred users?</p>
                     </>
                 }
             />

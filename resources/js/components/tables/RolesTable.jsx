@@ -114,6 +114,7 @@ const RolesTable = (props) => {
                     style={{
                         display: "flex",
                         justifyContent: "space-between",
+                        alignItems: "center",
                     }}
                 >
                     <div style={{ marginTop: "20px" }}>

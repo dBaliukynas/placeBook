@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('author_id')->nullable();
             $table->unsignedBigInteger('property_id');
             $table->tinyInteger('rating');
             $table->string('description', 1000)->nullable();
 
-            $table->foreign('author_id')->references('id')->on('users');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('property_id')->references('id')->on('properties');
         });
     }

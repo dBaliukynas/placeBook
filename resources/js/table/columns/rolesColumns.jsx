@@ -11,6 +11,7 @@ export const rolesColumns = (rolesToBeEdited) => {
             name: "Name",
             selector: (row) => row.name,
             sortable: true,
+            grow: 4.55,
             format: (row) =>
                 rolesToBeEdited.find(
                     (roleToBeEdited) => roleToBeEdited.id == row.id

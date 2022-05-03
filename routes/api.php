@@ -24,7 +24,9 @@ Route::get('/properties', '\App\Http\Controllers\PropertyController@read_all');
 
 Route::get('/users', '\App\Http\Controllers\UserController@read_all');
 Route::post('/user', '\App\Http\Controllers\UserController@create');
+Route::delete('/user/{user}', '\App\Http\Controllers\UserController@delete');
 Route::put('/users/edit', '\App\Http\Controllers\UserController@update');
+Route::delete('/users', '\App\Http\Controllers\UserController@delete_users');
 
 Route::get('/roles', '\App\Http\Controllers\RoleController@read_all');
 Route::post('/role', '\App\Http\Controllers\RoleController@create');

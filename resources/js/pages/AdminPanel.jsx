@@ -2,11 +2,6 @@ import { useState, useEffect, useLayoutEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import RolesTable from "../components/tables/RolesTable";
 import UsersTable from "../components/tables/UsersTable";
-import PropertyCardHorizontal from "../components/cards/PropertyCardHorizontal";
-import PropertyCardHorizontalPlaceholder from "../components/cards/PropertyCardHorizontalPlaceholder";
-import Pagination from "../components/Pagination";
-import Spinner from "../components/Spinner";
-import ListGroupItem from "../components/lists/ListGroupItem";
 import PropertyListGroup from "../components/lists/PropertyListGroup";
 import ReviewListGroup from "../components/lists/ReviewListGroup";
 

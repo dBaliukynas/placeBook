@@ -46,4 +46,9 @@ class RoleController extends Controller
     {
         //
     }
+
+    public function delete_roles(Request $request)
+    {
+        //
+    }
 }

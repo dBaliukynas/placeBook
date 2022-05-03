@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('author_id')->nullable();
             $table->string('country');
             $table->string('city');
             $table->string('address');
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('image_path')->nullable();
             $table->timestamps();
 
-            $table->foreign('author_id')->references('id')->on('users');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

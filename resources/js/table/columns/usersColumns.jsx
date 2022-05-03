@@ -11,7 +11,7 @@ export const usersColumns = (
     handleUserRoleChange,
     handleUserNameChange,
     handleUserEmailChange,
-    deleteUser,
+    setUserToBeDeleted,
     editUser
 ) => {
     return [
@@ -164,7 +164,14 @@ export const usersColumns = (
                     <TrashIcon
                         role="button"
                         className="trash-icon-red"
-                        onClick={() => deleteUser(row.id)}
+                        onClick={() =>
+                            setUserToBeDeleted({
+                                id: row.id,
+                                role: row.role,
+                                name: row.name,
+                                email: row.email,
+                            })
+                        }
                         dataBsToggle="modal"
                         dataBsTarget="#deleteUserModal"
                     />

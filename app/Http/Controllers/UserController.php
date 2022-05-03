@@ -46,18 +46,34 @@ class UserController extends Controller
     {
         $data = $request->validated();
 
-        foreach ($data as &$edited_user_values) {
-            $user = User::find($edited_user_values[0]['id']);
-            $user->role = $edited_user_values[0]['role'];
-            $user->name = $edited_user_values[0]['name'];
-            $user->email = $edited_user_values[0]['email'];
+        foreach ($data['users'] as &$edited_user_values) {
+            $user = User::find($edited_user_values['id']);
+            $user->role = $edited_user_values['role'];
+            $user->name = $edited_user_values['name'];
+            $user->email = $edited_user_values['email'];
             $user->save();
         }
-        return response()->json(200);
+        return response()->json($data, 200);
     }
 
-    public function delete($id)
+    public function delete(User $user)
     {
-        //
+
+        if (Auth::user()->role == "admin") {
+            $user->delete();
+            return response()->json($user, 200);
+        }
+        return response()->json(403);
+    }
+
+    public function delete_users(Request $request)
+    {
+        $data = $request->input();
+
+        foreach ($data['userIds'] as &$user_id) {
+            $user = User::find($user_id);
+            $user->delete();
+        }
+        return response()->json($data, 200);
     }
 }

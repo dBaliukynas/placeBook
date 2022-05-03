@@ -16,7 +16,15 @@ const ListGroupItem = (props) => {
                 }}
             >
                 <div className="d-flex w-100 justify-content-between">
-                    <h5 className="mb-1">{props.review.user.name}</h5>
+                    <h5 className="mb-1">
+                        {props.review.user ? (
+                            props.review.user.name
+                        ) : (
+                            <span>
+                                [<i>deleted user</i>]
+                            </span>
+                        )}
+                    </h5>
                     <small
                         title={new Date(
                             props.review.updated_at
@@ -45,7 +53,10 @@ const ListGroupItem = (props) => {
                     <span>{props.review.rating}/10</span>
                 </div>
                 <div className="property-review-description-wrapper">
-                    <PropertyDescription descriptionType={props.review} className="review" />
+                    <PropertyDescription
+                        descriptionType={props.review}
+                        className="review"
+                    />
                 </div>
             </div>
         </div>
