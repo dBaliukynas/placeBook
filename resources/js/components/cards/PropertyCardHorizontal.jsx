@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import PropertyRating from "../PropertyRating";
+import PropertyRatingValue from "../PropertyRatingValue";
 import PropertyReviewCount from "../PropertyReviewCount";
 
 const PropertyCardHorizontal = (props) => {
@@ -17,7 +17,7 @@ const PropertyCardHorizontal = (props) => {
                 <div className="col-md-8">
                     <div className="card-body">
                         <h5 className="card-title">{props.property.name}</h5>
-                        <PropertyRating property={props.property} />
+                        <PropertyRatingValue property={props.property} />
                         <PropertyReviewCount property={props.property} />
 
                         <p className="card-text">

@@ -6,102 +6,151 @@ import { rolesData } from "../../table/data/rolesData";
 import Spinner from "../Spinner";
 import defaultFetchOptions from "../DefaultFetchOptions";
 import { toast } from "react-toastify";
+import RoleCreation from "./RoleCreation";
 
 const RolesTable = (props) => {
     const handleSelectedRow = (event) => {
         setSelectedRows(event.selectedRows);
     };
+
     const deleteRole = (id) => {
-        setRoleToBeDeleted(props.roles.find((role) => role.id == id));
+        const toastId = toast("Deleting a role...", { isLoading: true });
+        fetch(`/api/role/${roleToBeDeleted.id}`, {
+            method: "DELETE",
+            ...defaultFetchOptions,
+        })
+            .then((response) => {
+                if (!response.ok) {
+                } else {
+                    return response.json();
+                }
+            })
+            .then(() => {
+                toast.update(toastId, {
+                    render: "Role has been successfully deleted.",
+                    type: "success",
+                    autoClose: 5000,
+                    isLoading: false,
+                });
+            });
     };
-    const editRole = (id) => {
-        if (rolesToBeEdited.find((role) => role.id == id)) {
-            setRolesToBeEdited(
-                rolesToBeEdited.filter(
-                    (roleToBeEdited) => roleToBeEdited.id != id
-                )
+
+    const deleteRoles = () => {
+        const roleIds = selectedRows.map((selectedRow) => selectedRow.id);
+
+        const toastId = toast("Deleting roles...", { isLoading: true });
+        fetch(`/api/roles`, {
+            method: "DELETE",
+            ...defaultFetchOptions,
+            body: JSON.stringify({ roleIds }),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                } else {
+                    return response.json();
+                }
+            })
+            .then(() => {
+                toast.update(toastId, {
+                    render: "Roles have been successfully deleted.",
+                    type: "success",
+                    autoClose: 5000,
+                    isLoading: false,
+                });
+            });
+    };
+
+    const editRole = (row) => {
+        if (
+            rolesToBeEdited.find(
+                (roleToBeEdited) => roleToBeEdited.row.id == row.id
+            )
+        ) {
+            let newState = [...rolesToBeEdited];
+
+            let index = rolesToBeEdited.findIndex(
+                (roleToBeEdited) => roleToBeEdited.row.id == row.id
             );
+            newState[index].isBeingEdited = !newState[index].isBeingEdited;
+
+            setRolesToBeEdited(newState);
         } else {
             setRolesToBeEdited((rolesToBeEdited) => [
                 ...rolesToBeEdited,
-                props.roles.find((role) => role.id == id),
+                { row, isBeingEdited: true },
             ]);
         }
     };
 
     const editRoles = () => {
-        setRolesToBeEdited(props.roles);
+        const rolesToBeEdited = selectedRows.map((selectedRow) => ({
+            row: {
+                id: selectedRow.id,
+                name: selectedRow.name,
+            },
+            isBeingEdited: true,
+        }));
+        setRolesToBeEdited(rolesToBeEdited);
     };
 
-    const validateName = (name) => {
-        if (!name.match("^.{0,30}$") || !name) {
-            setErrorName(
-                "Name cannot be empty and contain more than 30 characters."
-            );
-        } else {
-            setErrorName("");
-        }
+    const saveEditedRoles = () => {
+        const toastId = toast("Updating roles...", { isLoading: true });
+        const rolesToBeEditedFiltered = rolesToBeEdited.map(
+            (roleToBeEdited) => roleToBeEdited.row
+        );
+
+        fetch(`/api/roles`, {
+            method: "PUT",
+            ...defaultFetchOptions,
+            body: JSON.stringify({ roles: rolesToBeEditedFiltered }),
+        }).then((response) =>
+            response.json().then((data) => {
+                if (data.errors) {
+                    const errorsArray = Object.values(data.errors);
+
+                    toast.update(toastId, {
+                        render: (
+                            <>
+                                {errorsArray.map((dataError, index) => (
+                                    <span key={index}>
+                                        {index != 0 && "\n"}• {dataError[0]}{" "}
+                                    </span>
+                                ))}
+                            </>
+                        ),
+                        type: "error",
+                        autoClose:
+                            errorsArray.length == 1
+                                ? 5000
+                                : 4000 * errorsArray.length,
+                        isLoading: false,
+                        className: "toastify-error",
+                    });
+                } else {
+                    toast.update(toastId, {
+                        render: "Roles have been successfully updated.",
+                        type: "success",
+                        autoClose: 5000,
+                        isLoading: false,
+                    });
+                }
+            })
+        );
     };
 
-    const handleNameChange = (event) => {
-        const name = event.target.value;
-        validateName(name);
-        setName(event.target.value);
-    };
+    const handleNameChange = (event, roleToBeEdited) => {
+        let newRolesToBeEdited = [...rolesToBeEdited];
 
-    const createRole = () => {
-        if (name != "") {
-            const toastId = toast("Creating a role...", { isLoading: true });
-
-            fetch("/api/role", {
-                method: "POST",
-                ...defaultFetchOptions,
-                body: JSON.stringify({
-                    name: name.toLowerCase(),
-                }),
-            }).then((response) =>
-                response.json().then((data) => {
-                    if (data.errors) {
-                        const errorsArray = Object.values(data.errors);
-                        toast.update(toastId, {
-                            render: (
-                                <>
-                                    {errorsArray.map((dataError, index) => (
-                                        <span key={index}>
-                                            {index != 0 && "\n"}• {dataError[0]}{" "}
-                                        </span>
-                                    ))}
-                                </>
-                            ),
-                            type: "error",
-                            autoClose:
-                                errorsArray.length == 1
-                                    ? 5000
-                                    : 4000 * errorsArray.length,
-                            isLoading: false,
-                            className: "toastify-error",
-                        });
-                    } else {
-                        setName("");
-                        toast.update(toastId, {
-                            render: "Role has been successfully created.",
-                            type: "success",
-                            autoClose: 5000,
-                            isLoading: false,
-                        });
-                    }
-                })
-            );
-        }
+        roleToBeEdited.row.name = event.target.value;
+        newRolesToBeEdited[rolesToBeEdited.indexOf(roleToBeEdited)] =
+            roleToBeEdited;
+        setRolesToBeEdited(newRolesToBeEdited);
     };
 
     const [selectedRows, setSelectedRows] = useState(undefined);
 
     const [rolesToBeEdited, setRolesToBeEdited] = useState([]);
     const [roleToBeDeleted, setRoleToBeDeleted] = useState(undefined);
-
-    const [name, setName] = useState("");
-    const [errorName, setErrorName] = useState("");
 
     return (
         <div className="card" style={{ marginTop: "20px" }}>
@@ -119,7 +168,10 @@ const RolesTable = (props) => {
                 >
                     <div style={{ marginTop: "20px" }}>
                         <button
-                            className={`btn btn-primary ${true && "disabled"} `}
+                            className={`btn btn-primary ${
+                                rolesToBeEdited.length == 0 && "disabled"
+                            } `}
+                            onClick={saveEditedRoles}
                         >
                             Save
                         </button>
@@ -156,6 +208,8 @@ const RolesTable = (props) => {
                                         ? "btn btn-danger"
                                         : "btn btn-danger disabled"
                                 }
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteRolesModal"
                             >
                                 Delete
                             </button>
@@ -164,13 +218,13 @@ const RolesTable = (props) => {
                 </div>
                 {props.roles ? (
                     <DataTable
-                        columns={rolesColumns(rolesToBeEdited)}
-                        data={rolesData(
-                            props.roles,
+                        columns={rolesColumns(
                             rolesToBeEdited,
-                            editRole,
-                            deleteRole
+                            handleNameChange,
+                            setRoleToBeDeleted,
+                            editRole
                         )}
+                        data={rolesData(props.roles)}
                         selectableRows
                         highlightOnHover={true}
                         onSelectedRowsChange={handleSelectedRow}
@@ -179,53 +233,31 @@ const RolesTable = (props) => {
                     <Spinner color="text-primary" />
                 )}
             </div>
-
-            <VerticallyCenteredModal
-                id="createRoleModal"
-                buttonText="Create"
-                title="Create user role"
-                buttonType="btn-primary"
-                onClick={createRole}
-                disabled={!(name != "" && errorName == "")}
-                body={
-                    <>
-                        <form>
-                            <label
-                                className="form-label"
-                                htmlFor="userRoleNameInput"
-                            >
-                                Name
-                            </label>
-                            <input
-                                className={
-                                    errorName
-                                        ? "form-control input-error"
-                                        : "form-control"
-                                }
-                                type="text"
-                                aria-label="user role"
-                                id="userRoleNameInput"
-                                onChange={handleNameChange}
-                                value={name}
-                            />
-                            <span className="input-error-message">
-                                {errorName}
-                            </span>
-                        </form>
-                    </>
-                }
-            />
+            <RoleCreation />
             <VerticallyCenteredModal
                 id="deleteRoleModal"
                 buttonText="Delete"
                 title="Delete role"
                 buttonType="btn-danger"
+                onClick={deleteRole}
                 body={
                     <>
                         <p>
                             Are you sure you want to delete role{" "}
                             <strong>{roleToBeDeleted?.name}</strong>?
                         </p>
+                    </>
+                }
+            />
+            <VerticallyCenteredModal
+                id="deleteRolesModal"
+                buttonText="Delete"
+                title="Delete roles"
+                buttonType="btn-danger"
+                onClick={deleteRoles}
+                body={
+                    <>
+                        <p>Are you sure you want to delete selected roles?</p>
                     </>
                 }
             />

@@ -349,13 +349,22 @@ const PropertyListing = (isPropertyEdit) => {
             }).then((response) =>
                 response.json().then((data) => {
                     if (data.errors) {
+                        const errorsArray = Object.values(data.errors);
                         toast.update(toastId, {
-                            render: <span>• {data.errors.join("\n• ")}</span>,
+                            render: (
+                                <>
+                                    {errorsArray.map((dataError, index) => (
+                                        <span key={index}>
+                                            {index != 0 && "\n"}• {dataError[0]}{" "}
+                                        </span>
+                                    ))}
+                                </>
+                            ),
                             type: "error",
                             autoClose:
-                                data.errors.length == 1
+                                errorsArray.length == 1
                                     ? 5000
-                                    : 4000 * data.errors.length,
+                                    : 4000 * errorsArray.length,
                             isLoading: false,
                             className: "toastify-error",
                         });

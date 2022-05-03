@@ -99,7 +99,7 @@ const UsersTable = (props) => {
             (userToBeEdited) => userToBeEdited.row
         );
 
-        fetch(`/api/users/edit`, {
+        fetch(`/api/users`, {
             method: "PUT",
             ...defaultFetchOptions,
             body: JSON.stringify({ users: usersToBeEditedFiltered }),

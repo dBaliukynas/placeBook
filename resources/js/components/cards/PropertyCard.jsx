@@ -1,7 +1,7 @@
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
-import PropertyRating from "../PropertyRating";
+import PropertyRatingValue from "../PropertyRatingValue";
 import PropertyReviewCount from "../PropertyReviewCount";
 
 const PropertyCard = (props) => {
@@ -40,7 +40,7 @@ const PropertyCard = (props) => {
                             >
                                 <span>{props.item.city}</span>
 
-                                <PropertyRating property={props.item} />
+                                <PropertyRatingValue property={props.item} />
 
                                 <PropertyReviewCount property={props.item} />
                             </div>

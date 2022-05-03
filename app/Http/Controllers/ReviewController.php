@@ -53,13 +53,29 @@ class ReviewController extends Controller
         return response($reviews, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(ReviewPostRequest $request, Review $review)
     {
-        //
+        $data = $request->validated();
+
+        $review->rating =  $data['selectedRating'];
+        $review->description = str_replace(['"', "'"], ['\"', "\'"], $data['reviewDescription']);
+        $review->save();
+
+        $property = Property::find($review->property_id);
+        $property->rating = ($property->rating * (float)$property->review_count + $data['selectedRating']) / (float)($property->review_count + 1);
+        $property->save();
+
+
+        return response()->json($review);
     }
 
-    public function delete($id)
+    public function delete(Review $review)
     {
-        //
+
+        if (Auth::user()->id == $review->author_id || Auth::user()->role == "admin") {
+            $review->delete();
+            return response()->json($review, 200);
+        }
+        return response()->json(403);
     }
 }

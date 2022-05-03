@@ -25,14 +25,18 @@ Route::get('/properties', '\App\Http\Controllers\PropertyController@read_all');
 Route::get('/users', '\App\Http\Controllers\UserController@read_all');
 Route::post('/user', '\App\Http\Controllers\UserController@create');
 Route::delete('/user/{user}', '\App\Http\Controllers\UserController@delete');
-Route::put('/users/edit', '\App\Http\Controllers\UserController@update');
+Route::put('/users', '\App\Http\Controllers\UserController@update');
 Route::delete('/users', '\App\Http\Controllers\UserController@delete_users');
 
 Route::get('/roles', '\App\Http\Controllers\RoleController@read_all');
+Route::delete('/roles', '\App\Http\Controllers\RoleController@delete_roles');
+Route::put('/roles', '\App\Http\Controllers\RoleController@update');
 Route::post('/role', '\App\Http\Controllers\RoleController@create');
+Route::delete('/role/{role}', '\App\Http\Controllers\RoleController@delete');
 
 Route::get('/reviews', '\App\Http\Controllers\ReviewController@read_all');
 Route::post('/property/{id}/review', '\App\Http\Controllers\ReviewController@create');
 Route::get('/property/{id}/reviews', '\App\Http\Controllers\ReviewController@read_property_reviews');
+Route::post('/review/{review}', '\App\Http\Controllers\ReviewController@update');
+Route::delete('/review/{review}', '\App\Http\Controllers\ReviewController@delete');
 
-// Route::post('/editor', '\App\Http\Controllers\PropertyController@test');

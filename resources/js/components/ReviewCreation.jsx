@@ -1,34 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import defaultFetchOptions from "../components/DefaultFetchOptions";
+import defaultFetchOptions from "./DefaultFetchOptions";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { toast } from "react-toastify";
 import "../../css/Reviews.css";
-import StarIcon from "../components/svgs/StarIcon";
+import StarIcon from "./svgs/StarIcon";
 import Spinner from "./Spinner";
-import ListGroupItem from "./lists/ListGroupItem";
 
-const Reviews = (props) => {
-    useEffect(() => {
-        if (props.property) {
-            fetch(`/api/property/${props.property.id}/reviews`, {
-                method: "GET",
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                    } else {
-                        return response.json();
-                    }
-                })
-                .then((data) => {
-                    if (data) {
-                        setReviews(data);
-                    }
-                });
-        }
-    }, [props.property]);
-
+const ReviewCreation = (props) => {
     const handleReviewDescriptionChange = (_, editor) => {
         const reviewDescription = editor.getData();
         setReviewDescription(reviewDescription);
@@ -68,9 +48,9 @@ const Reviews = (props) => {
                         ),
                         type: "error",
                         autoClose:
-                            data.errors.length == 1
+                            errorsArray.length == 1
                                 ? 5000
-                                : 4000 * data.errors.length,
+                                : 4000 * errorsArray.length,
                         isLoading: false,
                         className: "toastify-error",
                     });
@@ -87,20 +67,74 @@ const Reviews = (props) => {
             })
         );
     };
-    const [reviews, setReviews] = useState(undefined);
+
+    const updateReview = () => {
+        const toastId = toast("Updating a review...", { isLoading: true });
+        fetch(`/api/review/${props.review.id}`, {
+            method: "POST",
+            ...defaultFetchOptions,
+            body: JSON.stringify({
+                selectedRating,
+                reviewDescription,
+            }),
+        }).then((response) =>
+            response.json().then((data) => {
+                if (data.errors) {
+                    const errorsArray = Object.values(data.errors);
+                    toast.update(toastId, {
+                        render: (
+                            <>
+                                {errorsArray.map((dataError, index) => (
+                                    <span key={index}>
+                                        {index != 0 && "\n"}• {dataError[0]}{" "}
+                                    </span>
+                                ))}
+                            </>
+                        ),
+                        type: "error",
+                        autoClose:
+                            errorsArray.length == 1
+                                ? 5000
+                                : 4000 * errorsArray.length,
+                        isLoading: false,
+                        className: "toastify-error",
+                    });
+                } else {
+                    setSelectedRating("");
+                    setReviewDescription("");
+                    toast.update(toastId, {
+                        render: "Review has been successfully updated.",
+                        type: "success",
+                        autoClose: 5000,
+                        isLoading: false,
+                    });
+                }
+            })
+        );
+    };
+
     const [reviewDescription, setReviewDescription] = useState("");
     const [selectedRating, setSelectedRating] = useState("");
     const [errorReviewDescription, setErrorReviewDescription] = useState("");
     const reviewFields = [selectedRating, reviewDescription];
     const errors = [errorReviewDescription];
 
-    return props.property ? (
+    useEffect(() => {
+        if (props.review) {
+            setReviewDescription(props.review.description);
+            setSelectedRating(props.review.rating);
+        }
+    }, [props.review]);
+
+    return props.isBeingEdited || props.property ? (
         <div>
             {authUser?.id != props.property?.author_id && authUser != null ? (
                 <>
-                    <h5 style={{ marginBottom: "5px", textAlign: "left" }}>
-                        Leave a review
-                    </h5>
+                    {!props.isBeingEdited && (
+                        <h5 style={{ marginBottom: "5px", textAlign: "left" }}>
+                            Leave a review
+                        </h5>
+                    )}
                     <div style={{ display: "flex" }}>
                         <div className="property-review-star-wrapper">
                             {Array.from({ length: 10 }, (_, index) => (
@@ -176,9 +210,15 @@ const Reviews = (props) => {
                                 : "btn btn-primary property-review-post-button disabled"
                         }
                         style={{ marginTop: "20px", width: "100%" }}
-                        onClick={createReview}
+                        onClick={
+                            !props.isBeingEdited ? createReview : updateReview
+                        }
                     >
-                        Post
+                        {!props.isBeingEdited ? (
+                            <span>Post</span>
+                        ) : (
+                            <span>Save</span>
+                        )}
                     </button>
                 </>
             ) : !authUser ? (
@@ -195,25 +235,10 @@ const Reviews = (props) => {
             ) : (
                 <></>
             )}
-            {reviews ? (
-                reviews.length == 0 ? (
-                    <span>
-                        There are currently no reviews about this property.
-                    </span>
-                ) : (
-                    reviews.map((review, index) => (
-                        <div key={index}>
-                            <ListGroupItem review={review} />
-                        </div>
-                    ))
-                )
-            ) : (
-                <Spinner color="text-primary" />
-            )}
         </div>
     ) : (
         <Spinner color="text-primary" />
     );
 };
 
-export default Reviews;
+export default ReviewCreation;

@@ -22,7 +22,7 @@ import NumbersIcon from "../components/svgs/NumbersIcon";
 import Breadcrumb from "../components/layout/Breadcrumb";
 import Spinner from "../components/Spinner";
 import Rent from "../components/Rent";
-import Reviews from "../components/Reviews";
+import ReviewsContainer from "../components/ReviewsContainer";
 import HTTPError from "../components/HTTPError";
 import VerticallyCenteredModal from "../components/modals/VerticallyCenteredModal";
 
@@ -248,8 +248,8 @@ const Property = (props) => {
                                     style={{ marginLeft: "20px" }}
                                     onClick={() =>
                                         handleMainContentChange(
-                                            "Reviews",
-                                            Reviews
+                                            "ReviewsContainer",
+                                            ReviewsContainer
                                         )
                                     }
                                 >
@@ -298,11 +298,11 @@ const Property = (props) => {
                 <button
                     type="button"
                     className={
-                        mainContent.name == "Reviews"
+                        mainContent.name == "ReviewsContainer"
                             ? "list-group-item list-group-item-action button-selected"
                             : "list-group-item list-group-item-action"
                     }
-                    onClick={() => handleMainContentChange("Reviews", Reviews)}
+                    onClick={() => handleMainContentChange("ReviewsContainer", ReviewsContainer)}
                 >
                     Reviews{" "}
                     <span style={{ fontSize: "16px" }}>

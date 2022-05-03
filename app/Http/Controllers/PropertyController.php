@@ -89,13 +89,6 @@ class PropertyController extends Controller
         return response()->json($property);
     }
 
-    // public function test(Request $request)
-    // {
-    //     $path = $request->image->storeAs('public/images', 'filename.jpg');
-
-    //     return response($path);
-    // }
-
     public function delete(Property $property)
     {
         if (Auth::user()->role == "admin" || Auth::user()->id == $property->author_id) {

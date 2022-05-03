@@ -46,3 +46,12 @@
 .property-review-post-button {
     margin-bottom: 100px;
 }
+
+.review-list-item {
+    position: absolute;
+    top: 30px;
+    right: 0;
+}
+.review-list-item:not(:last-child) {
+    margin-right: 30px;
+}
