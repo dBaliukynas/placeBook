@@ -4,12 +4,23 @@ import PropertyReviewCount from "../PropertyReviewCount";
 
 const PropertyCardHorizontal = (props) => {
     return (
-        <div className="card mb-3" style={{ width: "100%", textAlign: "center"}}>
-            <div className="row g-0" style={{height: "inherit"}}>
-                <div className="col-md-4" style={{minHeight: "180px"}}>
+        <div
+            className="card mb-3"
+            style={{ width: "100%", textAlign: "center" }}
+        >
+            <div className="row g-0" style={{ height: "inherit" }}>
+                <div className="col-md-4" style={{ minHeight: "180px" }}>
                     <img
-                        style={{ width: "100%", height: "100%" }}
-                        src="/images/palm.jpg"
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            maxHeight: "220px",
+                        }}
+                        src={
+                            props.property.image_path
+                                ? `/storage/images/${props.property.image_path}`
+                                : "/images/property_image_placeholder.jpg"
+                        }
                         className="img-fluid rounded-start"
                         alt="..."
                     />

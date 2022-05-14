@@ -6,8 +6,7 @@ import {
     useLayoutEffect,
 } from "react";
 import { useParams, useOutletContext } from "react-router-dom";
-import Calendar from "react-calendar";
-import defaultFetchOptions from "../components/DefaultFetchOptions";
+import defaultFetchOptions from "../components/fetch-options/defaultFetchOptions";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { toast } from "react-toastify";
@@ -21,6 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Spinner from "../components/Spinner";
 import HTTPError from "../components/HTTPError";
+import formDataFetchOptions from "../components/fetch-options/formDataFetchOptions";
 
 const PropertyListing = (isPropertyEdit) => {
     const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
@@ -72,20 +72,40 @@ const PropertyListing = (isPropertyEdit) => {
     }, [property]);
 
     const onSearchLocation = (event) => {
-        setPropertyCountry(
+        if (
             event.result.context.find((element) =>
                 element.id.includes("country")
-            )?.text
-        );
-        setPropertyCity(
+            )
+        ) {
+            setPropertyCountry(
+                event.result.context.find((element) =>
+                    element.id.includes("country")
+                ).text
+            );
+        }
+
+        if (
             event.result.context.find((element) =>
                 element.id.includes("region")
-            )?.text
-        );
-        setPropertyRegion(
+            )
+        ) {
+            setPropertyCity(
+                event.result.context.find((element) =>
+                    element.id.includes("region")
+                ).text
+            );
+        }
+
+        if (
             event.result.context.find((element) => element.id.includes("place"))
-                ?.text
-        );
+        ) {
+            setPropertyRegion(
+                event.result.context.find((element) =>
+                    element.id.includes("place")
+                ).text
+            );
+        }
+
         setPropertyAddress(
             event.result.address
                 ? event.result.text + " " + event.result.address
@@ -93,11 +113,17 @@ const PropertyListing = (isPropertyEdit) => {
                 ? event.result.text + " " + event.result.properties.address
                 : event.result.text
         );
-        setPropertyPostcode(
+        if (
             event.result.context.find((element) =>
                 element.id.includes("postcode")
-            )?.text
-        );
+            )
+        ) {
+            setPropertyPostcode(
+                event.result.context.find((element) =>
+                    element.id.includes("postcode")
+                )?.text
+            );
+        }
     };
     const handlePropertyDescriptionChange = (_, editor) => {
         setPropertyDescription(editor.getData());
@@ -179,6 +205,9 @@ const PropertyListing = (isPropertyEdit) => {
             "Property postcode",
             "limited100Chars"
         );
+    };
+    const handlePropertyImageChange = (event) => {
+        setPropertyImage(event.target.files[0]);
     };
 
     const handlePropertyErrorCases = (propertyFieldName, errorMessage) => {
@@ -265,21 +294,22 @@ const PropertyListing = (isPropertyEdit) => {
     const createProperty = () => {
         if (propertyFields.every((propertyField) => propertyField != "")) {
             const toastId = toast("Listing a property...", { isLoading: true });
+            let formData = new FormData();
+            formData.append("propertyImage", propertyImage);
+            formData.append("propertyName", propertyName);
+            formData.append("propertyDescription", propertyDescription);
+            formData.append("propertyAddress", propertyAddress);
+            formData.append("propertyCountry", propertyCountry);
+            formData.append("propertyCity", propertyCity);
+            formData.append("propertyRegion", propertyRegion);
+            formData.append("propertyPostcode", propertyPostcode);
+            formData.append("propertyType", propertyType);
+            formData.append("propertyPrice", propertyPrice);
 
             fetch("/api/property", {
                 method: "POST",
-                ...defaultFetchOptions,
-                body: JSON.stringify({
-                    propertyName,
-                    propertyDescription,
-                    propertyAddress,
-                    propertyCountry,
-                    propertyCity,
-                    propertyRegion,
-                    propertyPostcode,
-                    propertyType,
-                    propertyPrice,
-                }),
+                ...formDataFetchOptions,
+                body: formData,
             }).then((response) =>
                 response.json().then((data) => {
                     if (data.errors) {
@@ -391,6 +421,7 @@ const PropertyListing = (isPropertyEdit) => {
     const [propertyPostcode, setPropertyPostcode] = useState("");
     const [propertyType, setPropertyType] = useState("");
     const [propertyPrice, setPropertyPrice] = useState("");
+    const [propertyImage, setPropertyImage] = useState("");
 
     const [errorPropertyName, setErrorPropertyName] = useState("");
     const [errorPropertyDescription, setErrorPropertyDescription] =
@@ -785,11 +816,14 @@ const PropertyListing = (isPropertyEdit) => {
                             ></input>
                             <div style={{ marginBottom: "15px" }}>
                                 <h5>Select property main image</h5>
-                                <input
-                                    className="form-control"
-                                    type="file"
-                                    id="formFile"
-                                />
+                                <form encType="multipart/form-data">
+                                    <input
+                                        className="form-control"
+                                        type="file"
+                                        id="formFile"
+                                        onChange={handlePropertyImageChange}
+                                    />
+                                </form>
                             </div>
                             <span></span>
                             <div style={{ marginBottom: "15px" }}>

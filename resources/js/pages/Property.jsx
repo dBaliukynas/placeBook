@@ -7,7 +7,7 @@ import {
     useOutletContext,
 } from "react-router-dom";
 import { toast } from "react-toastify";
-import defaultFetchOptions from "../components/DefaultFetchOptions";
+import defaultFetchOptions from "../components/fetch-options/defaultFetchOptions";
 import PropertyDescription from "../components/PropertyDescription";
 import StarIcon from "../components/svgs/StarIcon";
 import { useMediaQuery } from "react-responsive";
@@ -96,8 +96,11 @@ const Property = (props) => {
                     justifyContent: "center",
                     height: "450px",
                     marginBottom: "unset",
-                    backgroundImage:
-                        "linear-gradient( to bottom, rgba(245, 246, 252, 0.52), rgb(21 19 117 / 73%) ), url(/images/hotel.jpg)",
+                    backgroundImage: `linear-gradient( to bottom, rgba(245, 246, 252, 0.52), rgb(21 19 117 / 73%) ), url(${
+                        property?.image_path
+                            ? `/storage/images/${property?.image_path}`
+                            : "/images/property_image_placeholder.jpg"
+                    } )`,
                     backgroundSize: "cover",
                 }}
             >
@@ -302,7 +305,12 @@ const Property = (props) => {
                             ? "list-group-item list-group-item-action button-selected"
                             : "list-group-item list-group-item-action"
                     }
-                    onClick={() => handleMainContentChange("ReviewsContainer", ReviewsContainer)}
+                    onClick={() =>
+                        handleMainContentChange(
+                            "ReviewsContainer",
+                            ReviewsContainer
+                        )
+                    }
                 >
                     Reviews{" "}
                     <span style={{ fontSize: "16px" }}>

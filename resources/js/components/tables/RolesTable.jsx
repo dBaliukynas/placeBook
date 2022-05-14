@@ -4,7 +4,7 @@ import VerticallyCenteredModal from "../modals/VerticallyCenteredModal";
 import { rolesColumns } from "../../table/columns/rolesColumns";
 import { rolesData } from "../../table/data/rolesData";
 import Spinner from "../Spinner";
-import defaultFetchOptions from "../DefaultFetchOptions";
+import defaultFetchOptions from "../fetch-options/defaultFetchOptions";
 import { toast } from "react-toastify";
 import RoleCreation from "./RoleCreation";
 

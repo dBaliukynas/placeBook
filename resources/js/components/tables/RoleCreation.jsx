@@ -1,6 +1,6 @@
 import { useState } from "react";
 import VerticallyCenteredModal from "../modals/VerticallyCenteredModal";
-import defaultFetchOptions from "../DefaultFetchOptions";
+import defaultFetchOptions from "../fetch-options/defaultFetchOptions";
 import { toast } from "react-toastify";
 
 const RoleCreation = (props) => {

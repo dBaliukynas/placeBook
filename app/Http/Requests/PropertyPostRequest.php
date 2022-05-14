@@ -30,13 +30,14 @@ class PropertyPostRequest extends FormRequest
         return [
             'propertyName' => 'required|min:2|max:40',
             'propertyType' => 'required',
-            'propertyAddress' => 'required',
-            'propertyCountry' => 'required',
-            'propertyCity' => 'required',
-            'propertyRegion' => 'max:100',
-            'propertyPostcode' => 'max:100',
+            'propertyAddress' => 'required|max:100',
+            'propertyCountry' => 'required|max:100',
+            'propertyCity' => 'required|max:100',
+            'propertyRegion' => 'nullable|max:100',
+            'propertyPostcode' => 'nullable|max:100',
             'propertyPrice' => 'required|max:10001',
             'propertyDescription' => 'required|max:10000',
+            'propertyImage' => 'image|nullable|mimes:jpg,jpeg,png|max:4096'
 
         ];
     }

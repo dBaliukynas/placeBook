@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import Pagination from "../Pagination";
 import { usersColumns } from "../../table/columns/usersColumns";
 import { usersData } from "../../table/data/usersData";
-import defaultFetchOptions from "../DefaultFetchOptions";
+import defaultFetchOptions from "../fetch-options/defaultFetchOptions";
 import VerticallyCenteredModal from "../modals/VerticallyCenteredModal";
 import Spinner from "../Spinner";
 import UserCreation from "./UserCreation";
@@ -11,10 +11,9 @@ import { toast } from "react-toastify";
 
 const UsersTable = (props) => {
     const handleSelectedRow = (event) => {
-        // console.log(event.allSelected);
         setSelectedRows(event.selectedRows);
     };
-    const deleteUser = (id) => {
+    const deleteUser = () => {
         const toastId = toast("Deleting a user...", { isLoading: true });
         fetch(`/api/user/${userToBeDeleted.id}`, {
             method: "DELETE",

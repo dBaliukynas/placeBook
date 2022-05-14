@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Http\Requests\PropertyPostRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
+
 
 class PropertyController extends Controller
 {
@@ -18,6 +21,14 @@ class PropertyController extends Controller
     public function create(PropertyPostRequest $request)
     {
         $data = $request->validated();
+        if ($data['propertyImage'] != null) {
+            $image_name = strtolower($data['propertyName']) . '_' . 'main_image.' . $data['propertyImage']->getClientOriginalExtension();
+            Storage::putFileAs('public/images', $data['propertyImage'], $image_name);
+        } else {
+            $image_name = null;
+        }
+
+
 
         $property = Property::create([
             'name' => $data['propertyName'],
@@ -30,7 +41,7 @@ class PropertyController extends Controller
             'postcode' => $data['propertyPostcode'],
             'type' => $data['propertyType'],
             'price' => $data['propertyPrice'],
-            'image_path' => 'Test',
+            'image_path' => $image_name,
         ]);
 
         return response()->json($property, 200);

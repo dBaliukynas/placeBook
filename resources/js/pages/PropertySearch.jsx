@@ -50,7 +50,7 @@ const PropertySearch = () => {
                     >
                         {properties
                             ? properties.map((property, index) => (
-                                  <div key={index}>
+                                  <div key={index} style={{ width: "100%" }}>
                                       <PropertyCardHorizontal
                                           property={property}
                                       />

@@ -24,7 +24,13 @@ const PropertyCard = (props) => {
                 style={{ width: "18rem" }}
             >
                 <img
-                    src={props.image_path}
+                    src={
+                        props.isProperty
+                            ? props.item.image_path
+                                ? `/storage/images/${props.item.image_path}`
+                                : "/images/property_image_placeholder.jpg"
+                            : props.image_path
+                    }
                     className="card-img-top"
                     alt="..."
                 />

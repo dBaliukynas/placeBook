@@ -4,14 +4,13 @@ import DateDifference from "../DateDifference";
 import StarIcon from "../svgs/StarIcon";
 import EditIcon from "../svgs/EditIcon";
 import TrashIcon from "../svgs/TrashIcon";
-import defaultFetchOptions from "../DefaultFetchOptions";
+import defaultFetchOptions from "../fetch-options/defaultFetchOptions";
 import VerticallyCenteredModal from "../modals/VerticallyCenteredModal";
 import { toast } from "react-toastify";
 import ReviewCreation from "../ReviewCreation";
 import CloseIcon from "../svgs/CloseIcon";
 
 const ListGroupItem = (props) => {
-    useEffect(() => console.log(props.review));
     const deleteReview = () => {
         const toastId = toast("Deleting a review...", { isLoading: true });
         fetch(`/api/review/${props.review.id}`, {
@@ -80,35 +79,36 @@ const ListGroupItem = (props) => {
                             />{" "}
                             ago
                         </small>
-                        {(authUser.id == props.review.author_id ||
-                            authUser.role == "admin") && (
-                            <div>
-                                <TrashIcon
-                                    role="button"
-                                    className="trash-icon-red review-list-item"
-                                    dataBsToggle="modal"
-                                    dataBsTarget="#deleteReviewModal"
-                                />
+                        {authUser &&
+                            (authUser.id == props.review.author_id ||
+                                authUser.role == "admin") && (
+                                <div>
+                                    <TrashIcon
+                                        role="button"
+                                        className="trash-icon-red review-list-item"
+                                        dataBsToggle="modal"
+                                        dataBsTarget="#deleteReviewModal"
+                                    />
 
-                                {!isBeingEdited ? (
-                                    <EditIcon
-                                        role="button"
-                                        className="edit-icon-sand review-list-item"
-                                        onClick={() =>
-                                            setIsBeingEdited(!isBeingEdited)
-                                        }
-                                    />
-                                ) : (
-                                    <CloseIcon
-                                        role="button"
-                                        className="edit-icon-sand review-list-item"
-                                        onClick={() =>
-                                            setIsBeingEdited(!isBeingEdited)
-                                        }
-                                    />
-                                )}
-                            </div>
-                        )}
+                                    {!isBeingEdited ? (
+                                        <EditIcon
+                                            role="button"
+                                            className="edit-icon-sand review-list-item"
+                                            onClick={() =>
+                                                setIsBeingEdited(!isBeingEdited)
+                                            }
+                                        />
+                                    ) : (
+                                        <CloseIcon
+                                            role="button"
+                                            className="edit-icon-sand review-list-item"
+                                            onClick={() =>
+                                                setIsBeingEdited(!isBeingEdited)
+                                            }
+                                        />
+                                    )}
+                                </div>
+                            )}
                     </div>
                 </div>
                 <div
@@ -126,7 +126,10 @@ const ListGroupItem = (props) => {
                         />
                     </div>
                 ) : (
-                    <ReviewCreation isBeingEdited={isBeingEdited} review={props.review} />
+                    <ReviewCreation
+                        isBeingEdited={isBeingEdited}
+                        review={props.review}
+                    />
                 )}
             </div>
 
