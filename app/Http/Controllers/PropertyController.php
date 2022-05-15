@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Http\Requests\PropertyPostRequest;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\File;
+use Illuminate\Support\Facades\Validator;
 
 
 class PropertyController extends Controller
@@ -21,6 +21,7 @@ class PropertyController extends Controller
     public function create(PropertyPostRequest $request)
     {
         $data = $request->validated();
+
         if ($data['propertyImage'] != null) {
             $image_name = strtolower($data['propertyName']) . '_' . 'main_image.' . $data['propertyImage']->getClientOriginalExtension();
             Storage::putFileAs('public/images', $data['propertyImage'], $image_name);
@@ -78,9 +79,35 @@ class PropertyController extends Controller
         return response($property, 200);
     }
 
-    public function update(Request $request, Property $property)
+    public function add_image(Request $request, Property $property)
     {
-        $data = $request->input();
+        $data = $request->all();
+
+
+        if (is_null($data['propertyImage'])) {
+            $image_name = null;
+        } else {
+            $image_name = strtolower($property->name) . '_' . 'main_image.' . $data['propertyImage']->getClientOriginalExtension();
+            Storage::putFileAs('public/images', $data['propertyImage'], $image_name);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'propertyImage' => 'nullable|image|mimes:jpg,jpeg,png|max:4096'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()], 422);
+        }
+
+        $property->image_path = $image_name;
+        $property->save();
+
+        return response($property, 200);
+    }
+    public function update(PropertyPostRequest $request, Property $property)
+    {
+
+        $data = $request->validated();
 
         $property->name =  $data['propertyName'];
         $property->description = str_replace(['"', "'"], ['\"', "\'"], $data['propertyDescription']);
@@ -92,12 +119,11 @@ class PropertyController extends Controller
         $property->postcode = $data['propertyPostcode'];
         $property->type = $data['propertyType'];
         $property->price =  $data['propertyPrice'];
-        $property->image_path = 'Test';
 
         $property->save();
 
 
-        return response()->json($property);
+        return response()->json($property, 200);
     }
 
     public function delete(Property $property)

@@ -14,7 +14,7 @@ const PropertyCardHorizontal = (props) => {
                         style={{
                             width: "100%",
                             height: "100%",
-                            maxHeight: "220px",
+                            maxHeight: "240px",
                         }}
                         src={
                             props.property.image_path

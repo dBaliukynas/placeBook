@@ -398,6 +398,54 @@ const PropertyListing = (isPropertyEdit) => {
                             isLoading: false,
                             className: "toastify-error",
                         });
+                    } else if (propertyImage != "") {
+                        let formData = new FormData();
+
+                        formData.append(
+                            "propertyImage",
+                            propertyImage != null ? propertyImage : ""
+                        );
+                        fetch(`/api/property/${id}/add-image`, {
+                            method: "POST",
+                            ...formDataFetchOptions,
+                            body: formData,
+                        }).then((response) =>
+                            response.json().then((data) => {
+                                if (data?.errors) {
+                                    const errorsArray = Object.values(
+                                        data?.errors
+                                    );
+                                    toast.update(toastId, {
+                                        render: (
+                                            <>
+                                                {errorsArray.map(
+                                                    (dataError, index) => (
+                                                        <span key={index}>
+                                                            {index != 0 && "\n"}
+                                                            • {dataError[0]}{" "}
+                                                        </span>
+                                                    )
+                                                )}
+                                            </>
+                                        ),
+                                        type: "error",
+                                        autoClose:
+                                            errorsArray.length == 1
+                                                ? 5000
+                                                : 4000 * errorsArray.length,
+                                        isLoading: false,
+                                        className: "toastify-error",
+                                    });
+                                } else {
+                                    toast.update(toastId, {
+                                        render: "Property has been successfully updated.",
+                                        type: "success",
+                                        autoClose: 5000,
+                                        isLoading: false,
+                                    });
+                                }
+                            })
+                        );
                     } else {
                         toast.update(toastId, {
                             render: "Property has been successfully updated.",
@@ -824,6 +872,52 @@ const PropertyListing = (isPropertyEdit) => {
                                         onChange={handlePropertyImageChange}
                                     />
                                 </form>
+                                {isPropertyEdit && (
+                                    <>
+                                        {property?.image_path &&
+                                        propertyImage != null ? (
+                                            <>
+                                                <div
+                                                    style={{
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                    }}
+                                                >
+                                                    <span>Current image:</span>
+                                                    <button
+                                                        className="btn btn-danger"
+                                                        style={{
+                                                            marginBottom:
+                                                                "10px",
+                                                        }}
+                                                        onClick={() =>
+                                                            setPropertyImage(
+                                                                null
+                                                            )
+                                                        }
+                                                    >
+                                                        Remove image
+                                                    </button>
+                                                </div>
+
+                                                <img
+                                                    src={
+                                                        property?.image_path
+                                                            ? `/storage/images/${property?.image_path}`
+                                                            : "/images/property_image_placeholder.jpg"
+                                                    }
+                                                    className="d-block w-100 property-photo"
+                                                    alt="Property image"
+                                                    style={{
+                                                        maxHeight: "500px",
+                                                    }}
+                                                />
+                                            </>
+                                        ) : (
+                                            <span>Property has no image.</span>
+                                        )}
+                                    </>
+                                )}
                             </div>
                             <span></span>
                             <div style={{ marginBottom: "15px" }}>

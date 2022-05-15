@@ -37,7 +37,7 @@ class PropertyPostRequest extends FormRequest
             'propertyPostcode' => 'nullable|max:100',
             'propertyPrice' => 'required|max:10001',
             'propertyDescription' => 'required|max:10000',
-            'propertyImage' => 'image|nullable|mimes:jpg,jpeg,png|max:4096'
+            'propertyImage' => 'nullable|image|mimes:jpg,jpeg,png|max:4096'
 
         ];
     }

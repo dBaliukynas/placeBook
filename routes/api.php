@@ -17,6 +17,7 @@ Route::middleware('auth:web')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/property', '\App\Http\Controllers\PropertyController@create');
+Route::post('/property/{property}/add-image', '\App\Http\Controllers\PropertyController@add_image');
 Route::get('/property/{property}', '\App\Http\Controllers\PropertyController@read');
 Route::put('/property/{property}', '\App\Http\Controllers\PropertyController@update');
 Route::delete('/property/{property}', '\App\Http\Controllers\PropertyController@delete');
