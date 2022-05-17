@@ -13,7 +13,7 @@ const Footer = () => {
                         : "row row-cols-5 py-5 my-5 border-top center"
                 }
             >
-                <div className={ !isMobileScreen ? "col" : "col no-padding"}>
+                <div className={!isMobileScreen ? "col" : "col no-padding"}>
                     <svg
                         viewBox="0 0 872 872"
                         height="40"
@@ -32,126 +32,22 @@ const Footer = () => {
                     <p className="text-muted">© 2022</p>
                 </div>
 
-                <div className={ !isMobileScreen ? "col" : "col no-padding"}>
-                    <h5>Section</h5>
+                <div className={!isMobileScreen ? "col" : "col no-padding"}>
+                    <h5>Main</h5>
                     <ul className="nav flex-column">
                         <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
+                            <Link to="/" className="nav-link p-0 text-muted">
                                 Home
-                            </a>
+                            </Link>
                         </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                Features
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                Pricing
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                FAQs
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
+                        <li className="nav-item">
+                            <Link
+                                to="/about"
+                                className="nav-link"
+                                className="nav-link p-0 text-muted"
+                            >
                                 About
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div className={ !isMobileScreen ? "col" : "col no-padding"}>
-                    <h5>Section</h5>
-                    <ul className="nav flex-column">
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                Home
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                Features
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                Pricing
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                FAQs
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                About
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div className={ !isMobileScreen ? "col" : "col no-padding"}>
-                    <h5>Section</h5>
-                    <ul className="nav flex-column">
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                Home
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                Features
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                Pricing
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                FAQs
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                About
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div className={ !isMobileScreen ? "col" : "col no-padding"}>
-                    <h5>Section</h5>
-                    <ul className="nav flex-column">
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                Home
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                Features
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                Pricing
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                FAQs
-                            </a>
-                        </li>
-                        <li className="nav-item mb-2">
-                            <a href="#" className="nav-link p-0 text-muted">
-                                About
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

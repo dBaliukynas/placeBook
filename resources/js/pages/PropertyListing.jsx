@@ -294,22 +294,24 @@ const PropertyListing = (isPropertyEdit) => {
     const createProperty = () => {
         if (propertyFields.every((propertyField) => propertyField != "")) {
             const toastId = toast("Listing a property...", { isLoading: true });
+
             let formData = new FormData();
             formData.append("propertyImage", propertyImage);
-            formData.append("propertyName", propertyName);
-            formData.append("propertyDescription", propertyDescription);
-            formData.append("propertyAddress", propertyAddress);
-            formData.append("propertyCountry", propertyCountry);
-            formData.append("propertyCity", propertyCity);
-            formData.append("propertyRegion", propertyRegion);
-            formData.append("propertyPostcode", propertyPostcode);
-            formData.append("propertyType", propertyType);
-            formData.append("propertyPrice", propertyPrice);
 
-            fetch("/api/property", {
+            fetch(`/api/property`, {
                 method: "POST",
-                ...formDataFetchOptions,
-                body: formData,
+                ...defaultFetchOptions,
+                body: JSON.stringify({
+                    propertyName,
+                    propertyDescription,
+                    propertyAddress,
+                    propertyCountry,
+                    propertyCity,
+                    propertyRegion,
+                    propertyPostcode,
+                    propertyType,
+                    propertyPrice,
+                }),
             }).then((response) =>
                 response.json().then((data) => {
                     if (data.errors) {
@@ -332,6 +334,54 @@ const PropertyListing = (isPropertyEdit) => {
                             isLoading: false,
                             className: "toastify-error",
                         });
+                    } else if (propertyImage != "") {
+                        let formData = new FormData();
+
+                        formData.append(
+                            "propertyImage",
+                            propertyImage != null ? propertyImage : ""
+                        );
+                        fetch(`/api/property/${data.id}/add-image`, {
+                            method: "POST",
+                            ...formDataFetchOptions,
+                            body: formData,
+                        }).then((response) =>
+                            response.json().then((data) => {
+                                if (data?.errors) {
+                                    const errorsArray = Object.values(
+                                        data?.errors
+                                    );
+                                    toast.update(toastId, {
+                                        render: (
+                                            <>
+                                                {errorsArray.map(
+                                                    (dataError, index) => (
+                                                        <span key={index}>
+                                                            {index != 0 && "\n"}
+                                                            • {dataError[0]}{" "}
+                                                        </span>
+                                                    )
+                                                )}
+                                            </>
+                                        ),
+                                        type: "error",
+                                        autoClose:
+                                            errorsArray.length == 1
+                                                ? 5000
+                                                : 4000 * errorsArray.length,
+                                        isLoading: false,
+                                        className: "toastify-error",
+                                    });
+                                } else {
+                                    toast.update(toastId, {
+                                        render: "Property has been successfully listed.",
+                                        type: "success",
+                                        autoClose: 5000,
+                                        isLoading: false,
+                                    });
+                                }
+                            })
+                        );
                     } else {
                         setPropertyName("");
                         setPropertyType("");

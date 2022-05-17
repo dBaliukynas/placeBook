@@ -57,6 +57,9 @@ const ReviewCreation = (props) => {
                 } else {
                     setSelectedRating("");
                     setReviewDescription("");
+                    setTimeout(() => {
+                        setErrorReviewDescription("");
+                    }, 0);
                     toast.update(toastId, {
                         render: "Review has been successfully posted.",
                         type: "success",
@@ -102,6 +105,9 @@ const ReviewCreation = (props) => {
                 } else {
                     setSelectedRating("");
                     setReviewDescription("");
+                    setTimeout(() => {
+                        setErrorReviewDescription("");
+                    }, 0);
                     toast.update(toastId, {
                         render: "Review has been successfully updated.",
                         type: "success",

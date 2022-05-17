@@ -361,21 +361,33 @@ const Property = (props) => {
                                     <div className="carousel-inner">
                                         <div className="carousel-item active">
                                             <img
-                                                src="/images/hotel.jpg"
+                                                src={
+                                                    property?.image_path
+                                                        ? `/storage/images/${property.image_path}`
+                                                        : "/images/property_image_placeholder.jpg"
+                                                }
                                                 className="d-block w-100 property-photo"
                                                 alt="..."
                                             />
                                         </div>
                                         <div className="carousel-item">
                                             <img
-                                                src="/images/hotel.jpg"
+                                                src={
+                                                    property?.image_path
+                                                        ? `/storage/images/${property.image_path}`
+                                                        : "/images/property_image_placeholder.jpg"
+                                                }
                                                 className="d-block w-100 property-photo"
                                                 alt="..."
                                             />
                                         </div>
                                         <div className="carousel-item">
                                             <img
-                                                src="/images/hotel.jpg"
+                                                src={
+                                                    property?.image_path
+                                                        ? `/storage/images/${property.image_path}`
+                                                        : "/images/property_image_placeholder.jpg"
+                                                }
                                                 className="d-block w-100 property-photo"
                                                 alt="..."
                                             />
