@@ -114,7 +114,7 @@ const AdminPanel = () => {
                 >
                     Dashboard
                 </button>
-                <button
+                {/* <button
                     type="button"
                     className={
                         mainContent.name == "History"
@@ -135,7 +135,7 @@ const AdminPanel = () => {
                     onClick={() => handleMainContentChange("Other", Other)}
                 >
                     Other
-                </button>
+                </button> */}
             </ul>
 
             <div className="container" style={{ marginTop: "20px" }}>

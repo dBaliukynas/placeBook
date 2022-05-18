@@ -55,7 +55,10 @@ const Header = () => {
                                 </Link>
                             </li>
                         </ul>
-                        <div className="position-relative navbar-search">
+                        <div
+                            className="position-relative navbar-search"
+                            style={{ marginRight: !isMobileHeader && "175px" }}
+                        >
                             <Search
                                 itemType="properties"
                                 route="/api/properties"
@@ -93,11 +96,22 @@ const Header = () => {
                                         className="btn btn-outline-light dropdown-toggle navbar-user"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
-                                        style={{marginTop: isMobileHeader && "10px"}}
+                                        style={{
+                                            marginTop: isMobileHeader && "10px",
+                                        }}
                                     >
                                         {authUser.name}
                                     </button>
-                                    <ul className={`dropdown-menu ${!isMobileHeader && "dropdown-menu-header"}`} style={{marginLeft: isMobileHeader && "10px"}}>
+                                    <ul
+                                        className={`dropdown-menu ${
+                                            !isMobileHeader &&
+                                            "dropdown-menu-header"
+                                        }`}
+                                        style={{
+                                            marginLeft:
+                                                isMobileHeader && "10px",
+                                        }}
+                                    >
                                         <li>
                                             <Link
                                                 to="/profile"

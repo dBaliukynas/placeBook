@@ -104,14 +104,14 @@ const Profile = () => {
                             )}
                         </div>
 
-                        <h5>Rated properties</h5>
+                        {/* <h5>Rated properties</h5>
                         <div className="card">
                             <div className="card-body"></div>
                         </div>
                         <h5>Checkout history</h5>
                         <div className="card">
                             <div className="card-body"></div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
