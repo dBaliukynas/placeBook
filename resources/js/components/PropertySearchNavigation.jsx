@@ -1,9 +1,12 @@
 import { React, useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../css/Calendar.css";
 
 const PropertySearchNavigation = (props) => {
+    const isTabletScreen = useMediaQuery({ query: "(max-width: 900px)" });
+
     return (
         <div
             className="card"
@@ -12,7 +15,7 @@ const PropertySearchNavigation = (props) => {
                 marginBottom: "50px",
             }}
         >
-            <div className="card-body" style={{ display: "flex" }}>
+            <div className="card-body" style={{ display: "flex", flexWrap: isTabletScreen &&  "wrap" }}>
                 <Calendar
                     locale="en"
                     prev2Label={null}
@@ -24,31 +27,30 @@ const PropertySearchNavigation = (props) => {
                     style={{
                         display: "flex",
                         marginLeft: "20px",
+                        width: !isTabletScreen ? "50%" : "100%",
+                        justifyContent: "center",
                     }}
                 >
-                    <div className="card text-center">
+                    <div
+                        className="card text-center"
+                        style={{ marginRight: "50px", width: "50%" }}
+                    >
                         <div className="card-body" style={{ height: "272px" }}>
                             <h5 className="card-title">Choose location</h5>
-                            <p className="card-text">
-                                With supporting text below as a natural lead-in
-                                to additional content.
-                            </p>
+
                             <a href="#" className="btn btn-primary">
-                                Go somewhere
+                                Select
                             </a>
                         </div>
                     </div>
-                    <div className="card text-center">
+                    <div className="card text-center" style={{ width: "50%" }}>
                         <div className="card-body" style={{ height: "272px" }}>
                             <h5 className="card-title">
                                 Select amount of people
                             </h5>
-                            <p className="card-text">
-                                With supporting text below as a natural lead-in
-                                to additional content.
-                            </p>
+
                             <a href="#" className="btn btn-primary">
-                                Go somewhere
+                                Select
                             </a>
                         </div>
                     </div>

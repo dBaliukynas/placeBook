@@ -1,8 +1,10 @@
 import { React, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 import Search from "../search/Search";
 
 const Header = () => {
+    const isMobileHeader = useMediaQuery({ query: "(max-width: 991px)" });
     const [searchField, setSearchField] = useState("");
     return (
         <header>
@@ -91,10 +93,11 @@ const Header = () => {
                                         className="btn btn-outline-light dropdown-toggle navbar-user"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
+                                        style={{marginTop: isMobileHeader && "10px"}}
                                     >
                                         {authUser.name}
                                     </button>
-                                    <ul className="dropdown-menu">
+                                    <ul className={`dropdown-menu ${!isMobileHeader && "dropdown-menu-header"}`} style={{marginLeft: isMobileHeader && "10px"}}>
                                         <li>
                                             <Link
                                                 to="/profile"

@@ -1,4 +1,5 @@
 import { React, useEffect, useState, useLayoutEffect } from "react";
+import { useMediaQuery } from "react-responsive";
 import { useOutletContext } from "react-router-dom";
 import PropertySearchNavigation from "../components/PropertySearchNavigation";
 import PropertyCardHorizontal from "../components/cards/PropertyCardHorizontal";
@@ -6,6 +7,7 @@ import PropertyCardHorizontalPlaceholder from "../components/cards/PropertyCardH
 import PropertySearchAsideNavigation from "../components/PropertySearchAsideNavigation";
 
 const PropertySearch = () => {
+    const isTabletScreen = useMediaQuery({ query: "(max-width: 900px)" });
     const [showBreadcrumb, setShowBreadcrumb] = useOutletContext();
     useLayoutEffect(() => {
         setShowBreadcrumb(true);
@@ -32,7 +34,8 @@ const PropertySearch = () => {
     return (
         <>
             <div style={{ margin: "auto 50px 50px" }}>
-                <PropertySearchAsideNavigation />
+
+                {!isTabletScreen && <PropertySearchAsideNavigation />}
                 <div
                     className="main-container"
                     style={{

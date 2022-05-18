@@ -20,12 +20,13 @@ class UserController extends Controller
     public function create(UserPostRequest $request)
     {
         $data = $request->validated();
+        $random = str_shuffle('abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890!$%^&!$%^&');
 
         $user = User::create([
             'name' => $data['name'],
             'email' =>  $data['email'],
             'role' => $data['role'],
-            'password' =>  Hash::make('123'),
+            'password' =>  substr($random, 0, 8),
         ]);
         return response()->json($user, 200);
     }
@@ -51,6 +52,7 @@ class UserController extends Controller
             $user->role = $edited_user_values['role'];
             $user->name = $edited_user_values['name'];
             $user->email = $edited_user_values['email'];
+
             $user->save();
         }
         return response()->json($data, 200);

@@ -183,7 +183,7 @@ const UsersTable = (props) => {
         setUsersToBeEdited(newUsersToBeEdited);
     };
 
-    useEffect(() => console.log(usersToBeEdited));
+    // useEffect(() => console.log(usersToBeEdited));
 
     return (
         <div className="card" style={{ marginTop: "20px" }}>

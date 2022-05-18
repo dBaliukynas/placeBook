@@ -26,7 +26,7 @@ a.navbar-logo {
     overflow: hidden;
     max-width: 200px;
 }
-div.navbar-button-wrapper ul.dropdown-menu {
+div.navbar-button-wrapper ul.dropdown-menu-header {
     left: unset;
     right: 0;
     margin-right: 10px;

@@ -30,7 +30,7 @@ class UserPutRequest extends FormRequest
         return [
             'users.*.id' => 'required',
             'users.*.name' => 'required|min:1|max:100',
-            'users.*.email' => 'required|unique:users|email:rfc,dns',
+            'users.*.email' => 'required|email:rfc,dns|unique:users',
             'users.*.role' => 'required|exists:roles,name',
         ];
     }

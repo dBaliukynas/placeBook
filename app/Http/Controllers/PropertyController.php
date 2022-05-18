@@ -73,20 +73,19 @@ class PropertyController extends Controller
     {
         $data = $request->all();
 
-
-        if (is_null($data['propertyImage'])) {
-            $image_name = null;
-        } else {
-            $image_name = strtolower($property->name) . '_' . 'main_image.' . $data['propertyImage']->getClientOriginalExtension();
-            Storage::putFileAs('public/images', $data['propertyImage'], $image_name);
-        }
-
         $validator = Validator::make(($data), [
             'propertyImage' => 'nullable|image|mimes:jpg,jpeg,png|max:4096'
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        if (is_null($data['propertyImage'])) {
+            $image_name = null;
+        } else {
+            $image_name = strtolower($property->name) . '_' . 'main_image.' . $data['propertyImage']->getClientOriginalExtension();
+            Storage::putFileAs('public/images', $data['propertyImage'], $image_name);
         }
 
         $property->image_path = $image_name;
